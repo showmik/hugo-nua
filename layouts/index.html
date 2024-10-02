@@ -1,18 +1,21 @@
 {{ define "main" }}
 
 
-<h1 class="title">Hi, I'm Intisar.</h1>
-<h2>I read web novels, explore new horizons, and love building things from scratch.</h2>
-<p>This is my learning diary—a space to share my journey, discoveries, and insights as I build, break, and learn.</p>
-<p>
-  Feel free to reach out through
-  <a href="mailto:{{ .Site.Params.email }}" aria-label="Email Intisar">email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
-  {{ $length := len .Site.Params.social }}
-  {{ range $index, $social := .Site.Params.social }}
-    {{ if and (gt $index 0) (eq (add $index 1) $length) }} and {{ else if gt $index 0 }}, {{ end }}
-    <a href="{{ $social.url }}" aria-label="{{ $social.aria_label }}">{{ $social.name }}</a>
-  {{ end }}
-</p>
+<h1 class="title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
+<h2>{{ .Site.Params.home.tagline }}</h2>
+<p>{{ .Site.Params.home.paragraph }}</p>
+
+{{ if .Site.Params.home.show_social }}
+  <p>
+    Feel free to reach out through
+    <a href="mailto:{{ .Site.Params.author.email }}" aria-label="Email link">email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
+    {{ $length := len .Site.Params.social }}
+    {{ range $index, $social := .Site.Params.social }}
+      {{ if and (gt $index 0) (eq (add $index 1) $length) }} and {{ else if gt $index 0 }}, {{ end }}
+      <a href="{{ $social.url }}" aria-label="{{ $social.aria_label }}">{{ $social.name }}</a>
+    {{ end }}
+  </p>
+{{ end }}
 
 
 
