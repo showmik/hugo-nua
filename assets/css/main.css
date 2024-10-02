@@ -20,7 +20,7 @@
   --primary2: #999;
   --accent2: #40A2D8;
   --input-field-bg-color: #202C39;
-  --input-field-text-color: #999;
+  --input-field-text-color: #aaa;
   --input-field-border-color: #EABE6C;
   --tag-2-bg-color: #006fa6;
   --tag-2-text-color: #eee;
@@ -239,7 +239,7 @@ a:hover {
   background-color: var(--tag-2-bg-color);
   color: var(--tag-2-text-color);
   border-radius: 3px;
-  padding: 6px 10px;
+  padding: 7px 10px;
   text-transform: lowercase;
   font-size: 14px;
 }
@@ -251,8 +251,6 @@ a:hover {
 }
 
 /* ---------- Search Elements ---------- */
-
-
 .search-input {
   box-sizing: border-box;
   color: var(--input-field-text-color);
@@ -260,7 +258,7 @@ a:hover {
   border: 1px solid var(--input-field-border-color);
   object-fit: fill;
   border-radius: 3px;
-  height: 25px;
+  height: 26px;
   width: 100%;
   margin-top: 40px;
   margin-bottom: 30px;
