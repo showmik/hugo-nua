@@ -1,3 +1,33 @@
-<p>© {{ now.Year }} | Intisar Bin Naim | Made with 💻 & ☕.</p>
+{{ if .Site.Params.footer.enable }}
+    <p>
+    {{ if .Site.Params.footer.custom }}
+        {{ .Site.Params.footer.custom }}
+    {{ else }}
+
+        {{ if .Site.Params.footer.copyright }}
+        ©
+            {{ if eq .Site.Params.footer.year_format "since" }}
+                {{ .Site.Params.footer.since }}–{{ now.Year }}
+            {{ else if eq .Site.Params.footer.year_format "only" }}
+                {{ now.Year }}
+            {{ end }}
+        {{ end }}
+
+    {{ if .Site.Params.footer.author }}
+        {{ .Site.Params.footer.divider }} Intisar Bin Naim
+    {{ end }}
+
+    {{ if .Site.Params.footer.hugo }}
+        {{ .Site.Params.footer.divider }} Powered by <a href="https://gohugo.io/">Hugo</a>
+    {{ end }}
+
+
+    {{ if .Site.Params.footer.show_made_with }}
+        {{ .Site.Params.footer.divider }} Made with 💻 & ☕
+    {{ end }}
+{{ end }}
+</p>
+{{ end }}
+
 
 <script src="/js/theme-change.js"></script>
