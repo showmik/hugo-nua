@@ -1,0 +1,21 @@
+{{ define "main" }}
+<h1>Posts tagged with "{{ lower .Title }}"</h1>
+
+<section class="post-list-wrapper">
+    <ul class="post-list">
+        {{ range .Pages }}
+        <li class="post-list-item">
+            <div class="tag-post-wrapper">
+                {{ range .Params.tags }}
+                <a class="tag-type-1" href="/tags/{{ . | urlize }}/">{{ . }}</a>
+                {{ end }}
+                <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            </div>
+            <div class="date">{{ .Date.Format "2 Jan 2006" }}</div>
+        </li>
+        {{ end }}
+    </ul>
+</section>
+
+
+{{end}}
