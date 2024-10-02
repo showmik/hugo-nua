@@ -6,10 +6,17 @@
 <p>This is my learning diary—a space to share my journey, discoveries, and insights as I build, break, and learn.</p>
 <p>
   Feel free to reach out through
-  <a href="mailto:intisar@example.com" aria-label="Email Intisar">email</a>,
-  <a href="https://github.com/Intisar" aria-label="Intisar's GitHub">GitHub</a>, or
-  <a href="https://linkedin.com/in/Intisar" aria-label="Intisar's LinkedIn">LinkedIn</a>.
+  <a href="mailto:{{ .Site.Params.email }}" aria-label="Email Intisar">email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
+  {{ $length := len .Site.Params.social }}
+  {{ range $index, $social := .Site.Params.social }}
+    {{ if and (gt $index 0) (eq (add $index 1) $length) }} and {{ else if gt $index 0 }}, {{ end }}
+    <a href="{{ $social.url }}" aria-label="{{ $social.aria_label }}">{{ $social.name }}</a>
+  {{ end }}
 </p>
+
+
+
+
 
 
 
