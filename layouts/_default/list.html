@@ -1,14 +1,20 @@
 {{ define "main" }}
 
 <!-- Search Form -->
-<form action="/search" class="search w-form" role="search" aria-label="Search Form">
-  <input type="search" class="search-input w-input" name="query" placeholder="Search…" maxlength="256" id="search" required aria-label="Search">
-</form>
+
+  <input type="text" class="search-input" autocomplete="off"  placeholder="Search…" maxlength="256" id="search">
+
+
 
 <!-- Tag List -->
+{{ .Content }}
 <section>
-  <ul id="tag-list" class="tag-list">
-    <!-- Tag list will be dynamically updated here -->
+  <ul role="list" class="tag-list" id="tag-list">
+    {{ range .Site.Taxonomies.tags }}
+    <li>
+      <a class="tag-type-2" href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+    </li>
+    {{ end }}
   </ul>
 </section>
 
@@ -17,118 +23,11 @@
   <!-- Content will be dynamically added here -->
 </section>
 
-<!-- Fuse.js for Search -->
+<!-- Load Fuse.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
-<script>
-  // Fetch the search index JSON
-  fetch('/index.json')
-    .then(response => response.json())
-    .then(data => {
-      // Configure Fuse.js search options
-      const options = {
-        keys: ['title', 'summary', 'tags'], // Fields to search
-        threshold: 0.4 // Adjust for how fuzzy the search should be
-      };
 
-      // Initialize Fuse.js with data and options
-      const fuse = new Fuse(data, options);
+<!-- Link to your custom search JavaScript -->
+<script src="/js/search.js"></script>
 
-      // Get references to input field and post list container
-      const searchInput = document.getElementById('search');
-      const postListWrapper = document.getElementById('post-list-wrapper');
-      const tagList = document.getElementById('tag-list');
-
-      // Function to group posts by year
-      function groupPostsByYear(posts) {
-        const grouped = {};
-        posts.forEach(post => {
-          const year = post.year;
-          if (!grouped[year]) grouped[year] = [];
-          grouped[year].push(post);
-        });
-        return grouped;
-      }
-
-      // Function to render the tag list
-      function renderTagList(posts) {
-        const tags = new Set();
-        posts.forEach(post => {
-          if (post.tags) {
-            post.tags.forEach(tag => tags.add(tag));
-          }
-        });
-
-        // Convert tags to an array and sort them
-        const sortedTags = Array.from(tags).sort();
-
-        // Render the tag list
-        tagList.innerHTML = '';
-        sortedTags.forEach(tag => {
-          const tagItem = document.createElement('li');
-          tagItem.innerHTML = `<a class="tag-type-2" href="/tags/${tag}/">${tag}</a>`;
-          tagList.appendChild(tagItem);
-        });
-      }
-
-      // Function to render grouped posts by year
-      function renderPosts(posts) {
-        postListWrapper.innerHTML = ''; // Clear current list
-        const groupedPosts = groupPostsByYear(posts);
-
-        // Render posts grouped by year
-        Object.keys(groupedPosts).sort((a, b) => b - a).forEach(year => {
-          const yearSection = document.createElement('section');
-          yearSection.innerHTML = `<h2 class="year-header">${year}</h2>`;
-
-          const postList = document.createElement('ul');
-          postList.classList.add('post-list');
-
-          groupedPosts[year].forEach(post => {
-            const item = document.createElement('li');
-            item.classList.add('post-list-item');
-            item.innerHTML = `
-              <div class="tag-post-wrapper">
-                
-                ${post.tags && post.tags.length ? renderPostTags(post.tags) : ''}
-                <a class="post-link" href="${post.href}">${post.title}</a>
-              </div>
-              <div class="date">${new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</div>
-            `;
-            postList.appendChild(item);
-          });
-
-          yearSection.appendChild(postList);
-          postListWrapper.appendChild(yearSection);
-        });
-      }
-
-      // Function to render tags for each post without commas
-function renderPostTags(tags) {
-  return tags.map(tag => `<a class="tag-type-1" href="/tags/${tag}/">${tag}</a>`).join('');
-}
-
-
-      // Initial rendering of all posts and tags
-      renderPosts(data);
-      renderTagList(data);
-
-      // Listen for input events to filter posts
-      searchInput.addEventListener('input', (e) => {
-        const query = e.target.value;
-        const results = fuse.search(query);
-        const filteredPosts = results.map(result => result.item);
-
-        // Render filtered posts and tags
-        if (query === '') {
-          renderPosts(data); // Show all posts if input is empty
-          renderTagList(data);
-        } else {
-          renderPosts(filteredPosts);
-          renderTagList(filteredPosts);
-        }
-      });
-    })
-    .catch(error => console.error('Error fetching index.json:', error));
-</script>
 
 {{ end }}
