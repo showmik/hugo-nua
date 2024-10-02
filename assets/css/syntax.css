@@ -1,0 +1,255 @@
+/* General styling for the highlighted code block */
+.highlight pre {
+    font-size: 14px;
+    padding: 15px 20px;
+    border-radius: 10px;
+    font-family: 'Roboto Mono', monospace;
+}
+
+
+
+/* Background and text colors for the code blocks */
+.bg {
+    color: #e6edf3;
+    background-color: #0d1117;
+}
+
+.chroma {
+    color: #e6edf3;
+    background-color: #0d1117;
+}
+
+/* Error lines */
+.chroma .err {
+    color: #f85149;
+}
+
+/* Link styling for line numbers */
+.chroma .lnlinks {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Styling for line number table cells */
+.chroma .lntd {
+    vertical-align: top;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/* Styling for the line number table */
+.chroma .lntable {
+    border-spacing: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+
+/* Styling for highlighted lines */
+.chroma .hl {
+    background-color: #6e7681;
+}
+
+/* Styling for line numbers */
+.chroma .lnt,
+.chroma .ln {
+    white-space: pre;
+    -webkit-user-select: none;
+    user-select: none;
+    margin-right: 0.4em;
+    padding: 0 0.4em 0 0.4em;
+    color: #6e7681;
+}
+
+/* Layout for code lines */
+.chroma .line {
+    display: flex;
+}
+
+/* Keywords (general) */
+.chroma .k,
+.chroma .kd,
+.chroma .kn,
+.chroma .kr,
+.chroma .kt {
+    color: #ff7b72;
+}
+
+/* Control keywords (e.g., if, else) */
+.chroma .kc,
+.chroma .kp {
+    color: #79c0ff;
+}
+
+/* Class names */
+.chroma .nc,
+.chroma .ne {
+    color: #f0883e;
+    font-weight: bold;
+}
+
+/* Constants and declarations */
+.chroma .no,
+.chroma .nd,
+.chroma .nl {
+    color: #79c0ff;
+    font-weight: bold;
+}
+
+/* Functions */
+.chroma .nf {
+    color: #d2a8ff;
+    font-weight: bold;
+}
+
+/* Variables, objects, and properties */
+.chroma .ni {
+    color: #ffa657;
+}
+
+/* Built-in names and special keywords */
+.chroma .nn {
+    color: #ff7b72;
+}
+
+/* Special functions or built-in Python functions */
+.chroma .py {
+    color: #79c0ff;
+}
+
+/* XML/HTML tags */
+.chroma .nt {
+    color: #7ee787;
+}
+
+/* Variables and identifiers */
+.chroma .nv,
+.chroma .nl,
+.chroma .ni {
+    color: #79c0ff;
+}
+
+/* Literals (strings, numbers) */
+.chroma .l,
+.chroma .s,
+.chroma .sa,
+.chroma .sb,
+.chroma .sc,
+.chroma .sx,
+.chroma .s1,
+.chroma .ss,
+.chroma .m,
+.chroma .mb,
+.chroma .mf,
+.chroma .mh,
+.chroma .mi,
+.chroma .il,
+.chroma .mo {
+    color: #a5d6ff;
+}
+
+/* Other string-related tokens */
+.chroma .dl,
+.chroma .sd,
+.chroma .s2,
+.chroma .se,
+.chroma .sh,
+.chroma .si,
+.chroma .sr {
+    color: #79c0ff;
+}
+
+/* Operators (arithmetic, logical) */
+.chroma .o,
+.chroma .ow {
+    color: #ff7b72;
+    font-weight: bold;
+}
+
+/* Comments */
+.chroma .c,
+.chroma .ch,
+.chroma .cm,
+.chroma .c1 {
+    color: #8b949e;
+    font-style: italic;
+}
+
+/* Special comments (e.g., doxygen, special attention) */
+.chroma .cs,
+.chroma .cp,
+.chroma .cpf {
+    color: #8b949e;
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Diff deletion (highlighted background for deletions) */
+.chroma .gd {
+    color: #ffa198;
+    background-color: #490202;
+}
+
+/* Italic emphasis */
+.chroma .ge {
+    font-style: italic;
+}
+
+/* Diff insertions (highlighted background for additions) */
+.chroma .gi {
+    color: #56d364;
+    background-color: #0f5323;
+}
+
+/* Diff annotations */
+.chroma .go,
+.chroma .gp {
+    color: #8b949e;
+}
+
+/* Strong emphasis */
+.chroma .gs {
+    font-weight: bold;
+}
+
+/* Headers (section headers) */
+.chroma .gh {
+    color: #79c0ff;
+    font-weight: bold;
+}
+
+/* URL/Link underlines */
+.chroma .gl {
+    text-decoration: underline;
+}
+
+/* Text in whitespace or special sections */
+.chroma .w {
+    color: #6e7681;
+}
+
+
+/* Enhanced styling for inline code */
+p code, li code {
+    background-color: #ED6A5A; /* Darker background */
+    font-size: 14px;
+    color: #fff; /* Lighter text */
+    padding: 1px 6px; /* More padding */
+    border-radius: 4px; /* Rounded corners */
+    margin: 0 4px;
+    font-family: 'Roboto Mono', monospace; /* Monospace font */
+    font-weight: 400; /* Medium font weight */
+  }
+  
+  /* Inline code within highlighted sections */
+.highlight p code {
+    background-color: #282c34; /* Another background color */
+    color: #abb2bf; /* Text color */
+    border-radius: 3px; /* Rounded corners */
+    padding: 2px 4px; /* Padding */
+    font-size: 0.9em; /* Slightly smaller font */
+  }
+  
+  

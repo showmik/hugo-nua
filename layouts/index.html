@@ -1,0 +1,53 @@
+{{ define "main" }}
+
+
+<h1 class="title">Hi, I'm Intisar.</h1>
+<h2>I read web novels, explore new horizons, and love building things from scratch.</h2>
+<p>This is my learning diary—a space to share my journey, discoveries, and insights as I build, break, and learn.</p>
+<p>
+  Feel free to reach out through
+  <a href="mailto:intisar@example.com" aria-label="Email Intisar">email</a>,
+  <a href="https://github.com/Intisar" aria-label="Intisar's GitHub">GitHub</a>, or
+  <a href="https://linkedin.com/in/Intisar" aria-label="Intisar's LinkedIn">LinkedIn</a>.
+</p>
+
+
+
+<!-- Posts Section -->
+<section class="post-list-wrapper">
+  <h2># My Recent Posts</h2>
+  {{ .Content }}
+  <ul role="list" class="post-list">
+    {{ range .Paginator.Pages }}
+    <li class="post-list-item">
+      <div class="tag-post-wrapper">
+        {{ if .Params.tags }}
+        {{ range .Params.tags }}
+        <a class="tag-type-1" href="{{ " tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+        {{ end }}
+        {{ end }}
+        <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </div>
+      <div class="date">{{.Date.Format "2 Jan 2006" }}</div>
+    </li>
+    {{ end }}
+  </ul>
+
+  <!-- Pagination Navigation -->
+  <nav class="pagination">
+    {{ if .Paginator.HasPrev }}
+    <a href="{{ .Paginator.Prev.URL }}" class="pagination-link">Previous</a>
+    {{ end }}
+    {{ if .Paginator.HasNext }}
+    <a href="{{ .Paginator.Next.URL }}" class="pagination-link">Next</a>
+    {{ end }}
+  </nav>
+</section>
+
+
+
+
+
+
+
+{{ end }}

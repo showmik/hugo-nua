@@ -1,0 +1,114 @@
+{{ define "main" }}
+
+<!-- Search Form -->
+<form action="/search" class="search w-form" role="search" aria-label="Search Form">
+  <input type="search" class="search-input w-input" name="query" placeholder="Search…" maxlength="256" id="search" required aria-label="Search">
+</form>
+
+
+
+<!-- Tag List -->
+{{ .Content }}
+<section>
+  <ul role="list" class="tag-list">
+    {{ range .Site.Taxonomies.tags }}
+    <li>
+      <a class="tag-type-2" href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+    </li>
+    {{ end }}
+  </ul>
+</section>
+
+
+
+
+<section class="post-list-wrapper">
+  {{ range .Pages.GroupByDate "2006" }}
+  
+  <!-- Display the year -->
+  <h2 class="year-header">{{ .Key }}</h2>
+  
+  <!-- List of posts for that year -->
+  <ul role="list" class="post-list">
+    {{ range .Pages }}
+    <li class="post-list-item">
+      <div class="tag-post-wrapper">
+        
+        <!-- Display tags for the post -->
+        {{ if .Params.tags }}
+          {{ range .Params.tags }}
+            <a class="tag-type-1" href="{{ "tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+          {{ end }}
+        {{ end }}
+        
+        <!-- Post title and link -->
+        <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      </div>
+      
+      <!-- Post date -->
+      <div class="date">{{ .Date.Format "2 Jan" }}</div>
+    </li>
+    {{ end }}
+  </ul>
+  
+  {{ end }}
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
+<script>
+  // Fetch the search index JSON
+  fetch('/index.json')
+    .then(response => response.json())
+    .then(data => {
+      // Configure Fuse.js search options
+      const options = {
+        keys: ['title', 'summary', 'tags'], // Fields to search
+        threshold: 0.4 // Adjust for how fuzzy the search should be
+      };
+
+      // Initialize Fuse.js with data and options
+      const fuse = new Fuse(data, options);
+
+      // Get references to input field and post list container
+      const searchInput = document.getElementById('search');
+      const postList = document.getElementById('post-list');
+
+      // Function to render posts
+      function renderPosts(posts) {
+        postList.innerHTML = ''; // Clear current list
+
+        // Loop through the results and create list items
+        posts.forEach(post => {
+          const item = document.createElement('li');
+          item.classList.add('post-list-item');
+          item.innerHTML = `
+            <div class="tag-post-wrapper">
+              <a class="post-link" href="${post.href}">${post.title}</a>
+            </div>
+            <div class="date">${post.summary}</div>
+          `;
+          postList.appendChild(item);
+        });
+      }
+
+      // Initial rendering of all posts
+      renderPosts(data);
+
+      // Listen for input events to filter posts
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value;
+        const results = fuse.search(query);
+        const filteredPosts = results.map(result => result.item);
+
+        // Render filtered posts
+        if (query === '') {
+          renderPosts(data); // Show all posts if input is empty
+        } else {
+          renderPosts(filteredPosts);
+        }
+      });
+    });
+</script>
+
+
+{{ end }}
