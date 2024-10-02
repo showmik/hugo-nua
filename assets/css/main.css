@@ -1,9 +1,29 @@
 /* ---------- Root Variables ---------- */
 :root {
+  --background-color: #fff;
   --primary: #202C39;
   --accent: #FF6600;
   --primary2: #999;
   --accent2: #3185FC;
+  --input-field-bg-color: #fff;
+  --input-field-text-color: #202C39;
+  --input-field-border-color: #3185FC;
+  --tag-2-bg-color: #202C39;
+  --tag-2-text-color: #fff;
+}
+
+/* Dark Mode */
+[theme="dark"] {
+  --background-color: #202C39;
+  --primary: #999;
+  --accent: #dbb267;
+  --primary2: #999;
+  --accent2: #40A2D8;
+  --input-field-bg-color: #202C39;
+  --input-field-text-color: #999;
+  --input-field-border-color: #EABE6C;
+  --tag-2-bg-color: #457eb3;
+  --tag-2-text-color: #fff;
 }
 
 
@@ -18,6 +38,7 @@
 
 .body {
   margin: 20px;
+  background-color: var(--background-color);
 }
 
 /* ---------- Typography ---------- */
@@ -215,8 +236,8 @@ a:hover {
 }
 
 .tag-type-2 {
-  background-color: var(--primary);
-  color: #fff;
+  background-color: var(--tag-2-bg-color);
+  color: var(--tag-2-text-color);
   border-radius: 3px;
   padding: 6px 10px;
   text-transform: lowercase;
@@ -234,7 +255,9 @@ a:hover {
 
 .search-input {
   box-sizing: border-box;
-  border: 1px solid var(--primary);
+  color: var(--input-field-text-color);
+  background-color: var(--input-field-bg-color);
+  border: 1px solid var(--input-field-border-color);
   object-fit: fill;
   border-radius: 3px;
   height: 25px;
@@ -248,25 +271,6 @@ a:hover {
 .search-input:focus {
   border: 2px solid var(--accent2);
   outline: none;
-}
-
-.search-button {
-  font-family: 'Atkinson Hyperlegible';
-  background-color: var(--primary);
-  color: #fff;
-  text-align: center;
-  border-radius: 3px;
-  border: none;
-  height: 25px;
-  padding: 1px 10px;
-  text-decoration: none;
-}
-
-.search-button:hover {
-  background-color: var(--accent);
-  border: none;
-  color: #fff;
-  text-decoration: none;
 }
 
 /* ---------- Footer Styles ---------- */
