@@ -1,9 +1,5 @@
 {{ if .Site.Params.footer.enable }}
     <p>
-    {{ if .Site.Params.footer.custom }}
-        {{ .Site.Params.footer.custom }}
-    {{ else }}
-
         {{ if .Site.Params.footer.copyright }}
         ©
             {{ if eq .Site.Params.footer.year_format "since" }}
@@ -21,12 +17,10 @@
         {{ .Site.Params.footer.divider }} Powered by <a href="https://gohugo.io/">Hugo</a>
     {{ end }}
 
-
-    {{ if .Site.Params.footer.show_made_with }}
-        {{ .Site.Params.footer.divider }} Made with 💻 & ☕
+    {{ if .Site.Params.footer.text }}
+        {{ .Site.Params.footer.divider }} {{.Site.Params.footer.text}}
     {{ end }}
-{{ end }}
-</p>
+    </p>
 {{ end }}
 
 
