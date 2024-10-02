@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 
-<h1 class="title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
+<h1 class="page-title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
 <h2>{{ .Site.Params.home.tagline }}</h2>
 <p>{{ .Site.Params.home.paragraph }}</p>
 
@@ -38,7 +38,7 @@
         {{ end }}
         <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
       </div>
-      <div class="date">{{.Date.Format "2 Jan 2006" }}</div>
+      <div class="date-label">{{.Date.Format "2 Jan 2006" }}</div>
     </li>
     {{ end }}
   </ul>

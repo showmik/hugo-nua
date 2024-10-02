@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
               ${renderPostTags(post.tags)}
               <a class="post-link" href="${post.href}">${post.title}</a>
             </div>
-            <div class="date">${formatDate(post.date)}</div>
+            <div class="date-label">${formatDate(post.date)}</div>
           `;
           postList.appendChild(item);
         });
