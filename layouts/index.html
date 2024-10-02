@@ -32,9 +32,11 @@
     <li class="post-list-item">
       <div class="tag-post-wrapper">
         {{ if .Params.tags }}
+        <div class="tags-wrapper">
         {{ range .Params.tags }}
-        <a class="tag-type-1" href="{{ "tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
+          <a class="tag-type-1" href="{{ "tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
         {{ end }}
+      </div>
         {{ end }}
         <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
       </div>

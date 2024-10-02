@@ -138,7 +138,7 @@ a:hover {
 .post-list {
   display: flex;
   flex-flow: column;
-  gap: 16px;
+  gap: 25px;
   margin-bottom: 40px;
   padding: 0;
 }
@@ -155,7 +155,7 @@ a:hover {
 
 .post-link {
   color: var(--accent);
-  display: inline-flex;
+  display: block;
   overflow: clip;
 }
 
@@ -171,9 +171,16 @@ a:hover {
 /* ---------- Tag Styles ---------- */
 .tag-post-wrapper {
   display: flex;
+  flex-wrap: nowrap;
   gap: 10px;
   align-items: center;
   color: var(--primary);
+}
+
+.tags-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
 }
 
 .tag-list {
@@ -260,6 +267,7 @@ a:hover {
     white-space: normal;
     word-break: normal;
   }
+
 }
 
 @media screen and (max-width: 767px) {
@@ -267,10 +275,7 @@ a:hover {
     text-align: right;
     justify-content: flex-end;
   }
-
-  .post-list {
-    gap: 20px;
-  }
+  
 }
 
 @media screen and (max-width: 479px) {
@@ -287,10 +292,23 @@ a:hover {
     margin-top: 50px;
   }
 
+
   .post-list {
-    grid-column-gap: 25px;
-    grid-row-gap: 25px;
+    gap: 30px;
   }
+
+  .tag-post-wrapper {
+    flex-flow: column;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    gap: 4px;
+  }
+
+  .tag-type-1 {
+    font-size: 11px;
+    height: 18px;
+  }
+  
 }
 
 
