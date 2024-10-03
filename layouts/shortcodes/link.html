@@ -1,0 +1,14 @@
+{{- $href := .Get "href" | default (.Get 0) -}}
+{{- $content := .Get "content" | default (.Get 1 | default $href) -}}
+{{- $title := .Get "title" -}}
+{{- $target := .Get "target" | default (.Get 2 | default "_self") -}}
+{{- $class := .Get "class" -}}
+{{- $rel := .Get "rel" -}}
+
+<a href="{{ $href }}" 
+   {{ if $title }}title="{{ $title }}"{{ end }}
+   {{ if $class }}class="{{ $class }}"{{ end }}
+   {{ if $rel }}rel="{{ $rel }}"{{ end }}
+   target="{{ $target }}">
+   {{ $content }}
+</a>

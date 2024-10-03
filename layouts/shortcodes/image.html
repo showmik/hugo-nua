@@ -1,0 +1,13 @@
+{{- $src := .Get "src" | default (.Get 0) -}}
+{{- $alt := .Get "alt" | default (.Get 1 | default "") -}}
+{{- $title := .Get "title" | default (.Get 2) -}}
+{{- $class := .Get "class" -}}
+{{- $width := .Get "width" -}}
+{{- $height := .Get "height" -}}
+
+<img src="{{ $src }}" 
+     alt="{{ $alt }}"
+     {{ if $title }}title="{{ $title }}"{{ end }}
+     {{ if $class }}class="{{ $class }}"{{ end }}
+     {{ if $width }}width="{{ $width }}"{{ end }}
+     {{ if $height }}height="{{ $height }}"{{ end }}>

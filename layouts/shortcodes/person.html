@@ -1,0 +1,16 @@
+{{- $name := .Get "name" | default (.Get 0) -}}
+{{- $role := .Get "role" | default (.Get 1 | default "") -}}
+{{- $description := .Get "description" -}}
+{{- $photo := .Get "photo" -}}
+{{- $class := .Get "class" -}}
+
+<div class="{{ $class | default "person-card" }}">
+  {{ if $photo }}
+  <img src="{{ $photo }}" alt="{{ $name }}" class="person-photo">
+  {{ end }}
+  <div class="person-info">
+    <h2 class="person-name">{{ $name }}</h2>
+    {{ if $role }}<p class="person-role">{{ $role }}</p>{{ end }}
+    {{ if $description }}<p class="person-description">{{ $description }}</p>{{ end }}
+  </div>
+</div>
