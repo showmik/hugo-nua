@@ -1,7 +1,7 @@
 {{ define "main" }}
 
 <h1 class="page-title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
-<h2>{{ .Site.Params.home.tagline }}</h2>
+<h2 class="home-tagline">{{ .Site.Params.home.tagline }}</h2>
 <p>{{ .Site.Params.home.paragraph }}</p>
 
 {{ if .Site.Params.home.show_social }}
