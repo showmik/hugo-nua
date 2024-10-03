@@ -24,7 +24,7 @@
   <h2># My Recent Posts</h2>
   {{ .Content }}
   <ul role="list" class="post-list">
-    {{ range .Paginator.Pages }}
+    {{ range where .Paginator.Pages "Type" "ne" "now" }}
     <li class="post-list-item">
       <div class="tag-post-wrapper">
         

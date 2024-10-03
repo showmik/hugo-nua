@@ -1,5 +1,5 @@
 {{ if .Site.Params.footer.enable }}
-    <p>
+    <div>
         {{ if .Site.Params.footer.copyright }}
         ©
             {{ if eq .Site.Params.footer.year_format "since" }}
@@ -20,7 +20,7 @@
     {{ if .Site.Params.footer.text }}
         {{ .Site.Params.footer.divider }} {{.Site.Params.footer.text}}
     {{ end }}
-    </p>
+    </div>
 {{ end }}
 
 

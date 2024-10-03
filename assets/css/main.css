@@ -26,7 +26,20 @@
   --tag-2-text-color: #000;
 }
 
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center horizontally */
+  align-items: center;
+  height: 700px;
+  text-align: center;
+}
 
+.large-text {
+  font-size: 100px;
+  margin: 25px;
+  font-weight: 400;
+}
 
 /* ---------- Layout & Container Styles ---------- */
 .container {
@@ -362,7 +375,8 @@ blockquote {
   list-style: none;
   display: flex;
   gap: 14px;
-  padding-right: 24px;
+  padding-right: 20px;
+  margin-bottom: 20px;
   margin-top: 1px;
   justify-content: center;
   

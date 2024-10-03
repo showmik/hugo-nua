@@ -1,0 +1,17 @@
+{{ define "main" }}
+
+  <section>
+    <h1 class="post-title">{{ .Title }} HEYYYY</h1>
+    {{ with .Date }}
+      {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := . | time.Format ":date_long" }}
+      <time class="post-time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+    {{ end }}
+    <article class="single-content">
+      {{ .Content }}
+    </article>
+    
+  </section>
+
+
+{{ end }}
