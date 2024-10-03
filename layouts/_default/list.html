@@ -1,13 +1,14 @@
 {{ define "main" }}
 
 <!-- Search Form -->
-
-  <input type="text" class="search-input" autocomplete="off"  placeholder="search…" maxlength="256" id="search">
+<div role="search" aria-label="Site-wide search">
+  <input type="text" class="search-input" autocomplete="off" placeholder="search…" maxlength="256" id="search" aria-label="Search posts">
+</div>
 
 <!-- Tag List -->
-{{ .Content }}
-<section>
-  <ul role="list" class="tag-list" id="tag-list">
+<section aria-labelledby="tag-list-title">
+  <h2 id="tag-list-title" class="visually-hidden">Tag List</h2>
+  <ul role="list" class="tag-list" id="tag-list" aria-label="List of tags">
     {{ range .Site.Taxonomies.tags }}
     <li>
       <a class="tag-type-2" href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
@@ -17,7 +18,8 @@
 </section>
 
 <!-- Post List Container -->
-<section class="post-list-wrapper" id="post-list-wrapper">
+<section class="post-list-wrapper" id="post-list-wrapper" role="region" aria-labelledby="post-list-title" aria-live="polite">
+  <h2 id="post-list-title" class="visually-hidden">Posts List</h2>
   <!-- Content will be dynamically added here -->
 </section>
 
@@ -26,6 +28,5 @@
 
 <!-- Link to your custom search JavaScript -->
 <script src="/js/search.js"></script>
-
 
 {{ end }}

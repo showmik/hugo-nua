@@ -1,39 +1,40 @@
 {{ define "main" }}
-  <h1 class="page-title">Projects</h1>
+<h1 class="page-title">Projects</h1>
 
-  <!-- Ongoing Projects -->
-  <section class="post-list-wrapper">
-    <h2>Ongoing Projects</h2>
-    <ul class="post-list">
-      {{ $ongoingProjects := where .Pages "Params.status" "ongoing" }}
-      {{ if $ongoingProjects }}
-        {{ range $ongoingProjects }}
-          <li class="post-list-item">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
-          </li>
-        {{ end }}
-      {{ else }}
-        <div>No ongoing projects at the moment.</div>
-      {{ end }}
-    </ul>
-  </section>
+<!-- Ongoing Projects -->
+<section class="post-list-wrapper" aria-labelledby="ongoing-projects-title">
+  <h2>Ongoing Projects</h2>
+  <ul class="post-list" role="list">
+    {{ $ongoingProjects := where .Pages "Params.status" "ongoing" }}
+    {{ if $ongoingProjects }}
+    {{ range $ongoingProjects }}
+    <li class="post-list-item" role="listitem">
+      <a href="{{ .Permalink }}" aria-label="View project: {{ .Title }}">{{ .Title }}</a>
+      <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
+    </li>
+    {{ end }}
+    {{ else }}
+    <div>No ongoing projects at the moment.</div>
+    {{ end }}
+  </ul>
+</section>
 
-  <!-- Past Projects -->
-  <section class="post-list-wrapper">
-    <h2>Past Projects</h2>
-    <ul class="post-list">
-      {{ $pastProjects := where .Pages "Params.status" "past" }}
-      {{ if $pastProjects }}
-        {{ range $pastProjects }}
-          <li class="post-list-item">
-            <a href="{{ .Permalink }}">{{ .Title }}</a>
-            <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
-          </li>
-        {{ end }}
-      {{ else }}
-        <div>I haven't done anything.</div>
-      {{ end }}
-    </ul>
-  </section>
+
+<!-- Past Projects -->
+<section class="post-list-wrapper" aria-labelledby="past-projects-title">
+  <h2>Past Projects</h2>
+  <ul class="post-list" role="list">
+    {{ $pastProjects := where .Pages "Params.status" "past" }}
+    {{ if $pastProjects }}
+    {{ range $pastProjects }}
+    <li class="post-list-item" role="listitem">
+      <a href="{{ .Permalink }}" aria-label="View project: {{ .Title }}">{{ .Title }}</a>
+      <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
+    </li>
+    {{ end }}
+    {{ else }}
+    <div>No past projects available.</div>
+    {{ end }}
+  </ul>
+</section>
 {{ end }}

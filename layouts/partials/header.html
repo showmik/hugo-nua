@@ -1,7 +1,9 @@
 <!-- Navigation Section -->
-<nav class="navbar">
+<nav class="navbar" role="navigation" aria-label="Main Navigation">
   <!-- Display the text logo from params -->
-  <a href="/" aria-current="page" class="home-link">{{ .Site.Params.textLogo }}</a>
+  <a href="/" aria-current="page" class="home-link"
+    >{{ .Site.Params.textLogo }}</a
+  >
 
   <!-- Dynamic navigation links from the menu -->
   <div class="nav-links">
@@ -10,8 +12,16 @@
     {{ end }}
 
     <!-- Theme toggle icon -->
-    <img class="icon color-icon" src="/img/icon-light-mode.svg" src-light="/img/icon-light-mode.svg"
-      src-dark="/img/icon-dark-mode.svg" id="themeColorToggle" loading="lazy" width="auto"
-      alt="theme color change icon" />
+    <img
+      class="icon color-icon"
+      src="/img/icon-light-mode.svg"
+      src-light="/img/icon-light-mode.svg"
+      src-dark="/img/icon-dark-mode.svg"
+      id="themeColorToggle"
+      loading="lazy"
+      width="auto"
+      alt="theme color change icon"
+      aria-label="Toggle theme"
+    />
   </div>
 </nav>

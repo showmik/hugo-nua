@@ -1,6 +1,5 @@
 {{ define "main" }}
 
-
 <h1 class="page-title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
 <h2>{{ .Site.Params.home.tagline }}</h2>
 <p>{{ .Site.Params.home.paragraph }}</p>
@@ -8,16 +7,14 @@
 {{ if .Site.Params.home.show_social }}
   <p>
     Feel free to reach out through
-    <a href="mailto:{{ .Site.Params.author.email }}" aria-label="Email link">email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
+    <a href="mailto:{{ .Site.Params.author.email }}" aria-label="Send an email to {{ .Site.Params.author.nickname }}">email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
     {{ $length := len .Site.Params.social }}
     {{ range $index, $social := .Site.Params.social }}
       {{ if and (gt $index 0) (eq (add $index 1) $length) }} and {{ else if gt $index 0 }}, {{ end }}
-      <a href="{{ $social.url }}" aria-label="{{ $social.aria_label }}">{{ $social.name }}</a>
+      <a href="{{ $social.url }}" aria-label="Visit {{ $social.aria_label }}">{{ $social.name }}</a>
     {{ end }}
   </p>
 {{ end }}
-
-
 
 <!-- Posts Section -->
 <section class="post-list-wrapper">
@@ -27,30 +24,27 @@
     {{ range where .Paginator.Pages "Type" "ne" "now" }}
     <li class="post-list-item">
       <div class="tag-post-wrapper">
-        
         <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
       </div>
-      <div class="date-label">{{.Date.Format "2 Jan 2006" }}</div>
+      <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
     </li>
     {{ end }}
   </ul>
 
   <!-- Pagination Navigation -->
-  <nav class="pagination">
+  <nav class="pagination" role="navigation" aria-label="Pagination">
     {{ if .Paginator.HasPrev  }}
-      <a class="prev-post" rel="prev" href="{{ .Paginator.Prev.URL  }}">← Previous</a>
+      <a class="prev-post" rel="prev" href="{{ .Paginator.Prev.URL }}">← Previous</a>
     {{ else }}
       <span class="no-prev-post">← Previous</span>
     {{ end }}
   
     {{ if .Paginator.HasNext }}
-      <a class="next-post" rel="next" href="{{ .Paginator.Next.URL  }}">Next →</a>
+      <a class="next-post" rel="next" href="{{ .Paginator.Next.URL }}">Next →</a>
     {{ else }}
       <span class="no-next-post">Next →</span>
     {{ end }}
   </nav>
-
-
 </section>
 
 {{ end }}

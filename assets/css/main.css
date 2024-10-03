@@ -26,14 +26,29 @@
   --tag-2-text-color: #000;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+
+
 .center {
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Center horizontally */
+  justify-content: center;
   align-items: center;
-  height: 700px;
+  min-height: 80vh; /* Ensure it centers within full viewport height */
   text-align: center;
 }
+
 
 .large-text {
   font-size: 100px;
@@ -59,6 +74,7 @@ body {
   font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 h1 {
@@ -271,6 +287,12 @@ a:hover {
   cursor: pointer;
 }
 
+.tag-type-1,
+.tag-type-2 {
+  transition: background-color 0.1s, color 0.1s, border 0.1s;
+}
+
+
 /* ---------- Search Elements ---------- */
 .search-input {
   color: var(--input-field-text-color);
@@ -392,15 +414,13 @@ blockquote {
 }
 
 
-
-
-
 /* ---------- Font Faces ---------- */
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url('/fonts/Atkinson-Hyperlegible-Regular.woff2');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -408,6 +428,7 @@ blockquote {
   src: url('/fonts/Atkinson-Hyperlegible-bold.woff2');
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -415,6 +436,7 @@ blockquote {
   src: url('/fonts/Atkinson-Hyperlegible-Italic-102a.woff2');
   font-weight: normal;
   font-style: italic;
+  font-display: swap;
 }
 
 @font-face {
@@ -422,4 +444,5 @@ blockquote {
   src: url('/fonts/RobotoMono-Regular.ttf');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
