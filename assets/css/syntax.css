@@ -1,17 +1,52 @@
+/* ---------- Root Variables ---------- */
+:root {
+    --code-bg: #fdece0;
+    --code-text: #151823;
+  }
+  
+  /* Dark Mode */
+  [theme="dark"] {
+    --code-bg: #6c4839;
+    --code-text: #aaa;
+  }
+
+
+  /* Enhanced styling for inline code */
+p code, li code {
+    background-color: var(--code-bg); /* Darker background */
+    color: var(--code-text); /* Lighter text */
+    font-size: 14px;
+    padding: 3px 6px; /* More padding */
+    border-radius: 4px; /* Rounded corners */
+    margin: 0 4px;
+    font-family: 'Roboto Mono', monospace; /* Monospace font */
+    font-weight: 500; /* Medium font weight */
+  }
+  
+  /* Inline code within highlighted sections */
+.highlight p code {
+    background-color: #282c34; /* Another background color */
+    color: #abb2bf; /* Text color */
+    border-radius: 3px; /* Rounded corners */
+    padding: 2px 4px; /* Padding */
+    font-size: 0.9em; /* Slightly smaller font */
+  }
+
+
 /* General styling for the highlighted code block */
 .highlight pre {
     font-size: 14px;
     padding: 15px 20px;
     border-radius: 10px;
     font-family: 'Roboto Mono', monospace;
+    overflow: auto;
+    text-wrap: nowrap;
 }
-
-
 
 /* Background and text colors for the code blocks */
 .bg {
     color: #e6edf3;
-    background-color: #0d1117;
+    background-color: #0c0f13;
 }
 
 .chroma {
@@ -231,25 +266,6 @@
 }
 
 
-/* Enhanced styling for inline code */
-p code, li code {
-    background-color: #ED6A5A; /* Darker background */
-    font-size: 14px;
-    color: #fff; /* Lighter text */
-    padding: 1px 6px; /* More padding */
-    border-radius: 4px; /* Rounded corners */
-    margin: 0 4px;
-    font-family: 'Roboto Mono', monospace; /* Monospace font */
-    font-weight: 400; /* Medium font weight */
-  }
-  
-  /* Inline code within highlighted sections */
-.highlight p code {
-    background-color: #282c34; /* Another background color */
-    color: #abb2bf; /* Text color */
-    border-radius: 3px; /* Rounded corners */
-    padding: 2px 4px; /* Padding */
-    font-size: 0.9em; /* Slightly smaller font */
-  }
+
   
   
