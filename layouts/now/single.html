@@ -5,7 +5,7 @@
     {{ with .Date }}
       {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
       {{ $dateHuman := . | time.Format "02 Jun, 2006" }}
-      <p>Last updated on:  <time class="post-time" datetime="{{ $dateMachine }}"> {{ $dateHuman }}</time></p>
+      <div class="post-time">Last updated on:  <time datetime="{{ $dateMachine }}"> {{ $dateHuman }}</time></div>
     {{ end }}
     <article class="single-content">
       {{ .Content }}

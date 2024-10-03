@@ -20,6 +20,11 @@
     {{ if .Site.Params.footer.text }}
         {{ .Site.Params.footer.divider }} {{.Site.Params.footer.text}}
     {{ end }}
+
+    {{ if .Site.Params.footer.rss }}
+        {{ .Site.Params.footer.divider }} <a href="/index.xml" title="RSS Feed">Subscribe to RSS</a>
+    {{ end }}
+
     </div>
 {{ end }}
 

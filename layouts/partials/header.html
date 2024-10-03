@@ -1,25 +1,17 @@
 <!-- Navigation Section -->
 <nav class="navbar">
-    <!-- Display the text logo from params -->
-    <a href="/" aria-current="page" class="home-link">{{ .Site.Params.textLogo }}</a>
-    
-    <!-- Dynamic navigation links from the menu -->
-    <div class="nav-links">
-      {{ range .Site.Menus.main }}
-        <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
-      {{ end }}
-      
-      <!-- Theme toggle icon -->
-      <img
-        class="icon color-icon"
-        src="/img/icon-light-mode.svg"
-        src-light="/img/icon-light-mode.svg"
-        src-dark="/img/icon-dark-mode.svg"
-        id="themeColorToggle"
-        loading="lazy"
-        width="auto"
-        alt="theme color change icon"
-      />
-    </div>
-  </nav>
-  
+  <!-- Display the text logo from params -->
+  <a href="/" aria-current="page" class="home-link">{{ .Site.Params.textLogo }}</a>
+
+  <!-- Dynamic navigation links from the menu -->
+  <div class="nav-links">
+    {{ range .Site.Menus.main }}
+    <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+    {{ end }}
+
+    <!-- Theme toggle icon -->
+    <img class="icon color-icon" src="/img/icon-light-mode.svg" src-light="/img/icon-light-mode.svg"
+      src-dark="/img/icon-dark-mode.svg" id="themeColorToggle" loading="lazy" width="auto"
+      alt="theme color change icon" />
+  </div>
+</nav>

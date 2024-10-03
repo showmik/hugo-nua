@@ -1,0 +1,15 @@
+<script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "{{ if .IsHome }}WebSite{{ else }}Article{{ end }}",
+      "name": "{{ .Site.Title }}",
+      "url": "{{ .Permalink }}",
+      "description": "{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}",
+      "image": "{{ .Params.image | default .Site.Params.image }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ .Site.Params.author.name }}"
+      }
+    }
+    </script>
+    

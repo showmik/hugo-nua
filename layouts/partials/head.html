@@ -1,6 +1,53 @@
 <meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Hugo {{ hugo.Version }}">
 <link rel="stylesheet" href="{{ "css/syntax.css" | relURL }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
+
+<!-- Open Graph Meta Tags for Social Sharing -->
+<meta property="og:title" content="{{ .Title }}">
+<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta property="og:image" content="{{ .Params.image | default .Site.Params.image }}">
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:locale" content="{{ .Site.LanguageCode }}">
+
+ <!-- Twitter Card Meta Tags for Social Sharing -->
+ <meta name="twitter:card" content="summary_large_image">
+ <meta name="twitter:title" content="{{ .Title }}">
+ <meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+ <meta name="twitter:image" content="{{ .Params.image | default .Site.Params.image }}">
+ <meta name="twitter:site" content="@{{ .Site.Params.twitter_username }}">
+ <meta name="twitter:creator" content="@{{ .Site.Params.twitter_username }}">
+
+ <!-- Web Manifest -->
+ <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
+
+ <!-- Alternate RSS Feed -->
+ <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | relURL }}">
+
+ <!-- Robots Meta Tag for Search Engine Indexing -->
+ {{ if .Params.noindex }}
+ <meta name="robots" content="noindex, nofollow">
+{{ else }}
+ <meta name="robots" content="index, follow">
+{{ end }}
+
+<!-- Google Analytics (Optional) -->
+{{ if .Site.Params.google_analytics }}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ .Site.Params.google_analytics }}');
+</script>
+{{ end }}
+
+<!-- Schema.org JSON-LD Structured Data (for richer search results) -->
+{{ partialCached "json-ld.html" . }}
 
 <title>
     {{ if .IsHome }}
