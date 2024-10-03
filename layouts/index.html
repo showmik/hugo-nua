@@ -37,13 +37,20 @@
 
   <!-- Pagination Navigation -->
   <nav class="pagination">
-    {{ if .Paginator.HasPrev }}
-    <a href="{{ .Paginator.Prev.URL }}" class="pagination-link">«</a>
+    {{ if .Paginator.HasPrev  }}
+      <a class="prev-post" href="{{ .Paginator.Prev.URL  }}">← Previous</a>
+    {{ else }}
+      <span class="no-prev-post">← Previous</span>
     {{ end }}
+  
     {{ if .Paginator.HasNext }}
-    <a href="{{ .Paginator.Next.URL }}" class="pagination-link">»</a>
+      <a class="next-post" href="{{ .Paginator.Next.URL  }}">Next →</a>
+    {{ else }}
+      <span class="no-next-post">Next →</span>
     {{ end }}
   </nav>
+
+
 </section>
 
 {{ end }}

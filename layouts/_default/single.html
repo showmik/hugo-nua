@@ -10,5 +10,22 @@
     <article class="single-content">
       {{ .Content }}
     </article>
+
+    <nav class="pagination">
+      {{ if .Prev }}
+        <a class="prev-post" href="{{ .Prev.Permalink }}">← Previous</a>
+      {{ else }}
+        <span class="no-prev-post">← Previous</span>
+      {{ end }}
+    
+      {{ if .Next }}
+        <a class="next-post" href="{{ .Next.Permalink }}">Next →</a>
+      {{ else }}
+        <span class="no-next-post">Next →</span>
+      {{ end }}
+    </nav>
+    
   </section>
+
+
 {{ end }}

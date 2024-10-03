@@ -144,6 +144,14 @@ a:hover {
   padding: 0;
 }
 
+.all-posts .post-list-item 
+{
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-left: 0; 
+}
+
+
 .post-list-item {
   display: flex;
   justify-content: space-between;
@@ -158,6 +166,15 @@ a:hover {
 
 .post-list-item::before {
   content: '»'; /* You can use any character or symbol here */
+  color: var(--primary2); /* Customize bullet color */
+  font-size: 20px; /* Customize bullet size */
+  position: absolute;
+  left: 0; /* Align bullet to the left */
+  top: 0; /* Align bullet vertically */
+}
+
+.all-posts .post-list-item::before {
+  content: ''; /* You can use any character or symbol here */
   color: var(--primary2); /* Customize bullet color */
   font-size: 20px; /* Customize bullet size */
   position: absolute;

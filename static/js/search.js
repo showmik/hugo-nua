@@ -47,16 +47,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const yearSection = document.createElement('section');
         yearSection.innerHTML = `<h2 class="year-header">${year}</h2>`;
         const postList = document.createElement('ul');
-        postList.className = 'post-list';
+        postList.className = 'post-list all-posts';
   
         // Append each post to its year's section
         groupedPosts[year].forEach(post => {
           const item = document.createElement('li');
           item.className = 'post-list-item';
           item.innerHTML = `
-            <a class="post-link" href="${post.href}">${post.title}</a>
-         
             <div class="date-label">${formatDate(post.date)}</div>
+            <a class="post-link" href="${post.href}">${post.title}</a>
           `;
           postList.appendChild(item);
         });
