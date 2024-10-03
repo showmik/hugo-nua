@@ -19,10 +19,6 @@
 
 
 
-
-
-
-
 <!-- Posts Section -->
 <section class="post-list-wrapper">
   <h2># My Recent Posts</h2>
@@ -31,13 +27,7 @@
     {{ range .Paginator.Pages }}
     <li class="post-list-item">
       <div class="tag-post-wrapper">
-        {{ if .Params.tags }}
-        <div class="tags-wrapper">
-        {{ range .Params.tags }}
-          <a class="tag-type-1" href="{{ "tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a>
-        {{ end }}
-      </div>
-        {{ end }}
+        
         <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
       </div>
       <div class="date-label">{{.Date.Format "2 Jan 2006" }}</div>
@@ -48,10 +38,10 @@
   <!-- Pagination Navigation -->
   <nav class="pagination">
     {{ if .Paginator.HasPrev }}
-    <a href="{{ .Paginator.Prev.URL }}" class="pagination-link">Previous</a>
+    <a href="{{ .Paginator.Prev.URL }}" class="pagination-link">«</a>
     {{ end }}
     {{ if .Paginator.HasNext }}
-    <a href="{{ .Paginator.Next.URL }}" class="pagination-link">Next</a>
+    <a href="{{ .Paginator.Next.URL }}" class="pagination-link">»</a>
     {{ end }}
   </nav>
 </section>

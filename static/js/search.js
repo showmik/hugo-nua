@@ -54,10 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const item = document.createElement('li');
           item.className = 'post-list-item';
           item.innerHTML = `
-            <div class="tag-post-wrapper"><div class="tags-wrapper">
-              ${renderPostTags(post.tags)}
-              </div><a class="post-link" href="${post.href}">${post.title}</a>
-            </div>
+            <a class="post-link" href="${post.href}">${post.title}</a>
+         
             <div class="date-label">${formatDate(post.date)}</div>
           `;
           postList.appendChild(item);

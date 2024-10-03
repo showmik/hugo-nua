@@ -7,7 +7,7 @@
   --accent2: #3185FC;
   --input-field-bg-color: #fff;
   --input-field-text-color: #202C39;
-  --input-field-border-color: #3185FC;
+  --input-field-border-color: #202C39;
   --tag-2-bg-color: #202C39;
   --tag-2-text-color: #fff;
 }
@@ -21,9 +21,9 @@
   --accent2: #40A2D8;
   --input-field-bg-color: #202C39;
   --input-field-text-color: #aaa;
-  --input-field-border-color: #EABE6C;
-  --tag-2-bg-color: #006fa6;
-  --tag-2-text-color: #eee;
+  --input-field-border-color: #999;
+  --tag-2-bg-color: #ba834c;
+  --tag-2-text-color: #000;
 }
 
 
@@ -117,6 +117,7 @@ a:hover {
   display: flex;
   min-width: 25px;
   align-items: center;
+  cursor: pointer;
 }
 
 
@@ -138,8 +139,8 @@ a:hover {
 .post-list {
   display: flex;
   flex-flow: column;
-  gap: 25px;
-  margin-bottom: 40px;
+  gap: 6px;
+  margin-bottom: 25px;
   padding: 0;
 }
 
@@ -151,6 +152,17 @@ a:hover {
   gap: 18px;
   overflow: clip;
   list-style-type: none;
+  position: relative;
+  padding-left: 20px; /* Space between bullet and text */
+}
+
+.post-list-item::before {
+  content: '»'; /* You can use any character or symbol here */
+  color: var(--primary2); /* Customize bullet color */
+  font-size: 20px; /* Customize bullet size */
+  position: absolute;
+  left: 0; /* Align bullet to the left */
+  top: 0; /* Align bullet vertically */
 }
 
 .post-link {
@@ -166,6 +178,7 @@ a:hover {
 .date-label {
   color: var(--primary2);
   text-align: right;
+  text-wrap: nowrap;
 }
 
 /* ---------- Tag Styles ---------- */
@@ -245,7 +258,7 @@ a:hover {
 }
 
 .search-input:focus {
-  border: 2px solid var(--accent2);
+  border: 2px solid var(--accent);
   outline: none;
 }
 
@@ -253,7 +266,7 @@ a:hover {
 .footer {
   color: var(--primary);
   text-align: center;
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 /* ---------- Media Queries ---------- */
@@ -261,11 +274,6 @@ a:hover {
   .body {
     margin-left: 40px;
     margin-right: 40px;
-  }
-
-  .date-label {
-    white-space: normal;
-    word-break: normal;
   }
 
 }
@@ -294,7 +302,8 @@ a:hover {
 
 
   .post-list {
-    gap: 30px;
+    gap: 15px;
+    line-height: 21px;
   }
 
   .tag-post-wrapper {
@@ -332,16 +341,19 @@ blockquote {
 
 
 .pagination {
+  
   list-style: none;
   display: flex;
   gap: 14px;
-  padding: 0;
+  padding-right: 24px;
   margin-top: 1px;
+  justify-content: center;
   
 }
 
 .pagination-link {
  color: var(--accent);
+ font-size: 22px;
 }
 
 .pagination-link:hover {
