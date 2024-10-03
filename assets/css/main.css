@@ -1,29 +1,35 @@
 /* ---------- Root Variables ---------- */
 :root {
   --background-color: #fff;
-  --primary: #202C39;
-  --accent: #FF6600;
+  --primary: #202c39;
+  --accent: #ff6600;
   --primary2: #999;
-  --accent2: #3185FC;
+  --accent2: #008dd5;
   --input-field-bg-color: #fff;
-  --input-field-text-color: #202C39;
-  --input-field-border-color: #202C39;
-  --tag-2-bg-color: #202C39;
+  --input-field-text-color: #202c39;
+  --input-field-border-color: #202c39;
+  --tag-2-bg-color: #202c39;
   --tag-2-text-color: #fff;
+  --tag-2-text-hover-color: #fff;
+  --link-color: #ff6600;
+  --link-hover-color: #858786;
 }
 
 /* Dark Mode */
 [theme="dark"] {
-  --background-color: #202C39;
+  --background-color: #202c39;
   --primary: #999;
   --accent: #dbb267;
   --primary2: #999;
-  --accent2: #40A2D8;
-  --input-field-bg-color: #202C39;
+  --accent2: #40a2d8;
+  --input-field-bg-color: #202c39;
   --input-field-text-color: #aaa;
   --input-field-border-color: #999;
   --tag-2-bg-color: #ba834c;
   --tag-2-text-color: #000;
+  --tag-2-text-hover-color: #000;
+  --link-color: #dbb267;
+  --link-hover-color: #aaa;
 }
 
 .visually-hidden {
@@ -38,8 +44,6 @@
   border: 0;
 }
 
-
-
 .center {
   display: flex;
   flex-direction: column;
@@ -48,7 +52,6 @@
   min-height: 80vh; /* Ensure it centers within full viewport height */
   text-align: center;
 }
-
 
 .large-text {
   font-size: 100px;
@@ -71,7 +74,7 @@
 /* ---------- Typography ---------- */
 body {
   color: var(--primary);
-  font-family: 'Atkinson Hyperlegible', Arial, sans-serif;
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
   font-size: 16px;
   line-height: 24px;
   transition: background-color 0.1s ease, color 0.1s ease;
@@ -105,13 +108,13 @@ p {
 
 /* ---------- Links ---------- */
 a {
-  color: var(--accent);
+  color: var(--link-color);
   font-size: 16px;
   text-decoration: none;
 }
 
 a:hover {
-  color: var(--primary);
+  color: var(--link-hover-color);
 }
 
 .home-link {
@@ -149,7 +152,6 @@ a:hover {
   cursor: pointer;
 }
 
-
 /* ---------- Titles & Headers ---------- */
 .page-title {
   color: var(--primary);
@@ -173,13 +175,11 @@ a:hover {
   padding: 0;
 }
 
-.all-posts .post-list-item 
-{
+.all-posts .post-list-item {
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 0; 
+  padding-left: 0;
 }
-
 
 .post-list-item {
   display: flex;
@@ -194,7 +194,7 @@ a:hover {
 }
 
 .post-list-item::before {
-  content: '»'; /* You can use any character or symbol here */
+  content: "»"; /* You can use any character or symbol here */
   color: var(--primary2); /* Customize bullet color */
   font-size: 20px; /* Customize bullet size */
   position: absolute;
@@ -203,7 +203,7 @@ a:hover {
 }
 
 .all-posts .post-list-item::before {
-  content: ''; /* You can use any character or symbol here */
+  content: ""; /* You can use any character or symbol here */
   color: var(--primary2); /* Customize bullet color */
   font-size: 20px; /* Customize bullet size */
   position: absolute;
@@ -212,13 +212,13 @@ a:hover {
 }
 
 .post-link {
-  color: var(--accent);
+  color: var(--link-color);
   display: block;
   overflow: clip;
 }
 
 .post-link:hover {
-  color: var(--primary);
+  color: var(--link-hover-color);
 }
 
 .date-label {
@@ -254,7 +254,7 @@ a:hover {
 .tag-type-1 {
   display: flex;
   font-size: 12px;
-  font-family: 'Roboto Mono';
+  font-family: "Roboto Mono";
   color: var(--primary);
   text-transform: lowercase;
   border: 1px solid var(--accent2);
@@ -263,9 +263,8 @@ a:hover {
   padding: 0px 5px;
   height: 22px;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
 }
-
 
 .tag-type-1:hover {
   border: 1px solid var(--accent);
@@ -283,7 +282,7 @@ a:hover {
 
 .tag-type-2:hover {
   background-color: var(--accent);
-  color: #fff;
+  color: var(--tag-2-text-hover-color);
   cursor: pointer;
 }
 
@@ -291,7 +290,6 @@ a:hover {
 .tag-type-2 {
   transition: background-color 0.1s, color 0.1s, border 0.1s;
 }
-
 
 /* ---------- Search Elements ---------- */
 .search-input {
@@ -327,7 +325,6 @@ a:hover {
     margin-left: 40px;
     margin-right: 40px;
   }
-
 }
 
 @media screen and (max-width: 767px) {
@@ -335,7 +332,6 @@ a:hover {
     text-align: right;
     justify-content: flex-end;
   }
-  
 }
 
 @media screen and (max-width: 479px) {
@@ -351,7 +347,6 @@ a:hover {
   .page-title {
     margin-top: 50px;
   }
-
 
   .post-list {
     gap: 15px;
@@ -369,9 +364,7 @@ a:hover {
     font-size: 11px;
     height: 18px;
   }
-  
 }
-
 
 /* ---------- Single Page Template ---------- */
 .post-title {
@@ -379,11 +372,10 @@ a:hover {
 }
 
 .post-time {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   font-size: 15px;
   color: var(--primary2);
 }
-
 
 blockquote {
   margin: 20px 0;
@@ -391,9 +383,7 @@ blockquote {
   border-left: 2px solid var(--accent);
 }
 
-
 .pagination {
-  
   list-style: none;
   display: flex;
   gap: 14px;
@@ -401,23 +391,21 @@ blockquote {
   margin-bottom: 20px;
   margin-top: 1px;
   justify-content: center;
-  
 }
 
 .pagination-link {
- color: var(--accent);
- font-size: 22px;
+  color: var(--accent);
+  font-size: 22px;
 }
 
 .pagination-link:hover {
   color: var(--primary);
 }
 
-
 /* ---------- Font Faces ---------- */
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: url('/fonts/Atkinson-Hyperlegible-Regular.woff2');
+  src: url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -425,7 +413,7 @@ blockquote {
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: url('/fonts/Atkinson-Hyperlegible-bold.woff2');
+  src: url("/fonts/Atkinson-Hyperlegible-bold.woff2");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -433,7 +421,7 @@ blockquote {
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: url('/fonts/Atkinson-Hyperlegible-Italic-102a.woff2');
+  src: url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2");
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -441,7 +429,7 @@ blockquote {
 
 @font-face {
   font-family: "Roboto Mono";
-  src: url('/fonts/RobotoMono-Regular.ttf');
+  src: url("/fonts/RobotoMono-Regular.ttf");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
