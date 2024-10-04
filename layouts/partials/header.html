@@ -24,3 +24,38 @@
     />
   </div>
 </nav>
+
+
+<!-- Inline Theme Toggle JavaScript -->
+<script>
+  // Theme toggle icon element
+  const toggleIcon = document.getElementById("themeColorToggle");
+
+  // Set the initial theme based on user preference or default
+  function setInitialTheme() {
+    const savedTheme = localStorage.getItem("theme");
+    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const theme = savedTheme || (systemPrefersDark ? "dark" : "light");
+    setTheme(theme);
+  }
+
+  // Set the theme and update localStorage and icon
+  function setTheme(theme) {
+    document.body.setAttribute("theme", theme);
+    localStorage.setItem("theme", theme);
+    toggleIcon.src = theme === "dark" ? "/img/icon-dark-mode.svg" : "/img/icon-light-mode.svg";
+  }
+
+  // Toggle between dark and light themes
+  function toggleTheme() {
+    const currentTheme = document.body.getAttribute("theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+  }
+
+  // Event listener for theme toggle click
+  toggleIcon.addEventListener("click", toggleTheme);
+
+  // Initialize theme on page load
+  setInitialTheme();
+</script>
