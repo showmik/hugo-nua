@@ -71,6 +71,15 @@
   background-color: var(--background-color);
 }
 
+.responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 30px auto;
+}
+
+
+
 /* ---------- Typography ---------- */
 body {
   color: var(--primary);
@@ -102,7 +111,7 @@ h3 {
 }
 
 p {
-  margin-bottom: 27px;
+  margin-bottom: 26px;
   font-size: 17px;
   line-height: 25px;
 }
@@ -118,13 +127,28 @@ a:hover {
   color: var(--link-hover-color);
 }
 
-li p {
-  margin-bottom: 14px;
+ul {
+  margin-bottom: 27px;
 }
 
+ul:not(.tag-list):not(.post-list) li {
+  margin-bottom: 18px;
+}
 
-ul p {
-  margin-bottom: 20px;
+ol li {
+  margin-bottom: 16px;
+}
+
+ol p {
+  margin-bottom: 0;
+}
+
+.post-list li {
+  margin-bottom: 0;
+}
+
+.tag-list ul {
+  margin-bottom: 0;
 }
 
 .home-link {
@@ -370,8 +394,8 @@ ul p {
   }
 
   .body {
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 24px;
+    margin-right: 24px;
   }
 
   .page-title {
