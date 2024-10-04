@@ -1,5 +1,10 @@
 {{ define "main" }}
 
+
+  {{ if .Params.monkey }}
+    <code>{{ .Params.monkey }}</code>
+  {{ end }}
+
   <section>
     <h1 class="post-title">{{ .Title }}</h1>
 

@@ -1,8 +1,27 @@
-<!-- CSS CDN Links -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.css">
-<!-- Add other CSS CDN links here -->
+{{ if .Params.useKatex }}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
 
-<!-- JavaScript CDN Links -->
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.js"></script>
-<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/contrib/auto-render.min.js"></script>
-<!-- Add other JS CDN links here -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        if (typeof renderMathInElement === "function") {
+          try {
+            renderMathInElement(document.body, {
+              delimiters: [
+                {left: "$$", right: "$$", display: true},
+                {left: "$", right: "$", display: false}
+              ]
+            });
+          } catch (error) {
+            console.error("Error rendering math:", error);
+          }
+        } else {
+          console.warn("renderMathInElement function is not available.");
+        }
+      });
+      
+  </script>  
+{{ end }}
+
+
