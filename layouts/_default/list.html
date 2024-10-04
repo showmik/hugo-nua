@@ -9,24 +9,19 @@
 <section aria-labelledby="tag-list-title">
   <h1 id="tag-list-title" class="visually-hidden">Tag List</h1>
   <ul role="list" class="tag-list" id="tag-list" aria-label="List of tags">
-    {{ range .Site.Taxonomies.tags }}
+    {{ range .Site.Taxonomies.tags -}}
     <li>
-      <a class="tag-type-2" href="{{ .Page.Permalink }}">{{ .Page.Title }}</a>
+      <a class="tag-type-2" href="{{ .Page.Permalink }}">{{- .Page.Title -}}</a>
     </li>
-    {{ end }}
+    {{- end }}
   </ul>
 </section>
 
-<!-- Post List Container -->
 <section class="post-list-wrapper" id="post-list-wrapper" role="region" aria-labelledby="post-list-title" aria-live="polite">
   <h2 id="post-list-title" class="visually-hidden">Posts List</h2>
-  <!-- Content will be dynamically added here -->
 </section>
 
-<!-- Load Fuse.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
-
-<!-- Link to your custom search JavaScript -->
 <script src="/js/search.js" defer></script>
 
 {{ end }}

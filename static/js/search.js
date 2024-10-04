@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       searchInput.addEventListener('input', debounce(e => {
         const query = e.target.value.trim();
         renderPosts(query ? fuse.search(query).map(result => result.item) : postsData);
-      }, 200));
+      }, 300));
     }
   
     // Function to group posts by year
@@ -36,20 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }, {});
     }
   
-    // Function to render posts grouped by year
     function renderPosts(posts) {
+      const fragment = document.createDocumentFragment();
       postListWrapper.innerHTML = ''; // Clear current list
-  
+    
       // Group and sort posts by year
       const groupedPosts = groupPostsByYear(posts);
       Object.keys(groupedPosts).sort((a, b) => b - a).forEach(year => {
-        // Create a section for each year
         const yearSection = document.createElement('section');
         yearSection.innerHTML = `<h2 class="year-header">${year}</h2>`;
         const postList = document.createElement('ul');
         postList.className = 'post-list all-posts';
-  
-        // Append each post to its year's section
+    
         groupedPosts[year].forEach(post => {
           const item = document.createElement('li');
           item.className = 'post-list-item';
@@ -59,11 +57,14 @@ document.addEventListener('DOMContentLoaded', () => {
           `;
           postList.appendChild(item);
         });
-  
+    
         yearSection.appendChild(postList);
-        postListWrapper.appendChild(yearSection);
+        fragment.appendChild(yearSection);
       });
+    
+      postListWrapper.appendChild(fragment);
     }
+    
   
     // Function to render tags
     function renderPostTags(tags = []) {

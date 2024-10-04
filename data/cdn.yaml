@@ -1,0 +1,4 @@
+katex:
+  css: "https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.14.0/katex.min.css" # Updated version
+  js: "https://cdn.jsdelivr.net/npm/katex@0.15.4/dist/katex.min.js" # Updated version
+  auto_render_js: "https://cdn.jsdelivr.net/npm/katex@0.15.4/dist/contrib/auto-render.min.js"

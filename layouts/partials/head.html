@@ -1,24 +1,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="generator" content="Hugo {{ hugo.Version }}">
-<link rel="stylesheet" href="{{ "css/syntax.css" | relURL }}">
-<link rel="canonical" href="{{ .Permalink }}">
-
-<!-- Favicon -->
-<link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | relURL }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}">
-
-<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-
 <meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="{{ "mstile-150x150.png" | relURL }}">
+<meta name="msapplication-TileImage" content="{{ " mstile-150x150.png" | relURL }}">
 <meta name="theme-color" content="#ffffff">
-
-<link rel="mask-icon" href="{{ "safari-pinned-tab.svg" | relURL }}" color="#5bbad5">
-
-<!-- Open Graph Meta Tags for Social Sharing -->
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
@@ -26,50 +11,48 @@
 <meta property="og:image" content="{{ .Params.image | default .Site.Params.image }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:locale" content="{{ .Site.LanguageCode }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ .Title }}">
+<meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+<meta name="twitter:image" content="{{ .Params.image | default .Site.Params.image }}">
+<meta name="twitter:site" content="@{{ .Site.Params.twitter_username }}">
+<meta name="twitter:creator" content="@{{ .Site.Params.twitter_username }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="{{ " favicon.ico" | relURL }}" type="image/x-icon">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ " favicon-32x32.png" | relURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ " favicon-16x16.png" | relURL }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ " apple-touch-icon.png" | relURL }}">
+<link rel="manifest" href="{{ " site.webmanifest" | relURL }}">
+<link rel="mask-icon" href="{{ " safari-pinned-tab.svg" | relURL }}" color="#5bbad5">
+<link rel="manifest" href="{{ " site.webmanifest" | relURL }}">
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ " index.xml" | relURL }}">
+<link rel="stylesheet" href="{{ " css/syntax.css" | relURL }}">
 
- <!-- Twitter Card Meta Tags for Social Sharing -->
- <meta name="twitter:card" content="summary_large_image">
- <meta name="twitter:title" content="{{ .Title }}">
- <meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
- <meta name="twitter:image" content="{{ .Params.image | default .Site.Params.image }}">
- <meta name="twitter:site" content="@{{ .Site.Params.twitter_username }}">
- <meta name="twitter:creator" content="@{{ .Site.Params.twitter_username }}">
+{{- if .Params.noindex -}}
+<meta name="robots" content="noindex, nofollow">
+{{- else -}}
+<meta name="robots" content="index, follow">
+{{- end -}}
 
- <!-- Web Manifest -->
- <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-
- <!-- Alternate RSS Feed -->
- <link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | relURL }}">
-
- <!-- Robots Meta Tag for Search Engine Indexing -->
- {{ if .Params.noindex }}
- <meta name="robots" content="noindex, nofollow">
-{{ else }}
- <meta name="robots" content="index, follow">
-{{ end }}
-
-<!-- Google Analytics (Optional) -->
-{{ if .Site.Params.google_analytics }}
+{{- if .Site.Params.google_analytics -}}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.google_analytics }}"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', '{{ .Site.Params.google_analytics }}');
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ .Site.Params.google_analytics }}');
 </script>
-{{ end }}
+{{- end -}}
 
-<!-- Schema.org JSON-LD Structured Data (for richer search results) -->
-{{ partialCached "json-ld.html" . }}
+{{- partialCached "json-ld.html" . -}}
 
 <title>
-    {{ if .IsHome }}
-        {{ site.Title }}
-    {{ else }}
-        {{ printf "%s | %s" .Title site.Title }}
-    {{ end }}
+    {{- if .IsHome -}}
+    {{- site.Title -}}
+    {{- else -}}
+    {{- printf "%s | %s" .Title site.Title -}}
+    {{- end -}}
 </title>
 
-{{ partialCached "head/css.html" . }}
-{{ partialCached "head/js.html" . }}
-{{ partialCached "cdn.html" . }}
+{{- partialCached "head/css.html" . -}}
+{{- partialCached "head/js.html" . -}}

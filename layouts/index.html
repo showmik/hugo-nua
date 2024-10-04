@@ -2,7 +2,7 @@
 
 <h1 class="page-title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
 <h2 class="home-tagline">{{ .Site.Params.home.tagline }}</h2>
-<p>{{ .Site.Params.home.paragraph }}</p>
+<p>{{- .Site.Params.home.paragraph -}}</p>
 
 {{ if .Site.Params.home.show_social }}
   <p>
@@ -24,26 +24,26 @@
     {{ range where .Paginator.Pages "Type" "ne" "now" }}
     <li class="post-list-item">
       <div class="tag-post-wrapper">
-        <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+        <a class="post-link" href="{{ .RelPermalink }}">{{- .Title -}}</a>
       </div>
-      <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
+      <div class="date-label">{{- .Date.Format "2 Jan 2006" -}}</div>
     </li>
-    {{ end }}
+    {{- end }}
   </ul>
 
   <!-- Pagination Navigation -->
   <nav class="pagination" role="navigation" aria-label="Pagination">
-    {{ if .Paginator.HasPrev  }}
+    {{ if .Paginator.HasPrev -}}
       <a class="prev-post" rel="prev" href="{{ .Paginator.Prev.URL }}">← Previous</a>
-    {{ else }}
+    {{ else -}}
       <span class="no-prev-post">← Previous</span>
-    {{ end }}
+    {{ end -}}
   
-    {{ if .Paginator.HasNext }}
+    {{ if .Paginator.HasNext -}}
       <a class="next-post" rel="next" href="{{ .Paginator.Next.URL }}">Next →</a>
-    {{ else }}
+    {{ else -}}
       <span class="no-next-post">Next →</span>
-    {{ end }}
+    {{ end -}}
   </nav>
 </section>
 
