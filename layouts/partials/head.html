@@ -4,23 +4,37 @@
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="msapplication-TileImage" content="{{ " mstile-150x150.png" | relURL }}">
 <meta name="theme-color" content="#ffffff">
-{{ if .Description -}}
-    <meta name="description" content="{{ .Description }}">
-  {{ else if .Site.Params.description -}}
-    <meta name="description" content="{{ .Site.Params.description }}">
-  {{ else -}}
-    <meta name="description" content="Fallback meta description">
-{{- end -}}
+
+{{ if or (eq .Kind "taxonomy") (eq .Type "tags") -}}
+<meta name="description" content="All posts tagged under '{{ .Title }}'. Discover related content here.">
+<meta property="og:description" content="All posts tagged under '{{ .Title }}'. Discover related content here.">
+<meta name="twitter:description" content="All posts tagged under '{{ .Title }}'. Discover related content here.">
+{{- else if or (eq .Kind "taxonomyTerm") (eq .Type "tags") -}}
+<meta name="description" content="Explore the various tags and categories of the site.">
+<meta property="og:description" content="Explore the various tags and categories of the site.">
+<meta name="twitter:description" content="Explore the various tags and categories of the site.">
+{{- else if .Description -}}
+<meta name="description" content="{{ .Description }}">
+<meta property="og:description" content="{{ .Description }}">
+<meta name="twitter:description" content="{{ .Description }}">
+{{- else if .Site.Params.description -}}
+<meta name="description" content="{{ .Site.Params.description }}">
+<meta property="og:description" content="{{ .Site.Params.description }}">
+<meta name="twitter:description" content="{{ .Site.Params.description }}">
+{{- else -}}
+<meta name="description" content="Fallback meta description">
+<meta property="og:description" content="Fallback meta description">
+<meta name="twitter:description" content="Fallback meta description">
+{{- end }}
+
 <meta property="og:title" content="{{ .Title }}">
 <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta property="og:image" content="{{ .Params.image | default .Site.Params.image }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:locale" content="{{ .Site.LanguageCode }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ .Title }}">
-<meta name="twitter:description" content="{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}">
 <meta name="twitter:image" content="{{ .Params.image | default .Site.Params.image }}">
 <meta name="twitter:site" content="@{{ .Site.Params.twitter_username }}">
 <meta name="twitter:creator" content="@{{ .Site.Params.twitter_username }}">
