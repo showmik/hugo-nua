@@ -1,2 +1,9 @@
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://intisarbnaim.com/sitemap.xml
+
+# Performance optimizations
+Disallow: /*?sort=          # Avoid indexing duplicate content created by sort parameters
+Disallow: /*?page=          # Avoid indexing pagination-related URLs
