@@ -3,7 +3,7 @@
   --background-color: #fff;
   --primary: #202c39;
   --accent: #ff6600;
-  --primary2: #999;
+  --primary2: #737373;
   --accent2: #008dd5;
   --input-field-bg-color: #fff;
   --input-field-text-color: #202c39;
@@ -11,8 +11,8 @@
   --tag-2-bg-color: #202c39;
   --tag-2-text-color: #fff;
   --tag-2-text-hover-color: #fff;
-  --link-color: #ff6600;
-  --link-hover-color: #858786;
+  --link-color: #e03400;
+  --link-hover-color: #737373;
 }
 
 /* Dark Mode */
@@ -25,7 +25,7 @@
   --input-field-bg-color: #202339;
   --input-field-text-color: #aaa;
   --input-field-border-color: #999;
-  --tag-2-bg-color: #ba834c;
+  --tag-2-bg-color: #c48a4f;
   --tag-2-text-color: #000;
   --tag-2-text-hover-color: #000;
   --link-color: #dbb267;
