@@ -113,7 +113,13 @@ h3 {
 p {
   margin-bottom: 26px;
   font-size: 17px;
-  line-height: 25px;
+  line-height: 26px;
+}
+
+.footnote-ref {
+  font-size: 14px;
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 500;
 }
 
 /* ---------- Links ---------- */
