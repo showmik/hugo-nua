@@ -10,8 +10,8 @@
     <a href="mailto:{{ .Site.Params.author.email }}" aria-label="Send an email to {{ .Site.Params.author.nickname }}">Email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
     {{- $length := len .Site.Params.social -}}
     {{- range $index, $social := .Site.Params.social -}}
-      {{ if and (gt $index 0) (eq (add $index 1) $length) }} and {{ else if gt $index 0 }}, {{ end }}
-      <a href="{{ $social.url }}" aria-label="Visit {{ $social.aria_label }}">{{ $social.name }}</a>
+      {{ if and (gt $index 0) (eq (add $index 1) $length) }} or {{ else if gt $index 0 }}, {{ end }}
+      <a href="{{ $social.url }}" aria-label="Visit {{ $social.aria_label }}">{{ $social.name }}</a>.
     {{- end }}
   </p>
 {{ end -}}
