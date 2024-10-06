@@ -19,6 +19,26 @@
 
 <section class="post-list-wrapper" id="post-list-wrapper" role="region" aria-labelledby="post-list-title" aria-live="polite">
   <h2 id="post-list-title" class="visually-hidden">Posts List</h2>
+<!-- Render posts grouped by year using Hugo -->
+<section>
+  
+  <!-- Filter out pages with the exclude_from_list parameter before grouping -->
+  {{- $filteredPages := where .Site.RegularPages ".Params.exclude_from_list" "!=" true -}}
+
+  <!-- Group by year and render sections -->
+  {{- range $filteredPages.GroupByDate "2006" -}}
+    <section>
+      <h2 class="year-header">{{- .Key -}}</h2>
+      <ul class="post-list all-posts">
+        {{ range .Pages -}}
+        <li class="post-list-item">
+          <div class="date-label">{{- .Date.Format "Jan 02" -}}</div>
+          <a class="post-link" href="{{ .Permalink }}">{{- .Title -}}</a>
+        </li>
+        {{ end -}}
+      </ul>
+    </section>
+  {{ end -}}
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
