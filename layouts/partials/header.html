@@ -11,7 +11,7 @@
       src-dark="/img/icon-dark-mode.png"
       id="themeColorToggle"
       width="auto"
-      alt="theme color change icon"
+      alt="theme change icon"
       aria-label="Toggle theme"
     />
   </div>
@@ -37,7 +37,7 @@
   function setTheme(theme) {
     document.body.setAttribute("theme", theme);
     localStorage.setItem("theme", theme);
-    toggleIcon.src = theme === "dark" ? "/img/icon-dark-mode.svg" : "/img/icon-light-mode.svg";
+    toggleIcon.src = theme === "dark" ? "/img/icon-dark-mode.png" : "/img/icon-light-mode.png";
   }
 
   // Toggle between dark and light themes
