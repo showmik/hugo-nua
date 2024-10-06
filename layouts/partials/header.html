@@ -1,3 +1,6 @@
+<link rel="preload" href="/img/icon-light-mode.png" as="image">
+<link rel="preload" href="/img/icon-dark-mode.png" as="image">
+
 <nav class="navbar" role="navigation" aria-label="Main Navigation">
 <a href="/" aria-current="page" class="home-link">{{- .Site.Params.textLogo -}}</a>
 <div class="nav-links">
@@ -10,16 +13,13 @@
       src-light="/img/icon-light-mode.png"
       src-dark="/img/icon-dark-mode.png"
       id="themeColorToggle"
-      width="8%"
-      height="8%"
+      width="24px"
+      height="24px"
       alt="theme change icon"
       aria-label="Toggle theme"
     />
   </div>
 </nav>
-
-<link rel="preload" href="/img/icon-light-mode.png" as="image">
-<link rel="preload" href="/img/icon-dark-mode.png" as="image">
 
 <!-- Inline Theme Toggle JavaScript -->
 <script>

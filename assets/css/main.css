@@ -209,7 +209,7 @@ ol p {
   display: flex;
   align-items: center;
   cursor: pointer;
-  width: 8%;
+  width: 24px;
 }
 
 /* ---------- Titles & Headers ---------- */
