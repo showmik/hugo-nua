@@ -55,11 +55,6 @@
   text-align: center;
 }
 
-.large-text {
-  font-size: 100px;
-  margin: 25px;
-  font-weight: 400;
-}
 
 hr {
   border: none;
@@ -79,19 +74,36 @@ hr {
   background-color: var(--background-color);
 }
 
-.responsive {
-  max-width: 100%;
-  height: auto;
+/* Styles for a single responsive image */
+.responsive-image { 
   display: block;
-  margin: 30px auto;
+  margin: 24px auto; 
+  max-width: 100%; 
+  height: auto; 
 }
 
+/* Container for multiple images */
+.responsive-images {
+  display: grid;
+  gap: 16px; 
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 0 auto;
+}
+
+.large-text {
+  font-size: 2.5em; /* Adjust as needed */
+  font-weight: bold; /* Make it bold */
+  line-height: 1.3; /* Adjust line height for readability */
+  margin: 25px 30px 25px 25px; /* Add vertical spacing */
+  text-align: center; /* Center the text */
+}
 
 
 /* ---------- Typography ---------- */
 body {
   color: var(--primary);
-  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif, 'Kaisei Opti';
   font-size: 16px;
   line-height: 24px;
   transition: background-color 0.1s ease, color 0.1s ease;
@@ -448,6 +460,10 @@ ol p {
     font-size: 11px;
     height: 18px;
   }
+
+  .responsive-images {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 }
 
 /* ---------- Single Page Template ---------- */
@@ -525,5 +541,19 @@ blockquote {
   font-family: "Roboto Mono";
   src: url("/fonts/RobotoMono-Medium.ttf");
   font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kaisei Opti";
+  src: url("/fonts/KaiseiOpti-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Kaisei Opti";
+  src: url("/fonts/KaiseiOpti-Bold.ttf");
+  font-weight: bold;
   font-style: normal;
 }
