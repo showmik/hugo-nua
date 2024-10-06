@@ -461,11 +461,17 @@ blockquote {
 .pagination {
   list-style: none;
   display: flex;
-  gap: 14px;
-  padding-right: 20px;
+  padding-right: 24px;
   margin-bottom: 20px;
   margin-top: 30px;
   justify-content: center;
+}
+
+.pagination ul {
+  list-style-type: none;
+  display: flex;
+  gap: 14px;
+  padding: 0;
 }
 
 .pagination-link {

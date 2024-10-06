@@ -32,19 +32,25 @@
   </ul>
 
   <!-- Pagination Navigation -->
-  <nav class="pagination" role="navigation" aria-label="Pagination">
-    {{ if .Paginator.HasPrev -}}
-      <a class="prev-post" rel="prev" href="{{ .Paginator.Prev.URL }}">← Previous</a>
-    {{ else -}}
-      <span class="no-prev-post">← Previous</span>
-    {{ end -}}
-  
-    {{ if .Paginator.HasNext -}}
-      <a class="next-post" rel="next" href="{{ .Paginator.Next.URL }}">Next →</a>
-    {{ else -}}
-      <span class="no-next-post">Next →</span>
-    {{ end -}}
-  </nav>
+<nav class="pagination" role="navigation" aria-label="Pagination">
+  <ul>
+    <li>
+      {{ if .Paginator.HasPrev -}}
+        <a class="prev-post" rel="prev" href="{{ .Paginator.Prev.URL }}">← Previous</a>
+      {{ else -}}
+        <span class="no-prev-post">← Previous</span>
+      {{ end -}}
+    </li>
+    <li>
+      {{ if .Paginator.HasNext -}}
+        <a class="next-post" rel="next" href="{{ .Paginator.Next.URL }}">Next →</a>
+      {{ else -}}
+        <span class="no-next-post">Next →</span>
+      {{ end -}}
+    </li>
+  </ul>
+</nav>
+
 </section>
 
 {{ end }}
