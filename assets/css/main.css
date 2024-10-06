@@ -13,6 +13,7 @@
   --tag-2-text-hover-color: #fff;
   --link-color: #e03400;
   --link-hover-color: #737373;
+  --horizontal-rule-color: #ccc;
 }
 
 /* Dark Mode */
@@ -30,6 +31,7 @@
   --tag-2-text-hover-color: #000;
   --link-color: #dbb267;
   --link-hover-color: #aaa;
+  --horizontal-rule-color: #555;
 }
 
 .visually-hidden {
@@ -57,6 +59,12 @@
   font-size: 100px;
   margin: 25px;
   font-weight: 400;
+}
+
+hr {
+  border: none;
+  height: 1px; 
+  background-color: var(--horizontal-rule-color); 
 }
 
 /* ---------- Layout & Container Styles ---------- */
@@ -296,6 +304,7 @@ ol p {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+  margin: 24px 0;
   color: var(--primary);
   list-style: none;
   padding: 0;
