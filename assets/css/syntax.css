@@ -37,6 +37,8 @@ p code, li code {
 /* General styling for the highlighted code block */
 .highlight pre {
     font-size: 14px;
+    margin-top: 16px;
+    margin-bottom: 26px;
     padding: 15px 20px;
     border-radius: 10px;
     font-family: 'Roboto Mono', monospace;
