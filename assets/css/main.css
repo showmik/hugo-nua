@@ -207,9 +207,9 @@ ol p {
 
 .icon {
   display: flex;
-  min-width: 25px;
   align-items: center;
   cursor: pointer;
+  width: 8%;
 }
 
 /* ---------- Titles & Headers ---------- */
