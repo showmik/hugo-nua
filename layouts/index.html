@@ -11,9 +11,9 @@
     {{- $length := len .Site.Params.social -}}
     {{- range $index, $social := .Site.Params.social -}}
       {{ if and (gt $index 0) (eq (add $index 1) $length) }} or {{ else if gt $index 0 }}, {{ end }}
-      <a href="{{ $social.url }}" aria-label="Visit {{ $social.aria_label }}">{{ $social.name }}</a>.
-    {{- end }}
-  </p>
+      <a href="{{ $social.url }}" aria-label="Visit {{ $social.aria_label }}">{{- $social.name -}}</a>
+    {{- end -}}
+  .</p>
 {{ end -}}
 
 <!-- Posts Section -->
