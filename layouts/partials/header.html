@@ -4,6 +4,7 @@
 {{- range .Site.Menus.main }}
 <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
 {{- end -}}
+<div>
     <img
       class="icon color-icon"
       src="/img/icon-light-mode.png"
@@ -15,10 +16,9 @@
       aria-label="Toggle theme"
     />
   </div>
+  </div>
 </nav>
 
-<link rel="preload" href="/img/icon-light-mode.png" as="image">
-<link rel="preload" href="/img/icon-dark-mode.png" as="image">
 
 <!-- Inline Theme Toggle JavaScript -->
 <script>
