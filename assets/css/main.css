@@ -201,6 +201,12 @@ ol p {
   margin-top: 25px;
 }
 
+.bigger-text {
+  font-size: 100px;
+  margin: 25px;
+  font-weight: 400;
+}
+
 /* ---------- Navbar Styles ---------- */
 .navbar {
   display: flex;
