@@ -301,6 +301,11 @@ ol p {
   padding: 0;
 }
 
+.single-page-tag {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 15px;
+}
+
 .tag-type-1 {
   display: flex;
   font-size: 12px;

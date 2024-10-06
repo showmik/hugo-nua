@@ -41,21 +41,34 @@
   <article class="single-content">
     {{ .Content }}
   </article>
-
-  <nav class="pagination">
-    {{ if .Prev }}
-    <a class="prev-post" rel="prev" href="{{ .Prev.Permalink }}">← Previous</a>
-    {{ else }}
-    <span class="no-prev-post">← Previous</span>
-    {{ end }}
-
-    {{ if .Next }}
-    <a class="next-post" rel="next" href="{{ .Next.Permalink }}">Next →</a>
-    {{ else }}
-    <span class="no-next-post">Next →</span>
-    {{ end }}
-  </nav>
-
 </section>
+
+<section aria-labelledby="tag-list-title">
+  <h2 id="tag-list-title" class="visually-hidden">Tags</h2>
+  <hr>
+  <ul role="list" class="tag-list" id="tag-list">
+    {{ range .Params.tags -}}
+    <li>
+      <a class="tag-type-1" href="/tags/{{ . | urlize }}/">#{{ . }}</a>
+    </li>
+    {{- end }}
+  </ul>
+</section>
+  
+
+<nav class="pagination" aria-label="Pagination Navigation">
+  {{ if .Prev -}}
+  <a class="prev-post" rel="prev" href="{{ .Prev.Permalink }}" aria-label="Previous post: {{ .Prev.Title }}">← Previous</a>
+  {{ else -}}
+  <span class="no-prev-post" aria-hidden="true">← Previous</span>
+  {{ end -}}
+
+  {{ if .Next -}}
+  <a class="next-post" rel="next" href="{{ .Next.Permalink }}" aria-label="Next post: {{ .Next.Title }}">Next →</a>
+  {{ else -}}
+  <span class="no-next-post" aria-hidden="true">Next →</span>
+  {{ end -}}
+</nav>
+
 
 {{ end }}
