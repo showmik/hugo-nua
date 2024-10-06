@@ -360,6 +360,7 @@ ol p {
   margin-bottom: 30px;
   padding: 1px 10px;
   display: flex;
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .search-input:focus {
