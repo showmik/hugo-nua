@@ -74,6 +74,10 @@ hr {
   background-color: var(--background-color);
 }
 
+.main-body {
+  margin-bottom: 50px;
+}
+
 /* Styles for a single responsive image */
 .responsive-image { 
   display: block;
@@ -116,7 +120,7 @@ h1 {
 
 h2 {
   margin-top: 40px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   font-size: 24px;
   font-weight: 700;
   line-height: 28px;
@@ -124,7 +128,7 @@ h2 {
 
 h3 {
   margin-top: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-size: 20px;
   font-weight: 700;
   line-height: 30px;
@@ -132,6 +136,7 @@ h3 {
 
 p {
   margin-bottom: 26px;
+  margin-top: 0;
   font-size: 17px;
   line-height: 26px;
 }
@@ -152,23 +157,29 @@ a {
 a:hover {
   color: var(--link-hover-color);
 }
-
+/* General List Styles */
 ul {
   margin-bottom: 27px;
 }
 
+/* Navigation Specific */
+nav > ul, 
 nav > ul > li {
   margin-bottom: 0;
 }
 
+/* Tag List Specific */
+.tag-list ul,
 .tag-list > ul > li {
   margin-bottom: 0 !important;
 }
 
+/* Exclude Specific Lists from Margin */
 ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
   margin-bottom: 18px;
 }
 
+/* Ordered Lists */
 ol li {
   margin-bottom: 16px;
 }
@@ -177,13 +188,11 @@ ol p {
   margin-bottom: 0;
 }
 
+/* Post List Specific */
 .post-list li {
   margin-bottom: 0;
 }
 
-.tag-list ul {
-  margin-bottom: 0;
-}
 
 .home-link {
   color: var(--primary);
@@ -408,7 +417,12 @@ ol p {
 .footer {
   color: var(--primary);
   text-align: center;
-  margin-top: 30px;
+  margin-top: 80px;
+}
+
+.footer-divider {
+  color: #bbb;
+  margin: 0 4px;
 }
 
 /* ---------- Media Queries ---------- */

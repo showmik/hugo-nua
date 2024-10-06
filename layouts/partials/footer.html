@@ -1,7 +1,7 @@
 {{ if .Site.Params.footer.enable }}
     <div>
         {{- if .Site.Params.footer.copyright -}}
-        ©
+        <span class="footer-divider">©</span>
             {{- if eq .Site.Params.footer.year_format "since" -}}
                 {{- .Site.Params.footer.since -}}–{{- now.Year -}}
             {{- else if eq .Site.Params.footer.year_format "only" -}}
@@ -10,19 +10,19 @@
         {{- end -}}
 
     {{- if .Site.Params.footer.author -}}
-        {{- .Site.Params.footer.divider -}} {{- .Site.Params.author.name -}}
+        <span class="footer-divider"> {{- .Site.Params.footer.divider -}}</span> {{- .Site.Params.author.name -}}
     {{- end -}}
 
     {{- if .Site.Params.footer.hugo -}}
-        {{- .Site.Params.footer.divider -}} Powered by <a href="https://gohugo.io/">Hugo</a>
+        <span class="footer-divider"> {{- .Site.Params.footer.divider -}}</span> Powered by <a href="https://gohugo.io/">Hugo</a>
     {{- end -}}
 
     {{- if .Site.Params.footer.text -}}
-        {{- .Site.Params.footer.divider -}}{{- .Site.Params.footer.text -}}
+        <span class="footer-divider"> {{- .Site.Params.footer.divider -}}</span>{{- .Site.Params.footer.text -}}
     {{- end -}}
 
     {{- if .Site.Params.footer.rss -}}
-        {{- .Site.Params.footer.divider -}}<a href="/index.xml" title="RSS Feed">Subscribe to RSS</a>
+        <span class="footer-divider"> {{- .Site.Params.footer.divider -}}</span><a href="/index.xml" title="RSS Feed">Subscribe to RSS</a>
     {{- end -}}
 
     </div>
