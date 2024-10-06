@@ -21,6 +21,7 @@ p code, li code {
     margin: 0 4px;
     font-family: 'Roboto Mono', monospace; /* Monospace font */
     font-weight: 500; /* Medium font weight */
+    transition: background-color 0.1s ease, color 0.1s ease;
   }
   
   /* Inline code within highlighted sections */
