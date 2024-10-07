@@ -437,8 +437,8 @@ ol p {
 /* For tablets and medium screens up to 991px */
 @media screen and (max-width: 991px) {
   .body {
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 24px;
+    margin-right: 24px;
   }
 }
 
