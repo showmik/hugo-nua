@@ -66,7 +66,7 @@ hr {
 
 /* ---------- Layout & Container Styles ---------- */
 .container {
-  max-width: 720px;
+  max-width: 700px;
   margin: 0 auto;
   display: block;
 }
@@ -129,7 +129,7 @@ h2 {
 }
 
 h3 {
-  margin-top: 30px;
+  margin-top: 32px;
   margin-bottom: 10px;
   font-size: 20px;
   font-weight: 700;
@@ -160,14 +160,10 @@ a:hover {
   color: var(--link-hover-color);
 }
 /* General List Styles */
-ul {
+ul, ol {
   margin-bottom: 27px;
   font-size: 17px;
-}
-
-ol {
-  margin-bottom: 27px;
-  font-size: 17px;
+  padding-inline-start: 40px;
 }
 
 /* Navigation Specific */
@@ -218,12 +214,12 @@ ol p {
 }
 
 .single-content {
-  margin-top: 25px;
+  margin-top: 26px;
 }
 
 .bigger-text {
   font-size: 100px;
-  margin: 25px;
+  margin: 26px;
   font-weight: 400;
 }
 
@@ -232,8 +228,8 @@ ol p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
 
 .nav-links {
@@ -290,7 +286,7 @@ ol p {
   overflow: clip;
   list-style-type: none;
   position: relative;
-  padding-left: 20px; /* Space between bullet and text */
+  padding-left: 24px; /* Space between bullet and text */
 }
 
 .post-list-item::before {
@@ -315,6 +311,7 @@ ol p {
   color: var(--link-color);
   display: block;
   overflow: clip;
+  line-height: 24px;
 }
 
 .post-link:hover {
@@ -371,8 +368,8 @@ ol p {
   border: 1px solid var(--accent2);
   letter-spacing: -0.3px;
   border-radius: 3px;
-  padding: 0px 5px;
-  height: 22px;
+  padding: 0px 6px;
+  height: 24px;
   align-items: center;
   justify-content: center;
 }
@@ -410,11 +407,11 @@ ol p {
   box-sizing: border-box;
   object-fit: fill;
   border-radius: 3px;
-  height: 26px;
+  height: 28px;
   width: 100%;
   margin-top: 40px;
-  margin-bottom: 30px;
-  padding: 1px 10px;
+  margin-bottom: 28px;
+  padding: 4px 12px;
   display: flex;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
@@ -447,11 +444,6 @@ ol p {
 
 /* For smaller tablets and large mobile screens up to 767px */
 @media screen and (max-width: 767px) {
-  .body {
-    margin-left: 24px; /* Move this margin adjustment here to avoid duplication */
-    margin-right: 24px;
-  }
-
   .nav-links {
     text-align: right;
     justify-content: flex-end;
@@ -461,13 +453,13 @@ ol p {
 /* For mobile screens up to 479px */
 @media screen and (max-width: 479px) {
   h2 {
-    margin-top: 30px;
+    margin-top: 32px;
     margin-bottom: 14px;
   }
 
   h3 {
-    margin-top: 22px;
-    margin-bottom: 10px;
+    margin-top: 28px;
+    margin-bottom: 8px;
   }
   
   .footer {
@@ -499,7 +491,7 @@ ol p {
   }
 
   ul, ol {
-    padding-left: 20px; /* Reduce padding to improve spacing */
+    padding-inline-start: 20px;
   }
 }
 
@@ -507,6 +499,8 @@ ol p {
 /* ---------- Single Page Template ---------- */
 .post-title {
   margin-top: 40px;
+  margin-bottom: 24px;
+  line-height: 32px;
 }
 
 .post-time {
@@ -517,7 +511,7 @@ ol p {
 
 blockquote {
   margin: 20px 0;
-  padding-left: 10px;
+  padding-left: 12px;
   border-left: 2px solid var(--accent);
 }
 
@@ -539,7 +533,6 @@ blockquote {
 
 .pagination-link {
   color: var(--accent);
-  font-size: 22px;
 }
 
 .pagination-link:hover {
