@@ -81,7 +81,7 @@ hr {
 /* Styles for a single responsive image */
 .responsive-image { 
   display: block;
-  margin: 24px auto; 
+  margin: 0 auto; 
   max-width: 100%; 
   height: auto; 
 }
@@ -89,10 +89,10 @@ hr {
 /* Container for multiple images */
 .responsive-images {
   display: grid;
-  gap: 16px; 
+  gap: 20px;
   justify-content: center;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  margin: 0 auto;
+  margin: 30px auto;
 }
 
 .large-text {
