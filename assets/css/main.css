@@ -121,7 +121,7 @@ h1 {
 }
 
 h2 {
-  margin-top: 40px;
+  margin-top: 32px;
   margin-bottom: 14px;
   font-size: 24px;
   font-weight: 700;
@@ -165,6 +165,11 @@ ul {
   font-size: 17px;
 }
 
+ol {
+  margin-bottom: 27px;
+  font-size: 17px;
+}
+
 /* Navigation Specific */
 nav > ul, 
 nav > ul > li {
@@ -185,7 +190,6 @@ ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
 /* Ordered Lists */
 ol li {
   margin-bottom: 20px;
-  font-size: 17px;
 }
 
 .footnotes > ol > li{
@@ -457,8 +461,13 @@ ol p {
 /* For mobile screens up to 479px */
 @media screen and (max-width: 479px) {
   h2 {
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 14px;
+  }
+
+  h3 {
+    margin-top: 22px;
+    margin-bottom: 10px;
   }
   
   .footer {
