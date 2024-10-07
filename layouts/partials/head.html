@@ -46,10 +46,9 @@
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
 <link rel="mask-icon" href="{{ "safari-pinned-tab.svg" | relURL }}" color="#5bbad5">
 <link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ " index.xml" | relURL }}">
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | relURL }}">
 
-
-{{- if .Params.noindex -}}
+{{ if .Params.noindex -}}
 <meta name="robots" content="noindex, nofollow">
 {{- else -}}
 <meta name="robots" content="index, follow">
@@ -61,11 +60,14 @@
 
 <title>
     {{- if .IsHome -}}
-    {{- site.Title -}}
+      {{ .Site.Title }}
+    {{- else if .IsNode -}}
+      {{ .Title }} | {{ .Site.Title }}
     {{- else -}}
-    {{- printf "%s" .Title -}}
+      {{ .Title }}
     {{- end -}}
 </title>
+  
 
 {{- partialCached "head/css.html" . -}}
 {{- partialCached "head/js.html" . -}}
