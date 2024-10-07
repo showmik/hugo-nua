@@ -10,6 +10,7 @@
   --input-field-border-color: #202c39;
   --tag-2-bg-color: #202c39;
   --tag-2-text-color: #fff;
+  --tag-2-bg-hover-color: #ff6600;
   --tag-2-text-hover-color: #fff;
   --link-color: #e03400;
   --link-hover-color: #0076d1;
@@ -23,11 +24,12 @@
   --accent: #dbb267;
   --primary2: #999;
   --accent2: #40a2d8;
-  --input-field-bg-color: #202339;
+  --input-field-bg-color: #151823;
   --input-field-text-color: #aaa;
   --input-field-border-color: #999;
   --tag-2-bg-color: #c48a4f;
   --tag-2-text-color: #000;
+  --tag-2-bg-hover-color: #40a2d8;
   --tag-2-text-hover-color: #000;
   --link-color: #dbb267;
   --link-hover-color: #40a2d8;
@@ -386,7 +388,7 @@ ol p {
 }
 
 .tag-type-2:hover {
-  background-color: var(--accent);
+  background-color: var(--tag-2-bg-hover-color);
   color: var(--tag-2-text-hover-color);
   cursor: pointer;
 }
@@ -427,7 +429,7 @@ ol p {
 
 .footer-divider {
   color: #bbb;
-  margin: 0 4px;
+  margin: 0 5px;
 }
 /* ---------- Media Queries ---------- */
 
