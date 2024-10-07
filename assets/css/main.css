@@ -66,7 +66,7 @@ hr {
 
 /* ---------- Layout & Container Styles ---------- */
 .container {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
   display: block;
 }
@@ -110,8 +110,8 @@ hr {
 body {
   color: var(--primary);
   font-family: "Atkinson Hyperlegible", Arial, sans-serif, 'Kaisei Opti';
-  font-size: 16px;
-  line-height: 24px;
+  font-size: 17px;
+  line-height: 26px;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
@@ -121,7 +121,7 @@ h1 {
 }
 
 h2 {
-  margin-top: 32px;
+  margin-top: 40px;
   margin-bottom: 14px;
   font-size: 24px;
   font-weight: 700;
@@ -137,7 +137,7 @@ h3 {
 }
 
 p {
-  margin-bottom: 24px;
+  margin-bottom: 26px;
   margin-top: 0;
   font-size: 17px;
   line-height: 26px;
@@ -286,32 +286,32 @@ ol p {
   overflow: clip;
   list-style-type: none;
   position: relative;
-  padding-left: 24px; /* Space between bullet and text */
+  padding-left: 24px;
 }
 
 .post-list-item::before {
-  content: "»"; /* You can use any character or symbol here */
-  color: var(--primary2); /* Customize bullet color */
-  font-size: 20px; /* Customize bullet size */
+  content: "»";
+  color: var(--primary2); 
+  font-size: 20px; 
   position: absolute;
-  left: 0; /* Align bullet to the left */
-  top: 0; /* Align bullet vertically */
+  left: 0; 
+  top: 0; 
 }
 
 .all-posts .post-list-item::before {
-  content: ""; /* You can use any character or symbol here */
-  color: var(--primary2); /* Customize bullet color */
-  font-size: 20px; /* Customize bullet size */
+  content: "";
+  color: var(--primary2);
+  font-size: 20px; 
   position: absolute;
-  left: 0; /* Align bullet to the left */
-  top: 0; /* Align bullet vertically */
+  left: 0; 
+  top: 0; 
 }
 
 .post-link {
   color: var(--link-color);
   display: block;
   overflow: clip;
-  line-height: 24px;
+  line-height: 25px;
 }
 
 .post-link:hover {
@@ -407,11 +407,11 @@ ol p {
   box-sizing: border-box;
   object-fit: fill;
   border-radius: 3px;
-  height: 28px;
+  height: 26px;
   width: 100%;
   margin-top: 40px;
   margin-bottom: 28px;
-  padding: 4px 12px;
+  padding: 4px 10px;
   display: flex;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
@@ -482,8 +482,7 @@ ol p {
   }
 
   .tag-type-1 {
-    font-size: 11px;
-    height: 18px;
+    font-size: 12px;
   }
 
   .responsive-images {
@@ -500,7 +499,7 @@ ol p {
 .post-title {
   margin-top: 40px;
   margin-bottom: 24px;
-  line-height: 32px;
+  line-height: 36px;
 }
 
 .post-time {
