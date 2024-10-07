@@ -160,6 +160,7 @@ a:hover {
 /* General List Styles */
 ul {
   margin-bottom: 27px;
+  font-size: 17px;
 }
 
 /* Navigation Specific */
@@ -424,8 +425,9 @@ ol p {
   color: #bbb;
   margin: 0 4px;
 }
-
 /* ---------- Media Queries ---------- */
+
+/* For tablets and medium screens up to 991px */
 @media screen and (max-width: 991px) {
   .body {
     margin-left: 40px;
@@ -433,13 +435,20 @@ ol p {
   }
 }
 
+/* For smaller tablets and large mobile screens up to 767px */
 @media screen and (max-width: 767px) {
+  .body {
+    margin-left: 24px; /* Move this margin adjustment here to avoid duplication */
+    margin-right: 24px;
+  }
+
   .nav-links {
     text-align: right;
     justify-content: flex-end;
   }
 }
 
+/* For mobile screens up to 479px */
 @media screen and (max-width: 479px) {
   h2 {
     margin-top: 40px;
@@ -447,17 +456,11 @@ ol p {
   }
 
   p {
-    margin-top: 0px;
+    margin-top: 0; /* Simplify margin to 0 */
   }
-  
 
   .footer {
     padding: 10px;
-  }
-
-  .body {
-    margin-left: 24px;
-    margin-right: 24px;
   }
 
   .page-title {
@@ -470,9 +473,8 @@ ol p {
   }
 
   .tag-post-wrapper {
-    flex-flow: column;
+    flex-flow: column-reverse nowrap; /* Combine column and column-reverse */
     align-items: flex-start;
-    flex-direction: column-reverse;
     gap: 4px;
   }
 
@@ -482,9 +484,14 @@ ol p {
   }
 
   .responsive-images {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduce min-width for better responsiveness */
+  }
+
+  ul {
+    padding-left: 20px; /* Reduce padding to improve spacing */
   }
 }
+
 
 /* ---------- Single Page Template ---------- */
 .post-title {
