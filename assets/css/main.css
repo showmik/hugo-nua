@@ -66,7 +66,7 @@ hr {
 
 /* ---------- Layout & Container Styles ---------- */
 .container {
-  max-width: 720px;
+  max-width: 700px;
   margin: 0 auto;
   display: block;
 }
@@ -185,7 +185,7 @@ nav > ul > li {
 
 /* Exclude Specific Lists from Margin */
 ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 /* Ordered Lists */
