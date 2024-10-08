@@ -66,7 +66,7 @@ hr {
 
 /* ---------- Layout & Container Styles ---------- */
 .container {
-  max-width: 700px;
+  max-width: 650px;
   margin: 0 auto;
   display: block;
 }
@@ -126,11 +126,11 @@ h2 {
   font-size: 24px;
   font-weight: 700;
   line-height: 28px;
-  letter-spacing: -0.20px;
+  letter-spacing: -0.15px;
 }
 
 h3 {
-  margin-top: 32px;
+  margin-top: 30px;
   margin-bottom: 12px;
   font-size: 20px;
   font-weight: 700;
@@ -139,7 +139,7 @@ h3 {
 
 p {
   margin-top: 0;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   font-size: 17px;
   line-height: 26px;
 }
@@ -164,6 +164,10 @@ sup {
   margin-bottom: 0;
 }
 
+u {
+  padding-bottom: 10px;
+}
+
 /* ---------- Links ---------- */
 a {
   color: var(--link-color);
@@ -176,9 +180,10 @@ a:hover {
 }
 /* General List Styles */
 ul:not(.post-list):not(.tag-list), ol {
-  margin: 22px 0;
+  
   font-size: 17px;
   padding-left: 18px;
+  margin-bottom: 20px;
 }
 
 
@@ -420,6 +425,8 @@ ol p {
 
 /* ---------- Search Elements ---------- */
 .search-input {
+  font-family: 'Atkinson Hyperlegible';
+  font-size: 14px;
   color: var(--input-field-text-color);
   background-color: var(--input-field-bg-color);
   border: 1px solid var(--input-field-border-color);
@@ -507,10 +514,6 @@ ol p {
   .responsive-images {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduce min-width for better responsiveness */
   }
-
-  ul, ol {
-    padding-inline-start: 20px;
-  }
 }
 
 
@@ -530,7 +533,7 @@ ol p {
 }
 
 blockquote {
-  margin: 20px 0;
+  margin: 22px 0;
   padding-left: 18px;
   border-left: 2px solid var(--accent);
 }
@@ -560,6 +563,13 @@ blockquote {
 }
 
 /* ---------- Font Faces ---------- */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/Inter_28pt-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
+}
+
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
