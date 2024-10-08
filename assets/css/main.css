@@ -160,7 +160,8 @@ sup {
 }
 
 .year-header {
-  margin-top: 28px;
+  margin-top: 32px;
+  margin-bottom: 0;
 }
 
 /* ---------- Links ---------- */
@@ -174,7 +175,7 @@ a:hover {
   color: var(--link-hover-color);
 }
 /* General List Styles */
-ul, ol {
+ul:not(.post-list):not(.tag-list), ol {
   margin: 20px 0;
   font-size: 17px;
   padding-left: 18px;
@@ -284,6 +285,7 @@ ol p {
   flex-flow: column;
   gap: 8px;
   margin-bottom: 25px;
+  margin-top: 16px;
   padding: 0;
 }
 
@@ -489,7 +491,7 @@ ol p {
 
   .post-list {
     line-height: 25px;
-    gap: 16px;
+    gap: 12px;
   }
 
   .tag-post-wrapper {
