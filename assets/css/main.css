@@ -287,6 +287,7 @@ ol p {
 .post-list {
   display: flex;
   flex-flow: column;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 25px;
   margin-top: 16px;
@@ -302,24 +303,15 @@ ol p {
 
 .post-list-item {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-flow: row;
-  gap: 18px;
+  gap: 20px;
   overflow: clip;
   list-style-type: none;
-  position: relative;
-  padding-left: 24px;
 }
 
-.post-list-item::before {
-  content: "»";
-  color: var(--primary2); 
-  font-size: 20px; 
-  position: absolute;
-  left: 0; 
-  top: 0; 
-}
+
 
 .all-posts .post-list-item::before {
   content: "";
@@ -342,6 +334,7 @@ ol p {
 }
 
 .date-label {
+  font-family: 'Roboto Mono';
   color: var(--primary2);
   text-align: right;
   text-wrap: nowrap;
@@ -497,7 +490,7 @@ ol p {
 
   .post-list {
     line-height: 25px;
-    gap: 12px;
+    gap: 16px;
   }
 
   .tag-post-wrapper {
@@ -513,6 +506,7 @@ ol p {
   .responsive-images {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduce min-width for better responsiveness */
   }
+
 }
 
 
@@ -527,7 +521,7 @@ ol p {
 
 .post-time {
   font-family: "Roboto Mono", monospace;
-  font-size: 15px;
+  font-size: 16px;
   color: var(--primary2);
 }
 

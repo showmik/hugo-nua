@@ -9,8 +9,8 @@
     {{ if $ongoingProjects }}
     {{ range $ongoingProjects }}
     <li class="post-list-item" role="listitem">
+      <div class="date-label">{{- .Date.Format "02·Jan·2006" -}}</div>
       <a href="{{ .Permalink }}" aria-label="View project: {{ .Title }}">{{ .Title }}</a>
-      <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
     </li>
     {{ end }}
     {{ else }}
@@ -28,8 +28,8 @@
     {{ if $pastProjects }}
     {{ range $pastProjects }}
     <li class="post-list-item" role="listitem">
+      <div class="date-label">{{- .Date.Format "02·Jan·2006" -}}</div>
       <a href="{{ .Permalink }}" aria-label="View project: {{ .Title }}">{{ .Title }}</a>
-      <div class="date-label">{{ .Date.Format "2 Jan 2006" }}</div>
     </li>
     {{ end }}
     {{ else }}

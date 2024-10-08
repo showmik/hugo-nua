@@ -23,10 +23,10 @@
   <ul role="list" class="post-list">
     {{ range where .Paginator.Pages "Type" "ne" "now" }}
     <li class="post-list-item">
+      <div class="date-label">{{- .Date.Format "02·Jan·2006" -}}</div>
       <div class="tag-post-wrapper">
         <a class="post-link" href="{{ .RelPermalink }}">{{- .Title -}}</a>
       </div>
-      <div class="date-label">{{- .Date.Format "2 Jan 2006" -}}</div>
     </li>
     {{- end }}
   </ul>
