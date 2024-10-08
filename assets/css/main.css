@@ -121,30 +121,35 @@ h1 {
 }
 
 h2 {
-  margin-top: 44px;
-  margin-bottom: 14px;
+  margin-top: 40px;
+  margin-bottom: 12px;
   font-size: 24px;
   font-weight: 700;
   line-height: 28px;
+  letter-spacing: -0.20px;
 }
 
 h3 {
-  margin-top: 36px;
-  margin-bottom: 14px;
+  margin-top: 32px;
+  margin-bottom: 12px;
   font-size: 20px;
   font-weight: 700;
   line-height: 25px;
 }
 
 p {
-  margin-bottom: 24px;
   margin-top: 0;
+  margin-bottom: 22px;
   font-size: 17px;
-  line-height: 26px;
+  line-height: 25px;
 }
 
 sup {
   vertical-align: top; position: relative; top: -0.5em;
+}
+
+.footnotes {
+  margin-top: 28px;
 }
 
 .footnote-ref {
@@ -152,6 +157,10 @@ sup {
   font-family: 'Roboto Mono', monospace;
   font-weight: 500;
   vertical-align: top;
+}
+
+.year-header {
+  margin-top: 28px;
 }
 
 /* ---------- Links ---------- */
@@ -166,10 +175,11 @@ a:hover {
 }
 /* General List Styles */
 ul, ol {
-  margin-bottom: 24px;
+  margin: 20px 0;
   font-size: 17px;
-  padding-inline-start: 40px;
+  padding-left: 18px;
 }
+
 
 /* Navigation Specific */
 nav > ul, 
@@ -186,11 +196,13 @@ nav > ul > li {
 /* Exclude Specific Lists from Margin */
 ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
   margin-bottom: 16px;
+  padding-left: 6px;
 }
 
 /* Ordered Lists */
 ol li {
-  margin-bottom: 20px;
+  margin-bottom: 16px;
+  padding-left: 10px;
 }
 
 .footnotes > ol > li{
@@ -270,7 +282,7 @@ ol p {
 .post-list {
   display: flex;
   flex-flow: column;
-  gap: 12px;
+  gap: 8px;
   margin-bottom: 25px;
   padding: 0;
 }
@@ -458,12 +470,12 @@ ol p {
 /* For mobile screens up to 479px */
 @media screen and (max-width: 479px) {
   h2 {
-    margin-top: 36px;
+    margin-top: 40px;
     margin-bottom: 14px;
   }
 
   h3 {
-    margin-top: 28px;
+    margin-top: 32px;
     margin-bottom: 8px;
   }
   
@@ -504,7 +516,9 @@ ol p {
 .post-title {
   margin-top: 40px;
   margin-bottom: 24px;
-  line-height: 36px;
+  line-height: 34px;
+  font-size: 28px;
+  letter-spacing: -0.25px;
 }
 
 .post-time {
