@@ -1,39 +1,113 @@
-/* ---------- Root Variables ---------- */
 :root {
   --background-color: #fff;
-  --primary: #202c39;
-  --accent: #ff6600;
-  --primary2: #737373;
-  --accent2: #008dd5;
-  --input-field-bg-color: #fff;
-  --input-field-text-color: #202c39;
-  --input-field-border-color: #202c39;
-  --tag-2-bg-color: #202c39;
-  --tag-2-text-color: #fff;
-  --tag-2-bg-hover-color: #ff6600;
-  --tag-2-text-hover-color: #fff;
+  --primary-text-color: #202c39;
+  --accent-color: #ff6600;
+  --accent-color-2: #008dd5;
+  --secondary-text-color: #737373;
   --link-color: #e03400;
   --link-hover-color: #0076d1;
+
+  /* Input Field Colors */
+  --input-bg-color: #fff;
+  --input-text-color: #202c39;
+  --input-border-color: #202c39;
+
+  /* Tag Colors */
+  --tag-bg-color: #202c39;
+  --tag-text-color: #fff;
+  --tag-hover-bg-color: #ff6600;
+  --tag-hover-text-color: #fff;
+
+  /* UI Elements */
   --horizontal-rule-color: #ccc;
 }
 
-/* Dark Mode */
+/* ---------- Dark Mode ---------- */
 [theme="dark"] {
   --background-color: #151823;
-  --primary: #999;
-  --accent: #dbb267;
-  --primary2: #999;
-  --accent2: #40a2d8;
-  --input-field-bg-color: #151823;
-  --input-field-text-color: #aaa;
-  --input-field-border-color: #999;
-  --tag-2-bg-color: #c48a4f;
-  --tag-2-text-color: #000;
-  --tag-2-bg-hover-color: #40a2d8;
-  --tag-2-text-hover-color: #000;
+  --primary-text-color: #999;
+  --accent-color: #dbb267;
+  --accent-color-2: #40a2d8;
+  --secondary-text-color: #999;
   --link-color: #dbb267;
   --link-hover-color: #40a2d8;
+
+  /* Input Field Colors for Dark Mode */
+  --input-bg-color: #151823;
+  --input-text-color: #aaa;
+  --input-border-color: #999;
+
+  /* Tag Colors for Dark Mode */
+  --tag-bg-color: #c48a4f;
+  --tag-text-color: #000;
+  --tag-hover-bg-color: #40a2d8;
+  --tag-hover-text-color: #000;
+
+  /* UI Elements in Dark Mode */
   --horizontal-rule-color: #555;
+}
+
+:root {
+  --font-base: "Atkinson Hyperlegible", Arial, sans-serif;
+  --font-mono: "Roboto Mono", monospace;
+
+  --font-size-xsmall: 0.9rem;
+  --font-size-small: 1rem;
+  --font-size-base: 1.1rem;
+  --font-size-h3: 1.25rem;
+  --font-size-h2: 1.5rem;
+  --font-size-h1: 1.75rem;
+
+  /* Line Heights */
+  --line-height-base: 1.5;
+  --line-height-h2: 1.2;
+  --line-height-h1: 1.12;
+
+  /* Letter Spacings */
+  --letter-spacing-h2: -0.01rem;
+  --letter-spacing-h1: -0.02rem;
+}
+
+:root {
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1.1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 2.5rem;
+  --spacing-xxl: 3rem;
+
+  /* Paddings */
+  --padding-xs: 4px;
+  --padding-sm: 8px;
+  --padding-md: 16px;
+  --padding-lg: 24px;
+  --padding-xl: 32px;
+}
+
+body {
+  font-size: var(--font-size-base);
+  margin: 1.2rem 1.5rem;
+  padding: 0;
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  font-family: "Atkinson Hyperlegible", "Kaisei Opti", Arial, sans-serif;
+  line-height: var(--line-height-base);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  transition: background-color 0.1s ease, color 0.1s ease;
+}
+
+
+.container {
+  max-width: 650px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.main-body{
+  display: flexbox;
 }
 
 .visually-hidden {
@@ -48,6 +122,26 @@
   border: 0;
 }
 
+
+.single-content {
+  margin-top: 1.6rem;
+}
+
+.responsive-image { 
+  display: block;
+  margin: 0 auto; 
+  max-width: 100%; 
+  height: auto; 
+}
+
+.responsive-images {
+  display: grid;
+  gap: 1rem;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin: 2rem auto;
+}
+
 .center {
   display: flex;
   flex-direction: column;
@@ -57,174 +151,98 @@
   text-align: center;
 }
 
-
 hr {
   border: none;
   height: 1px; 
   background-color: var(--horizontal-rule-color); 
 }
 
-/* ---------- Layout & Container Styles ---------- */
-.container {
-  max-width: 720px;
-  margin: 0 auto;
-  display: block;
+sup {
+  vertical-align: top;
+  position: relative;
+  top: -0.2em;
+  left: 0.3em;
 }
 
-.body {
-  margin: 20px;
-  background-color: var(--background-color);
+blockquote {
+  margin: 1.25rem 0;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--accent-color);
+  line-height: var(--line-height-base);
 }
 
-.main-body {
-  margin-bottom: 50px;
+.footnotes {
+  margin-top: 1.5rem;
 }
 
-/* Styles for a single responsive image */
-.responsive-image { 
-  display: block;
-  margin: 0 auto; 
-  max-width: 100%; 
-  height: auto; 
+.footnotes ol {
+  margin: 0rem 0;
 }
-
-/* Container for multiple images */
-.responsive-images {
-  display: grid;
-  gap: 20px;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  margin: 30px auto;
-}
-
-.large-text {
-  font-size: 2.5em; /* Adjust as needed */
-  font-weight: bold; /* Make it bold */
-  line-height: 1.3; /* Adjust line height for readability */
-  margin: 25px 30px 25px 25px; /* Add vertical spacing */
-  text-align: center; /* Center the text */
-}
-
 
 /* ---------- Typography ---------- */
-body {
-  color: var(--primary);
-  font-family: "Atkinson Hyperlegible", Arial, sans-serif, 'Kaisei Opti';
-  font-size: 16px;
-  line-height: 24px;
-  transition: background-color 0.1s ease, color 0.1s ease;
-}
 
 h1 {
-  font-size: 28px;
-  line-height: 38px;
+  font-size: var(--font-size-h1);
+  font-weight: bold;
+  line-height: var(--line-height-h1);
+  color: var(--primary-text-color);
+  margin-top: var(--spacing-xxl);
+  margin-bottom: var(--spacing-md);
+  letter-spacing: var(--letter-spacing-h1);
 }
 
 h2 {
-  margin-top: 32px;
-  margin-bottom: 14px;
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 28px;
+  font-size: var(--font-size-h2);
+  font-weight: bold;
+  line-height: var(--line-height-h2);
+  color: var(--primary-text-color);
+  margin-top: 2.25rem;
+  margin-bottom: 1rem;
+  letter-spacing: var(--letter-spacing-h2);
 }
 
 h3 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 25px;
+  font-size: var(--font-size-h3);
+  font-weight: bold;
+  line-height: 1.4;
+  color: var(--primary-text-color);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
 }
+
 
 p {
-  margin-bottom: 24px;
+  font-family: var(--font-base);
+  font-size: var(--font-size-base);
+  color: var(--primary-text-color);
   margin-top: 0;
-  font-size: 17px;
-  line-height: 26px;
+  margin-bottom: var(--spacing-sm);
 }
 
-.footnote-ref {
-  font-size: 14px;
-  font-family: 'Roboto Mono', monospace;
-  font-weight: 500;
-}
-
-/* ---------- Links ---------- */
-a {
-  color: var(--link-color);
-  font-size: 17px;
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--link-hover-color);
-}
-/* General List Styles */
-ul {
-  margin-bottom: 27px;
-  font-size: 17px;
-}
-
-ol {
-  margin-bottom: 27px;
-  font-size: 17px;
-}
-
-/* Navigation Specific */
-nav > ul, 
-nav > ul > li {
+.year-header {
+  margin-top: 2.5rem;
   margin-bottom: 0;
 }
 
-/* Tag List Specific */
-.tag-list ul,
-.tag-list > ul > li {
-  margin-bottom: 0 !important;
-}
-
-/* Exclude Specific Lists from Margin */
-ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
-  margin-bottom: 20px;
-}
-
-/* Ordered Lists */
-ol li {
-  margin-bottom: 20px;
-}
-
-.footnotes > ol > li{
-  margin-bottom: 16px;
-}
-
-ol p {
-  margin-bottom: 0;
-}
-
-/* Post List Specific */
-.post-list li {
-  margin-bottom: 0;
-}
-
-.home-link {
-  color: var(--primary);
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 28px;
-}
-
-.home-link:hover {
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.single-content {
-  margin-top: 25px;
+.large-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1.3;
+  text-align: center;
+  margin: 2rem 0;
+  margin: 1.5rem 2rem 2rem 2rem;
+  color: var(--primary-text-color);
 }
 
 .bigger-text {
-  font-size: 100px;
-  margin: 25px;
+  font-size: 6.3rem;
+  margin: 0;
   font-weight: 400;
+}
+
+.post-title {
+  margin-top: 2.5rem;
+  margin-bottom: 1.6rem;
 }
 
 /* ---------- Navbar Styles ---------- */
@@ -232,8 +250,8 @@ ol p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .nav-links {
@@ -243,289 +261,206 @@ ol p {
   justify-content: flex-end;
 }
 
+.home-link {
+  color: var(--primary-text-color);
+  font-size: var(--font-size-h2);
+  font-weight: bold;
+}
+
+.home-link:hover {
+  color: var(--primary-text-color);
+  text-decoration: none;
+}
+
 .icon {
   display: flex;
   align-items: center;
   cursor: pointer;
-  width: 24px;
+  width: 24;
+  height: 24;
 }
 
-/* ---------- Titles & Headers ---------- */
-.page-title {
-  color: var(--primary);
-  font-size: 32px;
-  font-weight: bold;
-  line-height: 40px;
-  margin-top: 50px;
-  margin-bottom: 24px;
+nav > ul,
+nav > ul > li {
+  margin-bottom: 0;
 }
 
-/* ---------- Post & List Styles ---------- */
-.post-list-wrapper {
-  margin-top: 40px;
-  margin-bottom: 40px;
+/* ---------- Links ---------- */
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
 }
 
-.post-list {
-  display: flex;
-  flex-flow: column;
-  gap: 12px;
-  margin-bottom: 25px;
-  padding: 0;
-}
-
-.all-posts .post-list-item {
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding-left: 0;
-  line-height: 25px;
-}
-
-.post-list-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-flow: row;
-  gap: 18px;
-  overflow: clip;
-  list-style-type: none;
-  position: relative;
-  padding-left: 20px; /* Space between bullet and text */
-}
-
-.post-list-item::before {
-  content: "»"; /* You can use any character or symbol here */
-  color: var(--primary2); /* Customize bullet color */
-  font-size: 20px; /* Customize bullet size */
-  position: absolute;
-  left: 0; /* Align bullet to the left */
-  top: 0; /* Align bullet vertically */
-}
-
-.all-posts .post-list-item::before {
-  content: ""; /* You can use any character or symbol here */
-  color: var(--primary2); /* Customize bullet color */
-  font-size: 20px; /* Customize bullet size */
-  position: absolute;
-  left: 0; /* Align bullet to the left */
-  top: 0; /* Align bullet vertically */
+a:hover,
+a:focus {
+  color: var(--link-hover-color);
 }
 
 .post-link {
   color: var(--link-color);
-  display: block;
   overflow: clip;
+  line-height: var(--font-size-h2);
 }
 
 .post-link:hover {
   color: var(--link-hover-color);
 }
 
+/* ---------- List Styles ---------- */
+ul:not(.post-list):not(.tag-list), ol {
+  margin-top: 1.25rem;
+  margin-bottom: 1.75rem;
+  font-size: var(--font-size-base);
+  color: var(--primary-text-color);
+  padding-left: 1rem;
+}
+
+ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
+  margin: 1rem 0;
+  padding-left: 0.75rem;
+}
+
+ol li {
+  margin: 1.25rem 0;
+  padding-left: 1rem;
+}
+
+
+/* ---------- Post List ---------- */
+
+.post-list-wrapper {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  text-decoration: none;
+}
+
+.post-list {
+  display: flex;
+  flex-flow: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  padding: 0;
+  list-style-type: none;
+}
+
+.post-list-item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  flex-flow: row;
+  gap: 1rem;
+  overflow: clip;
+}
+
+
+.all-posts .post-list-item {
+  justify-content: flex-start;
+  align-items: flex-start;
+  vertical-align: baseline;
+  padding-left: 0;
+  line-height: 1rem;
+}
+
+
+/* ---------- Time & Date ---------- */
+.post-time {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--secondary-text-color);
+}
+
 .date-label {
-  color: var(--primary2);
+  font-family: var(--font-mono);
+  color: var(--secondary-text-color);
+  font-size: var(--font-size-base);
   text-align: right;
   text-wrap: nowrap;
 }
 
-/* ---------- Tag Styles ---------- */
-.tag-post-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 10px;
-  align-items: center;
-  color: var(--primary);
-}
-
+/* ---------- Tags ---------- */
 .tags-wrapper {
   display: flex;
   flex-wrap: nowrap;
-  gap: 6px;
-}
-
-.home-tagline {
-  margin-bottom: 24px;
-  margin-top: 0;
+  gap: 0.5rem;
 }
 
 .tag-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  margin: 24px 0;
-  color: var(--primary);
+  gap: 0.75rem;
+  margin: 1.25rem 0;
   list-style: none;
   padding: 0;
 }
 
-.single-page-tag {
-  font-family: 'Roboto Mono', monospace;
-  font-size: 15px;
-}
-
 .tag-type-1 {
   display: flex;
-  font-size: 12px;
+  font-size: var(--font-size-xsmall);
   font-family: "Roboto Mono";
-  color: var(--primary);
+  color: var(--primary-text-color);
   text-transform: lowercase;
-  border: 1px solid var(--accent2);
+  border: 1px solid var(--accent-color-2);
   letter-spacing: -0.3px;
   border-radius: 3px;
-  padding: 0px 5px;
-  height: 22px;
+  padding: 0px 6px;
+  height: 24px;
   align-items: center;
   justify-content: center;
 }
 
 .tag-type-1:hover {
-  border: 1px solid var(--accent);
+  border: 1px solid var(--accent-color);
   cursor: pointer;
 }
 
 .tag-type-2 {
-  background-color: var(--tag-2-bg-color);
-  color: var(--tag-2-text-color);
+  background-color: var(--tag-bg-color);
+  color: var(--tag-text-color);
   border-radius: 3px;
   padding: 7px 10px;
   text-transform: lowercase;
-  font-size: 14px;
+  font-size: var(--font-size-xsmall);
+  transition: background-color 0.1s ease, color 0.1s ease;
 }
 
 .tag-type-2:hover {
-  background-color: var(--tag-2-bg-hover-color);
-  color: var(--tag-2-text-hover-color);
+  background-color: var(--tag-hover-bg-color);
+  color: var(--tag-hover-text-color);
   cursor: pointer;
 }
 
-.tag-type-1,
-.tag-type-2 {
-  transition: background-color 0.1s, color 0.1s, border 0.1s;
+.tag-list ul,
+.tag-list > ul > li {
+  margin-bottom: 0 !important;
 }
 
 /* ---------- Search Elements ---------- */
 .search-input {
-  color: var(--input-field-text-color);
-  background-color: var(--input-field-bg-color);
-  border: 1px solid var(--input-field-border-color);
+  font-family: 'Atkinson Hyperlegible';
+  font-size: 0.87rem;
+  color: var(--input-text-color);
+  background-color: var(--input-bg-color);
+  border: 1px solid var(--input-border-color);
   box-sizing: border-box;
   object-fit: fill;
   border-radius: 3px;
-  height: 26px;
+  height: 1.6rem;
   width: 100%;
-  margin-top: 40px;
-  margin-bottom: 30px;
-  padding: 1px 10px;
+  margin-top: 2.5rem;
+  margin-bottom: 1.75rem;
+  padding: 4px 10px;
   display: flex;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
-.search-input:focus {
-  border: 2px solid var(--accent);
-  outline: none;
-}
-
-/* ---------- Footer Styles ---------- */
-.footer {
-  color: var(--primary);
-  text-align: center;
-  margin-top: 80px;
-}
-
-.footer-divider {
-  color: #bbb;
-  margin: 0 5px;
-}
-/* ---------- Media Queries ---------- */
-
-/* For tablets and medium screens up to 991px */
-@media screen and (max-width: 991px) {
-  .body {
-    margin-left: 40px;
-    margin-right: 40px;
-  }
-}
-
-/* For smaller tablets and large mobile screens up to 767px */
-@media screen and (max-width: 767px) {
-  .body {
-    margin-left: 24px; /* Move this margin adjustment here to avoid duplication */
-    margin-right: 24px;
-  }
-
-  .nav-links {
-    text-align: right;
-    justify-content: flex-end;
-  }
-}
-
-/* For mobile screens up to 479px */
-@media screen and (max-width: 479px) {
-  h2 {
-    margin-top: 30px;
-    margin-bottom: 14px;
-  }
-
-  h3 {
-    margin-top: 22px;
-    margin-bottom: 10px;
-  }
-  
-  .footer {
-    padding: 10px;
-  }
-
-  .page-title {
-    margin-top: 50px;
-  }
-
-  .post-list {
-    line-height: 25px;
-    gap: 16px;
-  }
-
-  .tag-post-wrapper {
-    flex-flow: column-reverse nowrap; /* Combine column and column-reverse */
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .tag-type-1 {
-    font-size: 11px;
-    height: 18px;
-  }
-
-  .responsive-images {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Reduce min-width for better responsiveness */
-  }
-
-  ul, ol {
-    padding-left: 20px; /* Reduce padding to improve spacing */
-  }
-}
-
-
-/* ---------- Single Page Template ---------- */
-.post-title {
-  margin-top: 40px;
-}
-
-.post-time {
-  font-family: "Roboto Mono", monospace;
-  font-size: 15px;
-  color: var(--primary2);
-}
-
-blockquote {
-  margin: 20px 0;
-  padding-left: 10px;
-  border-left: 2px solid var(--accent);
-}
-
+/* ---------- Pagination ---------- */
 .pagination {
   list-style: none;
   display: flex;
-  padding-right: 24px;
-  margin-bottom: 20px;
+  padding-right: 2rem;
+  margin-bottom: 1.25rem;
   margin-top: 0;
   justify-content: center;
 }
@@ -533,20 +468,44 @@ blockquote {
 .pagination ul {
   list-style-type: none;
   display: flex;
-  gap: 14px;
+  gap: 1rem;
   padding: 0;
 }
 
 .pagination-link {
-  color: var(--accent);
-  font-size: 22px;
+  color: var(--link-color);
 }
 
 .pagination-link:hover {
-  color: var(--primary);
+  color: var(--link-hover-color);
 }
 
-/* ---------- Font Faces ---------- */
+/* ---------- Footer Styles ---------- */
+.footer {
+  font-size: var(--font-size-base);
+  color: var(--primary-text-color);
+  text-align: center;
+  margin-top: 5rem;
+  margin-right: 1rem;
+}
+
+.footer-divider {
+  color: #bbb;
+  margin: 0 5px;
+}
+
+@media screen and (max-width: 479px) {
+  ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
+    padding-left: 0.5rem;
+  }
+
+  .post-list {
+    gap: 0.7rem;
+  }
+
+}
+
+
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
