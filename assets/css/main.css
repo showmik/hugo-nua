@@ -99,6 +99,13 @@ body {
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
+
+.container {
+  max-width: 37em;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -111,11 +118,6 @@ body {
   border: 0;
 }
 
-.container {
-  max-width: 650px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
 
 .single-content {
   margin-top: 1.6rem;
