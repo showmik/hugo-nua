@@ -106,9 +106,6 @@ body {
   box-sizing: border-box;
 }
 
-.main-body{
-  display: flexbox;
-}
 
 .visually-hidden {
   position: absolute;
@@ -213,7 +210,7 @@ h3 {
 
 p {
   font-family: var(--font-base);
-  font-size: var(--font-size-base);
+  font-size: 17px;
   color: var(--primary-text-color);
   margin-top: 0;
   margin-bottom: var(--spacing-sm);
