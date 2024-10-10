@@ -49,7 +49,9 @@
 
 :root {
   --font-base: "Atkinson Hyperlegible", Arial, sans-serif;
-  --font-mono: "Roboto Mono", monospace;
+  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, "Cascadia Code",
+    "IBM Plex Mono", "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco,
+    "Consolas", "Source Code Pro", monospace;
 
   --font-size-xsmall: 0.9rem;
   --font-size-small: 1rem;
@@ -83,7 +85,7 @@ body {
   padding: 0;
   background-color: var(--background-color);
   color: var(--primary-text-color);
-  font-family: "Atkinson Hyperlegible", "Kaisei Opti", Arial, sans-serif;
+  font-family: "Atkinson Hyperlegible", Arial, sans-serif;
   line-height: var(--line-height-base);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -482,28 +484,31 @@ ol li {
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
+  src: url("Atkinson Hyperlegible"),
+    url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: url("/fonts/Atkinson-Hyperlegible-bold.woff2");
+  src: url("Atkinson Hyperlegible"),
+    url("/fonts/Atkinson-Hyperlegible-bold.woff2");
   font-weight: bold;
   font-style: normal;
 }
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2");
+  src: url("Atkinson Hyperlegible"),
+    url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2");
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
   font-family: "Roboto Mono";
-  src: url("/fonts/RobotoMono-Regular.woff2");
+  src: url("Roboto Mono"), url("/fonts/RobotoMono-Regular.woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -511,7 +516,7 @@ ol li {
 
 @font-face {
   font-family: "Roboto Mono";
-  src: url("/fonts/RobotoMono-Medium.woff2");
+  src: url("Roboto Mono"), url("/fonts/RobotoMono-Medium.woff2");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
