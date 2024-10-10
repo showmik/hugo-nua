@@ -23,7 +23,7 @@
 }
 
 /* ---------- Dark Mode ---------- */
-[theme="dark"] {
+.dark {
   --background-color: #151823;
   --primary-text-color: #999;
   --accent-color: #dbb267;

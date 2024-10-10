@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
+  
+</head>
+<script>
+  const savedTheme = localStorage.getItem('theme');
+    const themeIcon = document.getElementById('themeColorToggle');
+    document.documentElement.classList.add(savedTheme);
+</script>
 {{ partial "head.html" . }}
+
 </head>
 
 <body>

@@ -1,56 +1,49 @@
 <link rel="preload" href="/img/icon-light-mode.png" as="image">
 <link rel="preload" href="/img/icon-dark-mode.png" as="image">
 
+<script>document.addEventListener('DOMContentLoaded', function () {
+  const savedTheme = localStorage.getItem('theme');
+  const themeIcon = document.getElementById('themeColorToggle');
+  if (savedTheme) {
+    themeIcon.src = themeIcon.getAttribute('src-dark'); // Set dark mode icon
+  } else {
+    themeIcon.src = themeIcon.getAttribute('src-light'); // Set light mode icon
+  }
+});</script>
+
 <nav class="navbar" role="navigation" aria-label="Main Navigation">
-<a href="/" aria-current="page" class="home-link">{{- .Site.Params.textLogo -}}</a>
-<div class="nav-links">
-{{- range .Site.Menus.main }}
-<a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
-{{- end -}}
-    <img
-      class="icon color-icon"
-      src="/img/icon-light-mode.png"
-      src-light="/img/icon-light-mode.png"
-      src-dark="/img/icon-dark-mode.png"
-      id="themeColorToggle"
-      width="24px"
-      height="24px"
-      alt="theme change icon"
-      aria-label="Toggle theme"
-    />
+  <a href="/" aria-current="page" class="home-link">{{- .Site.Params.textLogo -}}</a>
+  <div class="nav-links">
+    {{- range .Site.Menus.main }}
+    <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+    {{- end -}}
+    <button onclick="toggleTheme()" style="background: none; border: none; padding: 0; margin: 0; cursor: pointer;">
+      <img class="icon color-icon" src="/img/icon-light-mode.png" src-light="/img/icon-light-mode.png"
+        src-dark="/img/icon-dark-mode.png" id="themeColorToggle" width="24px" height="24px" alt="theme change icon"
+        aria-label="Toggle theme" />
+    </button>
   </div>
+
 </nav>
 
-<!-- Inline Theme Toggle JavaScript -->
 <script>
-  // Theme toggle icon element
-  const toggleIcon = document.getElementById("themeColorToggle");
 
-  // Set the initial theme based on user preference or default
-  function setInitialTheme() {
-    const savedTheme = localStorage.getItem("theme");
-    const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const theme = savedTheme || (systemPrefersDark ? "dark" : "light");
-    setTheme(theme);
-  }
-
-  // Set the theme and update localStorage and icon
-  function setTheme(theme) {
-    document.body.setAttribute("theme", theme);
-    localStorage.setItem("theme", theme);
-    toggleIcon.src = theme === "dark" ? "/img/icon-dark-mode.png" : "/img/icon-light-mode.png";
-  }
-
-  // Toggle between dark and light themes
   function toggleTheme() {
-    const currentTheme = document.body.getAttribute("theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
+    var element = document.documentElement;
+    element.classList.toggle("dark");
+
+    // Get the theme toggle icon
+    const themeIcon = document.getElementById('themeColorToggle');
+
+    // Update icon and save preference in localStorage
+    if (element.classList.contains("dark")) {
+      themeIcon.src = themeIcon.getAttribute('src-dark'); // Change to dark mode icon
+      localStorage.setItem('theme', 'dark');
+    } else {
+      themeIcon.src = themeIcon.getAttribute('src-light'); // Change to light mode icon
+      localStorage.removeItem('theme');
+    }
   }
 
-  // Event listener for theme toggle click
-  toggleIcon.addEventListener("click", toggleTheme);
 
-  // Initialize theme on page load
-  setInitialTheme();
 </script>
