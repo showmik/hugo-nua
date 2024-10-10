@@ -162,6 +162,10 @@ blockquote {
   margin: 0rem 0;
 }
 
+.home-tagline {
+  margin-bottom: 1.1rem;
+}
+
 /* ---------- Typography ---------- */
 
 h1 {
@@ -416,7 +420,6 @@ ol li {
 
 /* ---------- Search Elements ---------- */
 .search-input {
-  font-family: "Atkinson Hyperlegible";
   font-size: 0.87rem;
   color: var(--input-text-color);
   background-color: var(--input-bg-color);
@@ -432,6 +435,12 @@ ol li {
   display: flex;
   transition: background-color 0.1s ease, color 0.1s ease;
 }
+
+.search-input:focus {
+  border: 2px solid var(--accent-color);
+  outline: none;
+}
+
 
 /* ---------- Pagination ---------- */
 .pagination {
@@ -488,6 +497,7 @@ ol li {
     url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
