@@ -295,7 +295,6 @@ a:focus {
 }
 
 .post-link {
-  color: var(--link-color);
   overflow: clip;
   line-height: var(--font-size-h2);
 }
@@ -502,7 +501,6 @@ ol li {
 
 }
 
-
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
@@ -526,28 +524,32 @@ ol li {
 
 @font-face {
   font-family: "Roboto Mono";
-  src: url("/fonts/RobotoMono-Regular.ttf");
+  src: url("/fonts/RobotoMono-Regular.woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Roboto Mono";
-  src: url("/fonts/RobotoMono-Medium.ttf");
+  src: url("/fonts/RobotoMono-Medium.woff2");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Kaisei Opti";
-  src: url("/fonts/KaiseiOpti-Regular.ttf");
+  src: url("/fonts/KaiseiOpti-Regular.woff2");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Kaisei Opti";
-  src: url("/fonts/KaiseiOpti-Bold.ttf");
+  src: url("/fonts/KaiseiOpti-Bold.woff2");
   font-weight: bold;
   font-style: normal;
+  font-display: swap;
 }
