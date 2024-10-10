@@ -75,13 +75,6 @@
   --spacing-lg: 2rem;
   --spacing-xl: 2.5rem;
   --spacing-xxl: 3rem;
-
-  /* Paddings */
-  --padding-xs: 4px;
-  --padding-sm: 8px;
-  --padding-md: 16px;
-  --padding-lg: 24px;
-  --padding-xl: 32px;
 }
 
 body {
@@ -99,13 +92,11 @@ body {
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
-
 .container {
   max-width: 650px;
   margin: 0 auto;
   box-sizing: border-box;
 }
-
 
 .visually-hidden {
   position: absolute;
@@ -119,16 +110,15 @@ body {
   border: 0;
 }
 
-
 .single-content {
   margin-top: 1.6rem;
 }
 
-.responsive-image { 
+.responsive-image {
   display: block;
-  margin: 0 auto; 
-  max-width: 100%; 
-  height: auto; 
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
 }
 
 .responsive-images {
@@ -144,21 +134,15 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 78vh; /* Ensure it centers within full viewport height */
+  min-height: 78vh;
+  /* Ensure it centers within full viewport height */
   text-align: center;
 }
 
 hr {
   border: none;
-  height: 1px; 
-  background-color: var(--horizontal-rule-color); 
-}
-
-sup {
-  vertical-align: top;
-  position: relative;
-  top: -0.2em;
-  left: 0.3em;
+  height: 1px;
+  background-color: var(--horizontal-rule-color);
 }
 
 blockquote {
@@ -206,7 +190,6 @@ h3 {
   margin-top: 2rem;
   margin-bottom: 0.75rem;
 }
-
 
 p {
   font-family: var(--font-base);
@@ -304,7 +287,8 @@ a:focus {
 }
 
 /* ---------- List Styles ---------- */
-ul:not(.post-list):not(.tag-list), ol {
+ul:not(.post-list):not(.tag-list),
+ol {
   margin-top: 1.25rem;
   margin-bottom: 1.75rem;
   font-size: var(--font-size-base);
@@ -321,7 +305,6 @@ ol li {
   margin: 1.25rem 0;
   padding-left: 1rem;
 }
-
 
 /* ---------- Post List ---------- */
 
@@ -350,15 +333,12 @@ ol li {
   overflow: clip;
 }
 
-
 .all-posts .post-list-item {
   justify-content: flex-start;
-  align-items: flex-start;
   vertical-align: baseline;
   padding-left: 0;
   line-height: 1rem;
 }
-
 
 /* ---------- Time & Date ---------- */
 .post-time {
@@ -434,7 +414,7 @@ ol li {
 
 /* ---------- Search Elements ---------- */
 .search-input {
-  font-family: 'Atkinson Hyperlegible';
+  font-family: "Atkinson Hyperlegible";
   font-size: 0.87rem;
   color: var(--input-text-color);
   background-color: var(--input-bg-color);
@@ -498,7 +478,6 @@ ol li {
   .post-list {
     gap: 0.7rem;
   }
-
 }
 
 @font-face {

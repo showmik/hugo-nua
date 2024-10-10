@@ -32,7 +32,7 @@
       <ul class="post-list all-posts">
         {{ range .Pages -}}
         <li class="post-list-item">
-          <div class="date-label">{{- .Date.Format "02·Jan" -}}</div>
+          <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
           <a class="post-link" href="{{ .Permalink }}">{{- .Title -}}</a>
         </li>
         {{ end -}}

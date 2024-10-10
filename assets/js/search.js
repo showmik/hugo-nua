@@ -69,10 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Utility function to format date
   function formatDate(date) {
-    return new Date(date).toLocaleDateString('en-US', { 
-      day: '2-digit',
-      month: 'short' 
-    });
+    const options = { day: '2-digit', month: 'short' };
+    const formattedDate = new Date(date).toLocaleDateString('en-US', options);
+    
+    // Replace the space between day and month with the custom separator "·"
+    return formattedDate.replace(' ', '·');
   }
 
   // Debounce function to limit function call rate
