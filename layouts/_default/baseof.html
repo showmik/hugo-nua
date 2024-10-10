@@ -2,13 +2,13 @@
 <html lang="{{ site.Language.LanguageCode }}" dir="{{ or site.Language.LanguageDirection `ltr` }}">
 <head>
 {{ partial "head.html" . }}
+<script>let FF_FOUC_FIX;</script>
 </head>
 
 <body class="body">
   <div class="container">
     <header>
     {{- partial "header.html" . -}}
-    <script>let FF_FOUC_FIX;</script>
     </header>
 
     <main>
