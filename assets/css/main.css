@@ -516,19 +516,3 @@ ol li {
   font-style: normal;
   font-display: swap;
 }
-
-@font-face {
-  font-family: "Kaisei Opti";
-  src: url("/fonts/KaiseiOpti-Regular.woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Kaisei Opti";
-  src: url("/fonts/KaiseiOpti-Bold.woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
