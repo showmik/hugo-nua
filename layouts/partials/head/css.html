@@ -10,7 +10,7 @@
 
 {{- with resources.Get "css/main.css" }}
   {{- if eq hugo.Environment "development" }}
-    <link rel="stylesheet" href="{{ .RelPermalink }}">
+    <link rel="stylesheet" type="text/css" href="{{ .RelPermalink }}">
   {{- else }}
     {{- with . | minify | fingerprint }}
       <link rel="preload" type="text/css" as="style" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"  crossorigin="anonymous" onload = "this.onload = null; this.rel = 'stylesheet';">
