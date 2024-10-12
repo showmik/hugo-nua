@@ -6,8 +6,7 @@
 </div>
 
 <!-- Tag List -->
-<section aria-labelledby="tag-list-title">
-  <h1 id="tag-list-title" class="visually-hidden">Tag List</h1>
+<div aria-label="Tag List">
   <ul class="tag-list" id="tag-list" aria-label="Available tags">
     {{ range .Site.Taxonomies.tags -}}
     <li>
@@ -15,12 +14,10 @@
     </li>
     {{- end }}
   </ul>
-</section>
+</div>
 
 <!-- Posts List -->
-<section class="post-list-wrapper" id="post-list-wrapper" role="region" aria-labelledby="post-list-title">
-  <h2 id="post-list-title" class="visually-hidden">Posts List</h2>
-
+<div class="post-list-wrapper" id="post-list-wrapper" role="region" aria-label="Posts List">
   {{- $filteredPages := where .Site.RegularPages ".Params.exclude_from_list" "!=" true -}}
   {{- range $filteredPages.GroupByDate "2006" }}
       <h2 class="year-header">{{- .Key -}}</h2>
@@ -33,7 +30,7 @@
         {{ end }}
       </ul>
   {{ end }}
-</section>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
 {{ $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint }}

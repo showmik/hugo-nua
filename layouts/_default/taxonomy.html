@@ -1,8 +1,8 @@
 {{ define "main" }}
 <h1 class="page-title"># {{ lower .Title }}</h1>
 
-<section class="post-list-wrapper">
-  <ul class="post-list">
+<div class="post-list-wrapper">
+  <ul class="post-list" aria-label="Posts with the tag {{ .Title }}">
     {{ range .Pages }}
     <li class="post-list-item">
       <div class="date-label">{{- .Date.Format "02·Jan·2006" -}}</div>
@@ -10,6 +10,6 @@
     </li>
     {{ end }}
   </ul>
-</section>
+</div>
 
 {{end}}

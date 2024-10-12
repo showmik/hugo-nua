@@ -4,18 +4,18 @@
 
 <!-- Ongoing Projects -->
 <section class="post-list-wrapper" aria-labelledby="ongoing-projects-title">
-  <h2>Ongoing Projects</h2>
-  <ul class="post-list" role="list">
+  <h2 id="ongoing-projects-title">Ongoing Projects</h2>
+  <ul class="post-list">
     {{ $ongoingProjects := where .Pages "Params.status" "ongoing" }}
     {{ if $ongoingProjects }}
     {{ range $ongoingProjects }}
-    <li class="post-list-item" role="listitem">
+    <li class="post-list-item">
       <div class="date-label">{{- .Date.Format "02·Jan·2006" -}}</div>
       <a href="{{ .Permalink }}" aria-label="View project: {{ .Title }}">{{ .Title }}</a>
     </li>
     {{ end }}
     {{ else }}
-    <div>No ongoing projects at the moment.</div>
+    <li>No ongoing projects at the moment.</li>
     {{ end }}
   </ul>
 </section>
@@ -23,18 +23,18 @@
 
 <!-- Past Projects -->
 <section class="post-list-wrapper" aria-labelledby="past-projects-title">
-  <h2>Past Projects</h2>
-  <ul class="post-list" role="list">
+  <h2 id="ongoing-projects-title">Past Projects</h2>
+  <ul class="post-list">
     {{ $pastProjects := where .Pages "Params.status" "past" }}
     {{ if $pastProjects }}
     {{ range $pastProjects }}
-    <li class="post-list-item" role="listitem">
+    <li class="post-list-item">
       <div class="date-label">{{- .Date.Format "02·Jan·2006" -}}</div>
       <a href="{{ .Permalink }}" aria-label="View project: {{ .Title }}">{{ .Title }}</a>
     </li>
     {{ end }}
     {{ else }}
-    <div>No past projects available.</div>
+    <li>No past projects available.</li>
     {{ end }}
   </ul>
 </section>
