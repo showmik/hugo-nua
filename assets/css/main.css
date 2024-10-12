@@ -21,7 +21,7 @@ html[theme="light"] {
   /* UI Elements */
   --horizontal-rule-color: #ccc;
 
-  .theme-toggle {
+  .theme-toggle path {
     fill: #202c39;
   }
 }
@@ -50,7 +50,7 @@ html[theme="dark"] {
   /* UI Elements in Dark Mode */
   --horizontal-rule-color: #555;
 
-  .theme-toggle {
+  .theme-toggle path {
     fill: #bbb;
   }
 }
