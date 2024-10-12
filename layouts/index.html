@@ -20,7 +20,7 @@
 <section class="post-list-wrapper">
   <h2># My Recent Posts</h2>
   {{ .Content }}
-  <ul role="list" class="post-list">
+  <ul class="post-list">
     {{ range where .Paginator.Pages "Type" "ne" "now" }}
     <li class="post-list-item">
       <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
@@ -30,7 +30,7 @@
   </ul>
 
   <!-- Pagination Navigation -->
-<nav class="pagination" role="navigation" aria-label="Pagination">
+<nav class="pagination" aria-label="Pagination">
   <ul>
     <li>
       {{ if .Paginator.HasPrev -}}
