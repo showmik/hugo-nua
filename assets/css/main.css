@@ -20,10 +20,10 @@ html[theme="light"] {
 
   /* UI Elements */
   --horizontal-rule-color: #ccc;
-}
 
-html[theme="light"] .theme-toggle path {
-  fill: #202c39;
+  .theme-toggle path {
+    fill: #202c39;
+  }
 }
 
 /* ---------- Dark Mode ---------- */
@@ -49,10 +49,10 @@ html[theme="dark"] {
 
   /* UI Elements in Dark Mode */
   --horizontal-rule-color: #555;
-}
 
-html[theme="dark"] .theme-toggle path {
-  fill: #bbb;
+  .theme-toggle path {
+    fill: #bbb;
+  }
 }
 
 :root {
