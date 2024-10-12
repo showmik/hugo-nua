@@ -1,4 +1,4 @@
-[theme="light"] {
+html[theme="light"] {
   --background-color: #fff;
   --primary-text-color: #202c39;
   --accent-color: #ff6600;
@@ -27,7 +27,7 @@
 }
 
 /* ---------- Dark Mode ---------- */
-[theme="dark"] {
+html[theme="dark"] {
   --background-color: #151823;
   --primary-text-color: #9d9d9d;
   --accent-color: #dbb267;
