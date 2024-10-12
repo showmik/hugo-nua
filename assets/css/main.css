@@ -542,11 +542,3 @@ ol li {
   font-style: normal;
   font-display: swap;
 }
-
-@font-face {
-  font-family: "Roboto Mono";
-  src: local("Roboto Mono Medium"), url("/fonts/RobotoMono-Medium.woff2");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
