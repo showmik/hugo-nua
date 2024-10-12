@@ -57,7 +57,9 @@ html[theme="dark"] {
 
 :root {
   --font-base: "Atkinson Hyperlegible", Arial, sans-serif;
-  --font-mono: "Roboto Mono", "Cascadia Code", "IBM Plex Mono", "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco, "Consolas", "Source Code Pro", monospace;
+  --font-mono: "Roboto Mono", "Cascadia Code", "IBM Plex Mono",
+    "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco, "Consolas",
+    "Source Code Pro", monospace;
 
   --font-size-xsmall: 0.9rem;
   --font-size-small: 1rem;
@@ -113,7 +115,6 @@ body {
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
 }
@@ -510,8 +511,7 @@ ol li {
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: local("Atkinson Hyperlegible"),
-    url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
+  src: local("Atkinson Hyperlegible"), url("/fonts/Atkinson-Hyperlegible-Regular.woff2");
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -519,8 +519,7 @@ ol li {
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: local("Atkinson Hyperlegible"),
-    url("/fonts/Atkinson-Hyperlegible-bold.woff2");
+  src: local("Atkinson Hyperlegible"), url("/fonts/Atkinson-Hyperlegible-bold.woff2");
   font-weight: bold;
   font-style: normal;
   font-display: block;
@@ -528,8 +527,7 @@ ol li {
 
 @font-face {
   font-family: "Atkinson Hyperlegible";
-  src: local("Atkinson Hyperlegible"),
-    url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2");
+  src: local("Atkinson Hyperlegible"), url("/fonts/Atkinson-Hyperlegible-Italic-102a.woff2");
   font-weight: normal;
   font-style: italic;
   font-display: block;
