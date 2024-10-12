@@ -5,7 +5,7 @@
 <meta name="msapplication-TileImage" content="{{ "mstile-150x150.png" | relURL }}">
 <meta name="theme-color" content="#ffffff">
 
-{{ $themeToggleJS := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint }} 
+{{ $themeToggleJS := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint -}} 
 <script src="{{ $themeToggleJS.Permalink }}"></script>
 
 {{ if or (eq .Kind "taxonomy") (eq .Type "tags") -}}
@@ -72,5 +72,4 @@
 </title>
   
 {{- partialCached "head/css.html" . -}}
-{{- partialCached "head/js.html" . -}}
 
