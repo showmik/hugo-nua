@@ -1,14 +1,14 @@
 {{ define "main" }}
 
 <!-- Search Form -->
-<div role="search" aria-label="Site-wide search">
-  <input type="text" class="search-input" autocomplete="off" placeholder="search…" maxlength="256" id="search" aria-label="Search posts">
+<div role="search" aria-label="Search for posts">
+  <input type="text" class="search-input" autocomplete="off" placeholder="search…" maxlength="256" id="search" aria-label="Search posts by keywords">
 </div>
 
 <!-- Tag List -->
 <section aria-labelledby="tag-list-title">
   <h1 id="tag-list-title" class="visually-hidden">Tag List</h1>
-  <ul role="list" class="tag-list" id="tag-list" aria-label="List of tags">
+  <ul class="tag-list" id="tag-list" aria-label="Available tags">
     {{ range .Site.Taxonomies.tags -}}
     <li>
       <a class="tag-type-2" href="{{ .Page.Permalink }}">{{- .Page.Title -}}</a>
@@ -17,28 +17,22 @@
   </ul>
 </section>
 
-<section class="post-list-wrapper" id="post-list-wrapper" role="region" aria-labelledby="post-list-title" aria-live="polite">
+<!-- Posts List -->
+<section class="post-list-wrapper" id="post-list-wrapper" role="region" aria-labelledby="post-list-title">
   <h2 id="post-list-title" class="visually-hidden">Posts List</h2>
-<!-- Render posts grouped by year using Hugo -->
-<section>
-  
-  <!-- Filter out pages with the exclude_from_list parameter before grouping -->
-  {{- $filteredPages := where .Site.RegularPages ".Params.exclude_from_list" "!=" true -}}
 
-  <!-- Group by year and render sections -->
-  {{- range $filteredPages.GroupByDate "2006" -}}
-    <section>
+  {{- $filteredPages := where .Site.RegularPages ".Params.exclude_from_list" "!=" true -}}
+  {{- range $filteredPages.GroupByDate "2006" }}
       <h2 class="year-header">{{- .Key -}}</h2>
-      <ul class="post-list all-posts">
+      <ul class="post-list all-posts" aria-label="Posts from {{ .Key }}">
         {{ range .Pages -}}
         <li class="post-list-item">
           <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
           <a class="post-link" href="{{ .Permalink }}">{{- .Title -}}</a>
         </li>
-        {{ end -}}
+        {{ end }}
       </ul>
-    </section>
-  {{ end -}}
+  {{ end }}
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
