@@ -42,7 +42,6 @@
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
-
 {{ $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint }}
 <script defer src="{{ $searchJS.Permalink }}"></script>
 

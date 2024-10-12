@@ -1,4 +1,4 @@
-:root {
+[theme="light"] {
   --background-color: #fff;
   --primary-text-color: #202c39;
   --accent-color: #ff6600;
@@ -20,10 +20,14 @@
 
   /* UI Elements */
   --horizontal-rule-color: #ccc;
+
+  .theme-toggle {
+    fill: #202c39;
+  }
 }
 
 /* ---------- Dark Mode ---------- */
-.dark {
+[theme="dark"] {
   --background-color: #151823;
   --primary-text-color: #999;
   --accent-color: #dbb267;
@@ -45,13 +49,17 @@
 
   /* UI Elements in Dark Mode */
   --horizontal-rule-color: #555;
+
+  .theme-toggle {
+    fill: #ccc;
+  }
 }
 
 :root {
   --font-base: "Atkinson Hyperlegible", Arial, sans-serif;
-  --font-mono: "Roboto Mono", ui-monospace, SFMono-Regular, "Cascadia Code",
-    "IBM Plex Mono", "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco,
-    "Consolas", "Source Code Pro", monospace;
+  --font-mono: "Roboto Mono", "Cascadia Code", "IBM Plex Mono",
+    "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco, "Consolas",
+    "Source Code Pro", monospace;
 
   --font-size-xsmall: 0.9rem;
   --font-size-small: 1rem;
@@ -245,6 +253,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  line-height: 0;
 }
 
 .home-link {
@@ -258,12 +267,23 @@ p {
   text-decoration: none;
 }
 
-.icon {
-  display: flex;
-  align-items: center;
+.theme-toggle {
+  --size: 1.6rem;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  inline-size: var(--size);
+  block-size: var(--size);
+  aspect-ratio: 1;
+
   cursor: pointer;
-  width: 24;
-  height: 24;
+
+  .theme-toggle svg {
+    width: 100%;
+    height: 100%;
+  }
 }
 
 nav > ul,
@@ -519,7 +539,7 @@ ol li {
 
 @font-face {
   font-family: "Roboto Mono";
-  src: local("Roboto Mono"), url("/fonts/RobotoMono-Regular.woff2");
+  src: local("Roboto Mono Regular"), url("/fonts/RobotoMono-Regular.woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -527,8 +547,7 @@ ol li {
 
 @font-face {
   font-family: "Roboto Mono";
-  src: local("Roboto Mono"), url("/fonts/RobotoMono-Medium.woff2");
+  src: local("Roboto Mono Medium"), url("/fonts/RobotoMono-Medium.woff2");
   font-weight: 500;
   font-style: normal;
-  font-display: swap;
 }
