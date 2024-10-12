@@ -548,4 +548,5 @@ ol li {
   src: local("Roboto Mono Medium"), url("/fonts/RobotoMono-Medium.woff2");
   font-weight: 500;
   font-style: normal;
+  font-display: swap;
 }
