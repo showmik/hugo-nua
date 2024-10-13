@@ -425,7 +425,8 @@ ol li {
   transition: background-color 0.1s ease, color 0.1s ease;
 }
 
-.tag-type-2:hover {
+.tag-type-2:hover,
+.tag-type-2:focus {
   background-color: var(--tag-hover-bg-color);
   color: var(--tag-hover-text-color);
   cursor: pointer;
