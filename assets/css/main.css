@@ -521,7 +521,7 @@ ol li {
 @font-face {
   font-family: "Atkinson Hyperlegible";
   src: local("Atkinson Hyperlegible"),
-    url("/fonts/Atkinson-Hyperlegible-bold.woff2") format("woff2");
+    url("/fonts/Atkinson-Hyperlegible-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
   font-display: block;
