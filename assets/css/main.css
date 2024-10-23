@@ -317,7 +317,7 @@ ol {
   margin-bottom: 1.75rem;
   font-size: var(--font-size-base);
   color: var(--primary-text-color);
-  padding-left: 1rem;
+  padding-left: 1.75rem;
 }
 
 ul:not(.tag-list):not(.post-list):not(.pagination > ul) li {
@@ -506,6 +506,10 @@ ol li {
 
   .post-list {
     gap: 0.7rem;
+  }
+
+  ul:not(.post-list):not(.tag-list), ol {
+    padding-left: 1.25rem;
   }
 }
 
