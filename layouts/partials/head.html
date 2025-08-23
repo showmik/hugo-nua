@@ -30,17 +30,25 @@
 <meta name="twitter:description" content="Fallback meta description">
 {{- end }}
 
-<meta property="og:title" content="{{ .Title }}">
-<meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+{{- $desc := or .Params.description .Summary .Site.Params.description -}}
+{{- $desc = $desc | plainify -}}
+{{- $img := or .Params.image .Site.Params.image -}}
+
+<!-- Open Graph -->
+<meta property="og:site_name" content="{{ .Site.Title | plainify }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ .Title | default .Site.Title | plainify }}">
+<meta property="og:description" content="{{ $desc }}">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:image" content="{{ .Params.image | default .Site.Params.image }}">
-<meta property="og:site_name" content="{{ .Site.Title }}">
-<meta property="og:locale" content="{{ .Site.LanguageCode }}">
+{{- with $img }}<meta property="og:image" content="{{ . | absURL }}">{{ end -}}
+
+<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="{{ .Title }}">
-<meta name="twitter:image" content="{{ .Params.image | default .Site.Params.image }}">
-<meta name="twitter:site" content="@{{ .Site.Params.twitter_username }}">
-<meta name="twitter:creator" content="@{{ .Site.Params.twitter_username }}">
+{{- with .Site.Params.twitter_username -}}<meta name="twitter:site" content="@{{ . | replaceRE "^@+" "" }}">{{- end }}
+<meta name="twitter:title" content="{{ .Title | default .Site.Title | plainify }}">
+<meta name="twitter:description" content="{{ $desc }}">
+{{- with $img }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end -}}
+
 <link rel="canonical" href="{{ .Permalink }}">
 <link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
@@ -59,7 +67,16 @@
 <meta name="robots" content="index, follow">
 {{- end -}}
 
-<script defer src="https://cloud.umami.is/script.js" data-website-id="69982d11-ca89-4c26-82f4-915e099fcfd5"></script>
+{{- with .Site.Params.analytics.umami }}
+ {{- if .enable }}
+    <script defer src="{{ .src | default "https://cloud.umami.is/script.js" }}" data-website-id="{{ .website_id }}"></script>
+  {{- end }}
+{{- end }}
+
+{{- $ti := resources.Get "js/themed-images.js" | minify | fingerprint -}}
+<script defer src="{{ $ti.RelPermalink }}" integrity="{{ $ti.Data.Integrity }}"></script>
+
+
 
 {{- partialCached "json-ld.html" . -}}
 

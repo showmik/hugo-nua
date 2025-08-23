@@ -254,6 +254,8 @@ p {
   line-height: 0;
 }
 
+.nav-links .is-active{font-weight:600;text-decoration:underline}
+
 .home-link {
   color: var(--primary-text-color);
   font-size: var(--font-size-h2);
@@ -547,3 +549,17 @@ ol li {
   font-style: normal;
   font-display: swap;
 }
+
+
+.skip-link{position:absolute;left:-999px;top:auto}.skip-link:focus{left:1rem;top:1rem;z-index:1000;background:#000;color:#fff;padding:.5rem .75rem;border-radius:.25rem}
+
+/* Themed image cross-fade */
+.themed-img-wrap { position: relative; display: inline-block; }
+.themed-img-wrap > img { display: block; }
+.themed-img-fader { position: absolute; inset: 0; opacity: 0; transition: opacity 180ms ease; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .themed-img-fader { transition: none; }
+}
+
+/* Themed image fade helpers */
+

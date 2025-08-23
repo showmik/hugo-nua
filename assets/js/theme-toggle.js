@@ -21,6 +21,7 @@ const reflectPreference = () => {
   document.firstElementChild.setAttribute('theme', theme.value);
   const toggleButton = document.querySelector('#theme-toggle');
   if (toggleButton) toggleButton.setAttribute('aria-label', theme.value);
+  document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme.value }}));
 };
 
 const theme = {

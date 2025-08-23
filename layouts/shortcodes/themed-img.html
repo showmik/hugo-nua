@@ -1,0 +1,37 @@
+{{- $light := .Get "light" -}}
+{{- $dark := .Get "dark" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $class := .Get "class" | default "" -}}
+{{- $width := .Get "width" -}}
+{{- $height := .Get "height" -}}
+{{- $lightSrcset := .Get "lightSrcset" -}}
+{{- $darkSrcset := .Get "darkSrcset" -}}
+{{- $sizes := .Get "sizes" -}}
+{{- $loading := .Get "loading" | default "lazy" -}}
+
+<span class="themed-img-wrap">
+<img
+  class="themed-img {{ $class }}"
+   alt="{{ $alt }}"
+   {{ with $width }}width="{{ . }}"{{ end }}
+   {{ with $height }}height="{{ . }}"{{ end }}
+   loading="{{ $loading }}" decoding="async"
+   {{ with $sizes }}sizes="{{ . }}"{{ end }}
+   {{ with $light }}data-light-src="{{ . }}"{{ end }}
+   {{ with $lightSrcset }}data-light-srcset="{{ . }}"{{ end }}
+   {{ with $dark }}data-dark-src="{{ . }}"{{ end }}
+   {{ with $darkSrcset }}data-dark-srcset="{{ . }}"{{ end }}
+   src="{{ $light | default $dark }}"
+/>
+</span>
+
+<noscript>
+  <picture>
+    {{ with $dark -}}
+      <source {{ if $darkSrcset }}srcset="{{ $darkSrcset }}"{{ else }}srcset="{{ $dark }}"{{ end }} media="(prefers-color-scheme: dark)">
+    {{- end }}
+    <img src="{{ $light | default $dark }}" alt="{{ $alt }}"
+         {{ with $width }}width="{{ . }}"{{ end }} {{ with $height }}height="{{ . }}"{{ end }}
+         loading="{{ $loading }}" decoding="async">
+  </picture>
+</noscript>
