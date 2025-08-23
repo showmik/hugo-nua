@@ -218,7 +218,7 @@ blockquote {
 }
 
 .bigger-text {
-  font-size: clamp(3rem, 2rem + 6vw, 6.3rem);
+  font-size: 7rem;
   margin: 0;
   font-weight: 400;
 }
@@ -265,9 +265,12 @@ a:focus-visible { color: var(--link-hover-color); text-decoration: underline; }
 }
 
 .center {
+   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 78vh;
-  display: grid;
-  place-items: center;
+  /* Ensure it centers within full viewport height */
   text-align: center;
 }
 
