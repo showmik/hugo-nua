@@ -37,6 +37,7 @@
   {{ $dateHuman := . | time.Format ":date_long" }}
   <time class="post-time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
   {{ end }}
+  
 
   <article class="single-content">
     {{ .Content }}

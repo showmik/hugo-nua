@@ -5,91 +5,54 @@
 <meta name="msapplication-TileImage" content="{{ "mstile-150x150.png" | relURL }}">
 <meta name="theme-color" content="#ffffff">
 
-{{ $themeToggleJS := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint -}} 
-<script src="{{ $themeToggleJS.Permalink }}"></script>
-
-{{ if or (eq .Kind "taxonomy") (eq .Type "tags") -}}
-<meta name="description" content="All posts tagged under '{{ .Title }}'. Discover related content here.">
-<meta property="og:description" content="All posts tagged under '{{ .Title }}'. Discover related content here.">
-<meta name="twitter:description" content="All posts tagged under '{{ .Title }}'. Discover related content here.">
-{{- else if or (eq .Kind "taxonomyTerm") (eq .Type "tags") -}}
-<meta name="description" content="Explore the various tags and categories of the site.">
-<meta property="og:description" content="Explore the various tags and categories of the site.">
-<meta name="twitter:description" content="Explore the various tags and categories of the site.">
-{{- else if .Description -}}
-<meta name="description" content="{{ .Description }}">
-<meta property="og:description" content="{{ .Description }}">
-<meta name="twitter:description" content="{{ .Description }}">
-{{- else if .Site.Params.description -}}
-<meta name="description" content="{{ .Site.Params.description }}">
-<meta property="og:description" content="{{ .Site.Params.description }}">
-<meta name="twitter:description" content="{{ .Site.Params.description }}">
+{{/* --- Title & Description (single source of truth) --- */}}
+{{- $isArticle := .IsPage -}}
+{{- $title := cond .IsHome .Site.Title (printf "%s | %s" .Title .Site.Title) -}}
+{{- $ogtitle := cond .IsHome .Site.Title .Title -}}
+{{- $desc := "" -}}
+{{- if $isArticle -}}
+  {{- $desc = or .Description .Summary .Site.Params.description "Explore my thoughts and ideas across various topics—all collected in one place." -}}
+{{- else if eq .Kind "taxonomy" -}}
+  {{- $desc = printf "All posts tagged under '%s'. Discover related content here." .Title -}}
+{{- else if eq .Kind "taxonomyTerm" -}}
+  {{- $desc = "Explore the various tags and categories of the site." -}}
 {{- else -}}
-<meta name="description" content="Fallback meta description">
-<meta property="og:description" content="Fallback meta description">
-<meta name="twitter:description" content="Fallback meta description">
-{{- end }}
+  {{- $desc = or .Description .Site.Params.description "Explore my thoughts and ideas across various topics—all collected in one place." -}}
+{{- end -}}
 
-{{- $desc := or .Params.description .Summary .Site.Params.description -}}
-{{- $desc = $desc | plainify -}}
-{{- $img := or .Params.image .Site.Params.image -}}
+<title>{{ $title }}</title>
+<meta name="description" content="{{ $desc }}">
 
-<!-- Open Graph -->
+{{/* --- Open Graph / Twitter --- */}}
 <meta property="og:site_name" content="{{ .Site.Title | plainify }}">
-<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
-<meta property="og:title" content="{{ .Title | default .Site.Title | plainify }}">
+<meta property="og:type" content="{{ if $isArticle }}article{{ else }}website{{ end }}">
+<meta property="og:title" content="{{ $ogtitle | plainify }}">
 <meta property="og:description" content="{{ $desc }}">
 <meta property="og:url" content="{{ .Permalink }}">
+{{- $img := or .Params.image .Site.Params.image -}}
 {{- with $img }}<meta property="og:image" content="{{ . | absURL }}">{{ end -}}
 
-<!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 {{- with .Site.Params.twitter_username -}}<meta name="twitter:site" content="@{{ . | replaceRE "^@+" "" }}">{{- end }}
-<meta name="twitter:title" content="{{ .Title | default .Site.Title | plainify }}">
+<meta name="twitter:title" content="{{ $ogtitle | plainify }}">
 <meta name="twitter:description" content="{{ $desc }}">
 {{- with $img }}<meta name="twitter:image" content="{{ . | absURL }}">{{ end -}}
 
 <link rel="canonical" href="{{ .Permalink }}">
-<link rel="icon" href="{{ "favicon.ico" | relURL }}" type="image/x-icon">
-<link rel="icon" type="image/png" sizes="32x32" href="{{ "favicon-32x32.png" | relURL }}">
-<link rel="icon" type="image/png" sizes="16x16" href="{{ "favicon-16x16.png" | relURL }}">
-<link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | relURL }}">
-<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-<link rel="mask-icon" href="{{ "safari-pinned-tab.svg" | relURL }}" color="#5bbad5">
-<link rel="manifest" href="{{ "site.webmanifest" | relURL }}">
-<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ "index.xml" | relURL }}">
-<link rel="preload" href="/fonts/Atkinson-Hyperlegible-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
-<link rel="preload" href="/fonts/Atkinson-Hyperlegible-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
-{{ if .Params.noindex -}}
-<meta name="robots" content="noindex, nofollow">
-{{- else -}}
-<meta name="robots" content="index, follow">
+{{/* Article times (help readers/search) */}}
+{{- if $isArticle -}}
+  <meta property="article:published_time" content="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
+  <meta property="article:modified_time"  content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
 {{- end -}}
 
-{{- with .Site.Params.analytics.umami }}
- {{- if .enable }}
-    <script defer src="{{ .src | default "https://cloud.umami.is/script.js" }}" data-website-id="{{ .website_id }}"></script>
-  {{- end }}
-{{- end }}
-
+{{/* Theme toggle + themed images */}}
+{{ $themeToggleJS := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint -}} 
+<script src="{{ $themeToggleJS.Permalink }}" integrity="{{ $themeToggleJS.Data.Integrity }}"></script>
 {{- $ti := resources.Get "js/themed-images.js" | minify | fingerprint -}}
 <script defer src="{{ $ti.RelPermalink }}" integrity="{{ $ti.Data.Integrity }}"></script>
 
-
-
 {{- partialCached "json-ld.html" . -}}
-
-<title>
-    {{- if .IsHome -}}
-      {{ .Site.Title }}
-    {{- else if .IsNode -}}
-      {{ .Title }} | {{ .Site.Title }}
-    {{- else -}}
-      {{ .Title }} | {{ .Site.Title }}
-    {{- end -}}
-</title>
-  
 {{- partialCached "head/css.html" . -}}
 {{- partial "cdn.html" . -}}
 
