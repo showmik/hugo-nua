@@ -2,7 +2,7 @@
 (() => {
   'use strict';
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function init() {
     const searchInput = document.getElementById('search');
     const postListWrapper = document.getElementById('post-list-wrapper');
 
@@ -14,8 +14,8 @@
     // 2) <meta name="search-index" content="/index.json">
     // 3) fallback to "index.json" relative to baseURI
     const indexUrl =
-      searchInput.dataset.index ||
-      document.querySelector('meta[name="search-index"]')?.content ||
+      searchInput.getAttribute('data-index') ||
+      (document.querySelector('meta[name="search-index"]')?.getAttribute('content')) ||
       'index.json';
     const absoluteIndexUrl = new URL(indexUrl, document.baseURI).href;
 
@@ -27,10 +27,8 @@
       pendingQuery: ''
     };
 
-    // Fields used for searching; summary is optional but helps relevance if present
     const searchKeys = ['title', 'tags', 'summary'];
 
-    // ---- Event wiring (attach early so typing before load is handled) ----
     const onInput = debounce(() => {
       const q = (searchInput.value || '').trim();
       state.pendingQuery = q;
@@ -40,31 +38,21 @@
         renderLoading();
         return;
       }
-
       if (!q) {
         renderPosts(state.posts);
         return;
       }
-
-      const results = runSearch(q, state.posts);
-      renderPosts(results);
-    }, 150);
+      renderPosts(runSearch(q, state.posts));
+    }, 120);
 
     searchInput.addEventListener('input', onInput);
-    searchInput.addEventListener('focus', ensureDataLoaded);
-    searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        searchInput.value = '';
-        onInput();
-      }
-    });
 
-    // If user lands here with a prefilled value (back/forward), kick off
-    if (searchInput.value) {
-      ensureDataLoaded();
-      renderLoading();
-      onInput();
-    }
+    searchInput.addEventListener('focus', () => {
+      if (!state.loaded && !state.loading) {
+        ensureDataLoaded();
+        renderLoading();
+      }
+    }, { once: true });
 
     // ---- Data loading ----
     async function ensureDataLoaded() {
@@ -81,12 +69,11 @@
         const data = await res.json();
         const normalized = Array.isArray(data) ? data.map(normalizePost) : [];
 
-        // Sort globally newest → oldest so "All posts" view is consistent
+        // Sort newest → oldest
         normalized.sort((a, b) => b.dateMs - a.dateMs);
 
         state.posts = normalized;
 
-        // Prepare Fuse if available; otherwise we’ll use a substring fallback
         if (typeof Fuse !== 'undefined') {
           state.fuse = new Fuse(normalized, {
             includeScore: true,
@@ -99,7 +86,6 @@
         state.loaded = true;
         state.loading = false;
 
-        // Render results (pending query) or full list
         if (state.pendingQuery) {
           renderPosts(runSearch(state.pendingQuery, state.posts));
         } else {
@@ -112,22 +98,21 @@
       }
     }
 
-    // ---- Normalization & search ----
+    // ---- Helpers ----
     function normalizePost(p) {
       const dateStr = p.date || p.publishDate || p.published || p.lastmod || '';
       const date = dateStr ? new Date(dateStr) : null;
       const dateMs = date?.getTime() || 0;
       const year = date ? date.getFullYear() : (p.year ?? 'Unknown');
       const href = p.href || p.permalink || p.url || '#';
-
       return {
         title: String(p.title || '').trim(),
         summary: String(p.summary || p.description || '').trim(),
         tags: Array.isArray(p.tags)
           ? p.tags
           : p.tags
-          ? String(p.tags).split(/[,\s]+/).filter(Boolean)
-          : [],
+            ? String(p.tags).split(/[,\s]+/).filter(Boolean)
+            : [],
         date,
         dateMs,
         year,
@@ -139,7 +124,6 @@
       if (state.fuse) {
         return state.fuse.search(q).map((r) => r.item);
       }
-      // Fallback: simple case-insensitive substring match across title, summary, tags
       const qs = q.toLowerCase();
       return posts.filter(
         (p) =>
@@ -149,7 +133,6 @@
       );
     }
 
-    // ---- Rendering ----
     function groupByYear(posts) {
       const map = new Map();
       for (const p of posts) {
@@ -157,33 +140,25 @@
         if (!map.has(key)) map.set(key, []);
         map.get(key).push(p);
       }
-      // Sort posts within each year newest → oldest
       for (const arr of map.values()) {
         arr.sort((a, b) => b.dateMs - a.dateMs);
       }
-      // Sort years: numeric desc when possible, otherwise lexicographic
-      const years = [...map.keys()].sort((a, b) => {
-        const na = Number(a);
-        const nb = Number(b);
-        if (!Number.isNaN(na) && !Number.isNaN(nb)) return nb - na;
-        if (Number.isNaN(na) && Number.isNaN(nb)) return a.localeCompare(b);
-        return Number.isNaN(na) ? 1 : -1;
-      });
+      const years = Array.from(map.keys()).sort((a, b) => Number(b) - Number(a));
       return { map, years };
     }
 
-    function renderPosts(posts) {
-      postListWrapper.textContent = '';
+    function renderLoading() {
+      postListWrapper.setAttribute('aria-busy', 'true');
+    }
 
-      if (!posts || posts.length === 0) {
-        const p = document.createElement('p');
-        p.className = 'search-empty';
-        p.textContent = state.pendingQuery
-          ? `No results for “${state.pendingQuery}”.`
-          : 'No posts.';
-        postListWrapper.appendChild(p);
-        return;
-      }
+    function renderError(msg) {
+      postListWrapper.removeAttribute('aria-busy');
+      postListWrapper.textContent = msg || 'Something went wrong.';
+    }
+
+    function renderPosts(posts) {
+      postListWrapper.setAttribute('aria-busy', 'true');
+      postListWrapper.innerHTML = '';
 
       const frag = document.createDocumentFragment();
       const { map, years } = groupByYear(posts);
@@ -207,7 +182,7 @@
           const dateDiv = document.createElement('div');
           dateDiv.className = 'date-label';
           const d = post.date instanceof Date ? fmt.format(post.date) : '';
-          dateDiv.textContent = d.replace(' ', '·'); // Jan 01 → Jan·01
+          dateDiv.textContent = d.replace(' ', '·');
 
           const a = document.createElement('a');
           a.className = 'post-link';
@@ -224,33 +199,22 @@
       }
 
       postListWrapper.appendChild(frag);
+      postListWrapper.removeAttribute('aria-busy');
     }
 
-    function renderLoading() {
-      postListWrapper.textContent = '';
-      const p = document.createElement('p');
-      p.className = 'search-loading';
-      p.textContent = 'Loading posts…';
-      postListWrapper.appendChild(p);
-    }
-
-    function renderError(msg) {
-      postListWrapper.textContent = '';
-      const p = document.createElement('p');
-      p.className = 'search-error';
-      p.textContent = msg;
-      postListWrapper.appendChild(p);
-    }
-
-    // ---- Utilities ----
     function debounce(fn, delay) {
       let t;
       return function () {
         clearTimeout(t);
-        const ctx = this;
-        const args = arguments;
+        const ctx = this, args = arguments;
         t = setTimeout(() => fn.apply(ctx, args), delay);
       };
     }
-  });
+  }
+
+  if (document.readyState !== 'loading') {
+    init();
+  } else {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  }
 })();

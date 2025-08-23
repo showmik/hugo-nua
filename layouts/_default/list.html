@@ -20,9 +20,7 @@
 <div aria-label="Tag List">
   <ul class="tag-list" id="tag-list" aria-label="Available tags">
     {{ range .Site.Taxonomies.tags -}}
-    <li>
-      <a class="tag-type-2" href="{{ .Page.Permalink }}">{{- .Page.Title -}}</a>
-    </li>
+      <li><a class="tag-type-2" href="{{ .Page.Permalink }}">{{- .Page.Title -}}</a></li>
     {{- end }}
   </ul>
 </div>
@@ -31,21 +29,63 @@
 <div class="post-list-wrapper" id="post-list-wrapper" role="region" aria-label="Posts List" aria-live="polite">
   {{- $filteredPages := where .Site.RegularPages "Params.exclude_from_list" "!=" true -}}
   {{- $sortedPages := sort $filteredPages "Date" "desc" -}}
-  {{- range $sortedPages.GroupByDate "2006" }}
-      <h2 class="year-header">{{- .Key -}}</h2>
-      <ul class="post-list all-posts" aria-label="Posts from {{ .Key }}">
-        {{ range .Pages -}}
-        <li class="post-list-item">
-          <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
-          <a class="post-link" href="{{ .Permalink }}">{{- .Title -}}</a>
-        </li>
-        {{ end }}
-      </ul>
-  {{ end }}
+  {{- range $sortedPages.GroupByDate "2006" -}}
+    <h2 class="year-header">{{- .Key -}}</h2>
+    <ul class="post-list all-posts" aria-label="Posts from {{ .Key }}">
+      {{- range .Pages -}}
+      <li class="post-list-item">
+        <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
+        <a class="post-link" href="{{ .Permalink }}">{{- .Title -}}</a>
+      </li>
+      {{- end -}}
+    </ul>
+  {{- end -}}
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.min.js"></script>
-{{ $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint }}
-<script defer src="{{ $searchJS.Permalink }}"></script>
+{{- $searchJS := resources.Get "js/search.js" | resources.Minify | resources.Fingerprint -}}
+<script>
+(function() {
+  const input = document.getElementById('search');
+  if (!input) return;
+  let loaded = false;
+
+  async function load() {
+    if (loaded) return; loaded = true;
+
+    // Read Fuse URL from <meta name="cdn:fuse">
+    const meta = document.querySelector('meta[name="cdn:fuse"]');
+    const fuseUrl = meta ? meta.getAttribute('content') : '';
+
+    // Load Fuse (optional)
+    if (typeof Fuse === 'undefined' && fuseUrl) {
+      try {
+        await new Promise((res, rej) => {
+          const s = document.createElement('script');
+          s.src = fuseUrl; s.defer = true; s.onload = res; s.onerror = rej;
+          document.head.appendChild(s);
+        });
+      } catch (e) {
+        console.warn('Fuse CDN failed; falling back to substring search.', e);
+      }
+    }
+
+    // Load our search initializer (runs even after DOM ready)
+    await new Promise((res, rej) => {
+      const s2 = document.createElement('script');
+      s2.defer = true; s2.src = '{{ $searchJS.Permalink }}';
+      s2.onload = res; s2.onerror = rej;
+      document.head.appendChild(s2);
+    });
+
+    // If user typed before load, process it now
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  const opts = { once: true, passive: true };
+  input.addEventListener('focus', load, opts);
+  input.addEventListener('keydown', load, opts);
+  input.addEventListener('pointerdown', load, opts);
+})();
+</script>
 
 {{ end }}

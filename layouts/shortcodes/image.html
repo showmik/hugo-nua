@@ -1,13 +1,26 @@
-{{- $src := .Get "src" | default (.Get 0) -}}
-{{- $alt := .Get "alt" | default (.Get 1 | default "") -}}
-{{- $title := .Get "title" | default (.Get 2) -}}
-{{- $class := .Get "class" | default "responsive-image" -}}
-{{- $width := .Get "width" -}}
+{{- /* layouts/shortcodes/image.html */ -}}
+{{- $src    := .Get "src"   | default (.Get 0) -}}
+{{- $alt    := .Get "alt"   | default (.Get 1 | default "") -}}
+{{- $title  := .Get "title" | default (.Get 2) -}}
+{{- $class  := .Get "class" | default "responsive-image" -}}
+{{- $width  := .Get "width" -}}
 {{- $height := .Get "height" -}}
 
-<img src="{{ $src }}" 
-     alt="{{ $alt }}"
-     {{ if $title }}title="{{ $title }}"{{ end }}
-     class="{{ $class }}"
-     {{ if $width }}width="{{ $width }}"{{ end }}
-     {{ if $height }}height="{{ $height }}"{{ end }}>
+{{- /* New, with string-safe defaults */ -}}
+{{- $loading  := (.Get "loading")  | default "lazy" -}}
+{{- $decoding := (.Get "decoding") | default "async" -}}
+{{- $prioRaw  := (.Get "priority") | default "" -}}
+{{- $prio     := lower (trim $prioRaw " ") -}}
+{{- $isHigh   := or (eq $prio "true") (eq $prio "high") -}}
+
+<img
+  src="{{ $src }}"
+  alt="{{ $alt }}"
+  {{ with $title }}title="{{ . }}"{{ end }}
+  class="{{ $class }}"
+  {{ with $width }}width="{{ . }}"{{ end }}
+  {{ with $height }}height="{{ . }}"{{ end }}
+  loading="{{ $loading }}"
+  decoding="{{ $decoding }}"
+  {{ if $isHigh }}fetchpriority="high"{{ end }}
+>

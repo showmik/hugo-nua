@@ -1,3 +1,18 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.css">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
+{{- /* Centralized CDN hooks from data/cdn.yaml */ -}}
+{{- $cdn := site.Data.cdn -}}
+
+{{- /* KaTeX only when enabled via params */ -}}
+{{- with $cdn.katex -}}
+  {{- if or $.Params.math $.Site.Params.math -}}
+    <link rel="stylesheet" href="{{ .css }}">
+    <script defer src="{{ .js }}"></script>
+    <script defer src="{{ .auto_render_js }}"></script>
+  {{- end -}}
+{{- end -}}
+
+{{- /* Expose Fuse URL for lazy loader via <meta> */ -}}
+{{- with $cdn.fuse -}}
+  {{- with .js -}}
+    <meta name="cdn:fuse" content="{{ . }}">
+  {{- end -}}
+{{- end -}}
