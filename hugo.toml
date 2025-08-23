@@ -1,6 +1,14 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-US'
 title = 'My New Hugo Site'
+enableRobotsTXT = true
+paginate = 10
+paginatePath = "page"
+
+[minify]
+  disableXML = true
+  [minify.tdewolff.html]
+    keepWhitespace = false
 
 [[menus.main]]
 name = 'Home'
@@ -19,5 +27,5 @@ weight = 30
 
 [module]
   [module.hugoVersion]
+    min = "0.148.2"
     extended = false
-    min = "0.116.0"

@@ -92,3 +92,14 @@
   
 {{- partialCached "head/css.html" . -}}
 {{- partial "cdn.html" . -}}
+
+{{/* Pagination relations for bots + previews */}}
+{{- if .IsNode -}}
+  {{- with .Paginator -}}
+    {{- with .Prev }}<link rel="prev" href="{{ .URL | absURL }}">{{ end -}}
+    {{- with .Next }}<link rel="next" href="{{ .URL | absURL }}">{{ end -}}
+  {{- end -}}
+{{- else if .IsPage -}}
+  {{- with .PrevInSection }}<link rel="prev" href="{{ .Permalink }}">{{ end -}}
+  {{- with .NextInSection }}<link rel="next" href="{{ .Permalink }}">{{ end -}}
+{{- end -}}
