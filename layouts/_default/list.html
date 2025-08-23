@@ -2,7 +2,18 @@
 
 <!-- Search Form -->
 <div role="search" aria-label="Search for posts">
-  <input type="text" class="search-input" autocomplete="off" placeholder="search…" maxlength="256" id="search" aria-label="Search posts by keywords">
+  <input type="text"
+         class="search-input"
+         id="search"
+         autocomplete="off"
+         spellcheck="false"
+         inputmode="search"
+         enterkeyhint="search"
+         maxlength="256"
+         placeholder="Search posts…"
+         aria-label="Search posts by keywords"
+         aria-controls="post-list-wrapper"
+         data-index='{{ "index.json" | relURL }}'>
 </div>
 
 <!-- Tag List -->
