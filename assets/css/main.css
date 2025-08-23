@@ -187,8 +187,8 @@ h3 {
   margin-block: 2rem 0.75rem;
 }
 
-@supports (text-wrap: balance) {
-  h1, h2 { text-wrap: balance; }
+@supports (text-wrap: pretty) {
+  h1, h2 { text-wrap: pretty; }
 }
 
 p {
@@ -338,7 +338,7 @@ ol li { margin: 1.25rem 0; padding-inline-start: 1rem; }
 .post-list-item {
   display: grid;
   grid-template-columns: max-content 1fr; /* date | title */
-  column-gap: 0.75rem;
+  column-gap: 1rem;
   align-items: baseline;
 }
 .all-posts .post-list-item {
@@ -486,13 +486,31 @@ thead th { border-bottom-width: 2px; }
 /* -------------------- Media queries -------------------- */
 @media (max-width: 479px) {
   :root {
-    /* Fluid between ~17.2px and ~18px, depending on viewport width */
-    --font-size-base: clamp(1.075rem, 1.02rem + 0.7vw, 1.175rem);
+    /* Slightly larger body copy on phones */
+    --font-size-base: clamp(1.075rem, 1.02rem + 0.7vw, 1.15rem);
   }
+
+  
+
+  /* Ensure layout supports gap (grid or flex both work) */
+  .post-list {
+    display: grid;           /* or keep your existing display if already grid/flex */
+    gap: 1rem;
+    margin: 0.75rem 0 1rem;
+  }
+
+  .all-posts {
+    display: grid;           /* or flex */
+    gap: 1.5rem;
+  }
+
+  .year-header { margin-top: 0; }
+
   ul:not(.tag-list):not(.post-list):not(.pagination > ul) li { padding-inline-start: 0.5rem; }
-  .post-list { gap: 0.7rem; }
-  ul:not(.post-list):not(.tag-list), ol { padding-inline-start: 1.25rem; }
+  ul:not(.post-list):not(.tag-list),
+  ol { padding-inline-start: 1.25rem; }
 }
+
 
 /* -------------------- Font faces (perf: swap) -------------------- */
 @font-face {
