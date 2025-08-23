@@ -20,14 +20,14 @@
   const btn  = el.querySelector('button[data-action="upvote"]');
   const out  = el.querySelector('[data-count]');
 
-  // ---------- safe storage helpers ----------
+  // ---------- safe storage helpers (no regex) ----------
   const STORAGE_OK = (() => { try { localStorage.setItem('_p','1'); localStorage.removeItem('_p'); return true; } catch { return false; } })();
   const LS = {
     get(k){ if (!STORAGE_OK) return null; try { return localStorage.getItem(k); } catch { return null; } },
     set(k,v){ if (!STORAGE_OK) return; try { localStorage.setItem(k,v); } catch {} }
   };
 
-  // Simple cookie helpers (no regex)
+  // Cookie helpers without RegExp
   const cookieGet = (name) => {
     try {
       const arr = document.cookie ? document.cookie.split(';') : [];
@@ -45,90 +45,49 @@
     } catch {}
   };
 
-  const uuid = () => (self.crypto && crypto.randomUUID) ? crypto.randomUUID()
-                    : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+  const uuid = () => (self.crypto && crypto.randomUUID)
+    ? crypto.randomUUID()
+    : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 
-  // Stable per-browser ID
+  // stable per-browser id (works even if cookies are blocked)
   let uid = LS.get('nua:uid') || cookieGet('nua_uid') || uuid();
   LS.set('nua:uid', uid);
   cookieSet('nua_uid', uid);
 
   const votedKey = `voted:${slug}`;
-  const lastKey  = `vote:last:${slug}`;
   const fmt = (n) => Intl.NumberFormat().format(n || 0);
   const currentNum = () => {
-    const s = (out.textContent || '').replace(/[^\d]/g,'');
+    const s = (out.textContent || '0').replace(/[^\d]/g,'');
     const n = parseInt(s, 10);
     return Number.isFinite(n) ? n : 0;
   };
 
-  // ---- Netlify Functions availability probe (cached per tab) ----
-  const NF_KEY = 'nf:ok';
-  async function hasFunctions() {
-    try {
-      const cached = sessionStorage.getItem(NF_KEY);
-      if (cached === '1') return true;
-      if (cached === '0') return false;
-
-      const ctrl = new AbortController();
-      const t = setTimeout(() => ctrl.abort(), 900);
-      const res = await fetch('/.netlify/functions/ping', { method: 'HEAD', signal: ctrl.signal });
-      clearTimeout(t);
-      const ok = !!res.ok;
-      sessionStorage.setItem(NF_KEY, ok ? '1' : '0');
-      return ok;
-    } catch {
-      sessionStorage.setItem(NF_KEY, '0');
-      return false;
-    }
-  }
-
-  // 1) Immediate hydrate from last known value (no 0→N flash)
-  const prev = parseInt(LS.get(lastKey) || '', 10);
-  if (Number.isFinite(prev)) out.textContent = fmt(prev);
-
-  // Reflect "already voted" state right away
+  // if already voted on this browser, reflect it immediately
   if (LS.get(votedKey) === '1') { btn.setAttribute('aria-pressed','true'); btn.disabled = true; }
 
-  // 2) Fetch server truth only if functions are available
+  // Fetch count when visible (tries functions; falls back locally if 404)
   new IntersectionObserver((es, ob) => {
     if (!es.some(e => e.isIntersecting)) return;
     ob.disconnect();
-    hasFunctions().then(ok => {
-      if (!ok) {
-        // Hugo preview: keep hydrated value, optionally show local dev count
-        const local = parseInt(LS.get(`dev:count:${slug}`) || '', 10);
-        if (Number.isFinite(local)) out.textContent = fmt(local);
-        return;
-      }
-      fetch(`/.netlify/functions/vote?slug=${encodeURIComponent(slug)}&uid=${encodeURIComponent(uid)}`, { credentials: 'same-origin' })
-        .then(r => r.ok ? r.json() : Promise.reject(r))
-        .then(d => {
-          out.textContent = fmt(d.count);
-          LS.set(lastKey, String(d.count));
-          if (d.alreadyVoted || LS.get(votedKey) === '1') { btn.setAttribute('aria-pressed','true'); btn.disabled = true; }
-        })
-        .catch(() => {/* ignore */});
-    });
+    fetch(`/.netlify/functions/vote?slug=${encodeURIComponent(slug)}&uid=${encodeURIComponent(uid)}`, { credentials: 'same-origin' })
+      .then(r => r.ok ? r.json() : Promise.reject(r))
+      .then(d => {
+        out.textContent = fmt(d.count);
+        if (d.alreadyVoted || LS.get(votedKey) === '1') { btn.setAttribute('aria-pressed','true'); btn.disabled = true; }
+      })
+      .catch(() => {
+        // dev/offline: show local dev count if any
+        const local = parseInt(LS.get(`dev:count:${slug}`) || '0', 10);
+        out.textContent = fmt(local);
+      });
   }).observe(el);
 
-  // 3) Optimistic bump on click; post only if functions are available
   async function upvote() {
     if (btn.disabled) return;
 
-    const optimistic = currentNum() + 1;
-    out.textContent = fmt(optimistic);
-    LS.set(lastKey, String(optimistic));
+    // optimistic bump so you see it immediately
+    out.textContent = fmt(currentNum() + 1);
     btn.disabled = true; btn.setAttribute('aria-pressed','true');
-
-    if (!(await hasFunctions())) {
-      // Hugo preview (no functions): store locally so refresh keeps state
-      const key = `dev:count:${slug}`;
-      const n = (parseInt(LS.get(key) || '0', 10) + 1);
-      LS.set(key, String(n));
-      LS.set(votedKey, '1');
-      return;
-    }
 
     try {
       const r = await fetch('/.netlify/functions/vote', {
@@ -139,18 +98,19 @@
       });
       if (!r.ok) throw r;
       const d = await r.json();
-      out.textContent = fmt(d.count);
-      LS.set(lastKey, String(d.count));
+      out.textContent = fmt(d.count); // reconcile with server count
       LS.set(votedKey, '1');
     } catch {
-      // If the POST fails unexpectedly, keep optimistic value but re-enable button
-      btn.disabled = false; btn.setAttribute('aria-pressed','false');
+      // dev/offline fallback so it still feels correct on hugo server
+      const key = `dev:count:${slug}`;
+      const n = (parseInt(LS.get(key) || '0', 10) + 1);
+      LS.set(key, String(n));
+      LS.set(votedKey, '1');
     }
   }
 
   btn.addEventListener('click', upvote, { passive: true });
 })();
 </script>
-
 
 
