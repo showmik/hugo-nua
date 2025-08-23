@@ -12,6 +12,7 @@
 :root {
   /* Fonts */
   --font-base: "Atkinson Hyperlegible", Arial, sans-serif;
+  --font-size-base: 1.0625rem;
   --font-mono: "Roboto Mono", "Cascadia Code", "IBM Plex Mono",
     "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco, Consolas,
     "Source Code Pro", monospace;
@@ -484,6 +485,10 @@ thead th { border-bottom-width: 2px; }
 
 /* -------------------- Media queries -------------------- */
 @media (max-width: 479px) {
+  :root {
+    /* Fluid between ~17.2px and ~18px, depending on viewport width */
+    --font-size-base: clamp(1.075rem, 1.02rem + 0.7vw, 1.175rem);
+  }
   ul:not(.tag-list):not(.post-list):not(.pagination > ul) li { padding-inline-start: 0.5rem; }
   .post-list { gap: 0.7rem; }
   ul:not(.post-list):not(.tag-list), ol { padding-inline-start: 1.25rem; }
