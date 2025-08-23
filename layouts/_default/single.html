@@ -1,4 +1,16 @@
 {{ define "main" }}
+
+{{/* layouts/partials/scripts.html */}}
+{{- $opts := dict "target" "es2018" "format" "iife" -}}
+{{- $up := resources.Get "js/upvote.js" | js.Build $opts -}}
+{{- if hugo.IsProduction -}}
+  {{- $up = $up | minify | fingerprint "sha512" -}}
+{{- end -}}
+<script defer src="{{ $up.RelPermalink }}"
+  {{- if hugo.IsProduction -}} integrity="{{ $up.Data.Integrity }}" crossorigin="anonymous"{{- end -}}>
+</script>
+
+
   <section>
     <h1 class="post-title">{{ .Title }}</h1>
 
@@ -22,13 +34,7 @@
     </ul>
   </section>
 
-  <!-- line + vote on the SAME row -->
-  <div class="divider-vote-row">
-    <hr class="post-divider-flex">
-    <div class="vote-wrap">
-      {{ partial "vote.html" . }}
-    </div>
-  </div>
+{{ partial "upvote.html" . }}
 
   <nav class="pagination" aria-label="Pagination Navigation">
     <ul>
