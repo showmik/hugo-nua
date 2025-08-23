@@ -28,9 +28,10 @@
 </div>
 
 <!-- Posts List -->
-<div class="post-list-wrapper" id="post-list-wrapper" role="region" aria-label="Posts List">
-  {{- $filteredPages := where .Site.RegularPages ".Params.exclude_from_list" "!=" true -}}
-  {{- range $filteredPages.GroupByDate "2006" }}
+<div class="post-list-wrapper" id="post-list-wrapper" role="region" aria-label="Posts List" aria-live="polite">
+  {{- $filteredPages := where .Site.RegularPages "Params.exclude_from_list" "!=" true -}}
+  {{- $sortedPages := sort $filteredPages "Date" "desc" -}}
+  {{- range $sortedPages.GroupByDate "2006" }}
       <h2 class="year-header">{{- .Key -}}</h2>
       <ul class="post-list all-posts" aria-label="Posts from {{ .Key }}">
         {{ range .Pages -}}
