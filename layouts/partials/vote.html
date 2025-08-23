@@ -1,4 +1,4 @@
-<!-- Upvote widget: icon above, count below -->
+<!-- Upvote widget (self-contained + inline JS) -->
 <div class="vote" data-slug="{{ .RelPermalink }}" role="group" aria-label="Upvote this article">
   <button
     class="vote-btn"
@@ -8,18 +8,69 @@
     aria-label="Upvote this post"
     title="Upvote"
   >
-    <!-- your SVG (double up chevrons) -->
-    <svg xmlns="http://www.w3.org/2000/svg"
-         viewBox="0 0 24 24" width="24" height="24"
-         stroke="currentColor" stroke-width="2" fill="none"
-         stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <!-- double chevrons (your SVG) -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+         width="24" height="24" stroke="currentColor" stroke-width="2"
+         fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <polyline points="17 11 12 6 7 11"></polyline>
       <polyline points="17 18 12 13 7 18"></polyline>
     </svg>
   </button>
-
   <span class="vote-count" data-count aria-live="polite" aria-atomic="true">0</span>
 </div>
 
-<!-- loads tiny browser script from /static/js/vote.js (already added earlier) -->
-<script defer src="{{ "js/vote.js" | relURL }}"></script>
+<script>
+/* Tiny inline client (works without external /js/vote.js) */
+(() => {
+  const el = document.currentScript.previousElementSibling;
+  if (!el || !el.matches('.vote[data-slug]')) return;
+
+  const slug = new URL(el.dataset.slug, document.baseURI).pathname.replace(/\/+$/, '/') || '/';
+  const btn  = el.querySelector('button[data-action="upvote"]');
+  const out  = el.querySelector('[data-count]');
+  const key  = `voted:${slug}`;
+  const fx   = (n) => Intl.NumberFormat().format(n);
+
+  const dev = {
+    get(){ return parseInt(localStorage.getItem(`dev:count:${slug}`) || '0', 10); },
+    set(n){ localStorage.setItem(`dev:count:${slug}`, String(n)); }
+  };
+
+  async function getCount() {
+    try {
+      const r = await fetch(`/.netlify/functions/vote?slug=${encodeURIComponent(slug)}`, { credentials: 'same-origin' });
+      if (!r.ok) throw 0;
+      const d = await r.json();
+      out.textContent = fx(d.count || 0);
+      if (d.alreadyVoted || localStorage.getItem(key) === '1') {
+        btn.setAttribute('aria-pressed','true'); btn.disabled = true;
+      }
+    } catch {
+      out.textContent = fx(dev.get()); // local fallback (e.g., hugo server)
+    }
+  }
+
+  async function upvote() {
+    if (btn.disabled) return;
+    btn.disabled = true; btn.setAttribute('aria-pressed','true');
+    try {
+      const r = await fetch('/.netlify/functions/vote', {
+        method:'POST', credentials:'same-origin',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ slug })
+      });
+      if (!r.ok) throw 0;
+      const d = await r.json();
+      out.textContent = fx(d.count || 0);
+      localStorage.setItem(key,'1');
+    } catch {
+      const n = dev.get() + 1; dev.set(n); out.textContent = fx(n); localStorage.setItem(key,'1');
+    }
+  }
+
+  btn.addEventListener('click', upvote, { passive:true });
+  new IntersectionObserver((es, ob) => {
+    if (es.some(e => e.isIntersecting)) { getCount(); ob.disconnect(); }
+  }).observe(el);
+})();
+</script>
