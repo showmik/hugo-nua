@@ -7,11 +7,14 @@
 
 {{/* --- Title & Description (single source of truth) --- */}}
 {{- $isArticle := .IsPage -}}
-{{- $title := cond .IsHome .Site.Title (printf "%s | %s" .Title .Site.Title) -}}
-{{- $ogtitle := cond .IsHome .Site.Title .Title -}}
+{{- $siteTitle := .Site.Title -}}
+{{- $pageTitle := .Title | plainify -}}
+{{- $title := cond .IsHome $siteTitle (printf "%s | %s" $pageTitle $siteTitle) -}}
+{{- $ogtitle := cond .IsHome $siteTitle $pageTitle -}}
+
 {{- $desc := "" -}}
 {{- if $isArticle -}}
-  {{- $desc = or .Description .Summary .Site.Params.description "Explore my thoughts and ideas across various topics—all collected in one place." -}}
+  {{- $desc = or .Params.description (.Summary | plainify) .Site.Params.description "Explore my thoughts and ideas across various topics—all collected in one place." -}}
 {{- else if eq .Kind "taxonomy" -}}
   {{- $desc = printf "All posts tagged under '%s'. Discover related content here." .Title -}}
 {{- else if eq .Kind "taxonomyTerm" -}}
@@ -19,12 +22,14 @@
 {{- else -}}
   {{- $desc = or .Description .Site.Params.description "Explore my thoughts and ideas across various topics—all collected in one place." -}}
 {{- end -}}
+{{- /* Normalize description to a single safe line for meta tags */ -}}
+{{- $desc = $desc | plainify | htmlUnescape | replaceRE "\\s+" " " | truncate 160 -}}
 
 <title>{{ $title }}</title>
 <meta name="description" content="{{ $desc }}">
 
 {{/* --- Open Graph / Twitter --- */}}
-<meta property="og:site_name" content="{{ .Site.Title | plainify }}">
+<meta property="og:site_name" content="{{ $siteTitle | plainify }}">
 <meta property="og:type" content="{{ if $isArticle }}article{{ else }}website{{ end }}">
 <meta property="og:title" content="{{ $ogtitle | plainify }}">
 <meta property="og:description" content="{{ $desc }}">
@@ -46,8 +51,8 @@
   <meta property="article:modified_time"  content="{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}">
 {{- end -}}
 
-{{/* Theme toggle + themed images */}}
-{{ $themeToggleJS := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint -}} 
+{{/* Theme toggle + themed images (unchanged) */}}
+{{- $themeToggleJS := resources.Get "js/theme-toggle.js" | resources.Minify | resources.Fingerprint -}}
 <script src="{{ $themeToggleJS.Permalink }}" integrity="{{ $themeToggleJS.Data.Integrity }}"></script>
 {{- $ti := resources.Get "js/themed-images.js" | minify | fingerprint -}}
 <script defer src="{{ $ti.RelPermalink }}" integrity="{{ $ti.Data.Integrity }}"></script>
