@@ -1,0 +1,101 @@
+{{/* Usage: {{ partial "upvote.html" . }} */}}
+{{- $slug := .RelPermalink -}}
+<form class="vote"
+      action="https://{{ site.Params.supabase_ref }}.supabase.co/functions/v1/vote/upvote/x"
+      method="post" style="display:inline">
+  <small>
+    <input type="hidden" name="uid" value="{{ $slug }}">
+    <button class="vote-btn" type="button" title="Upvote this article" aria-pressed="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+           width="24" height="24" stroke="currentColor" stroke-width="2"
+           fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+      </svg>
+      <small class="vote-count">–</small>
+    </button>
+  </small>
+</form>
+
+<script>
+(function () {
+  if (window.__voteBoundFinal) return; window.__voteBoundFinal = true;
+
+  const ONE_HOUR = 3600000;
+  const lsKey = (slug) => `vote.cooldown.${slug}`;
+
+  function lock(form, slug, untilMs) {
+    form.dataset.locked = 'true';
+    const btn = form.querySelector('.vote-btn');
+    btn.setAttribute('aria-pressed','true');
+    btn.style.color = "salmon";
+    try { localStorage.setItem(lsKey(slug), String(untilMs)); } catch {}
+  }
+  function isLocked(slug) {
+    try { const t = Number(localStorage.getItem(lsKey(slug)) || 0); return t && t > Date.now(); }
+    catch { return false; }
+  }
+
+  for (const form of document.querySelectorAll('form.vote')) {
+    const btn  = form.querySelector('.vote-btn');
+    const cnt  = form.querySelector('.vote-count');
+    const slug = form.querySelector('input[name="uid"]')?.value || '';
+    const [base] = form.getAttribute('action').split('/upvote/');
+
+    // persisted cooldown
+    if (isLocked(slug)) lock(form, slug, Number(localStorage.getItem(lsKey(slug))));
+
+    // initial count (abortable)
+    const ctrl = new AbortController(); form._voteCtrl = ctrl; const token = Symbol(); form._token = token;
+    fetch(`${base}/count?slug=${encodeURIComponent(slug)}`, { signal: ctrl.signal, cache: 'no-store' })
+      .then(r => r.json()).then(({count}) => {
+        if (form._token !== token) return;
+        if (typeof count === 'number') cnt.textContent = String(count);
+      }).catch(()=>{});
+
+    // ---- REPLACE YOUR CLICK HANDLER WITH THIS ONE ----
+    btn.addEventListener('click', async () => {
+      if (form.dataset.locked === 'true') return;
+
+      // kill in-flight /count to avoid stale overwrite
+      try { form._voteCtrl?.abort(); } catch {}
+      form._token = Symbol();
+
+      // show pressed state immediately (no optimistic number)
+      btn.setAttribute('aria-pressed','true');
+      form.dataset.locked = 'true';
+
+      // default 1h; will be replaced by API if provided
+      let nextAllowed = Date.now() + ONE_HOUR;
+
+      try {
+        // POST the vote
+        const res  = await fetch(form.getAttribute('action'), { method:'POST', body:new FormData(form) });
+        const data = await res.json().catch(() => null);
+        if (data && typeof data.nextAllowedAt === 'number') nextAllowed = data.nextAllowedAt;
+      } catch {
+        // If POST fails, unlock and bail
+        form.dataset.locked = 'false';
+        btn.setAttribute('aria-pressed','false');
+        return;
+      }
+
+      // Always refresh the count from the server (authoritative, no flicker)
+      const url = new URL(`${base}/count`);
+      url.searchParams.set('slug', slug);
+      url.searchParams.set('_', String(Date.now())); // cache-bust
+      try {
+        const r = await fetch(url, { cache: 'no-store' });
+        const j = await r.json();
+        if (typeof j.count === 'number') cnt.textContent = String(j.count);
+      } catch { /* keep existing text */ }
+
+      // persist cooldown
+      lock(form, slug, nextAllowed);
+    });
+    // ---------------------------------------------------
+  }
+})();
+</script>
+
+

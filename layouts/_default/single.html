@@ -1,81 +1,49 @@
 {{ define "main" }}
+  <section>
+    <h1 class="post-title">{{ .Title }}</h1>
 
-{{ $cdnData := index .Site.Data "cdn" }}
+    {{ with .Date }}
+      {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := . | time.Format ":date_long" }}
+      <time class="post-time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+    {{ end }}
 
-{{ if .Params.katex }}
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.18/katex.min.css">
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/katex.min.js"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.3/dist/contrib/auto-render.min.js"></script>
+    <article class="single-content">
+      {{ .Content }}
+    </article>
+  </section>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      if (typeof renderMathInElement === "function") {
-        try {
-          renderMathInElement(document.body, {
-            delimiters: [
-              { left: "$$", right: "$$", display: true },
-              { left: "$", right: "$", display: false }
-            ]
-          });
-        } catch (error) {
-          console.error("Error rendering math:", error);
-        }
-      } else {
-        console.warn("renderMathInElement function is not available.");
-      }
-    });
+    <hr>
 
-  </script>
-{{ end }}
-
-
-<section>
-  <h1 class="post-title">{{ .Title }}</h1>
-
-  {{ with .Date }}
-  {{ $dateMachine := . | time.Format "2006-01-02T15:04:05-07:00" }}
-  {{ $dateHuman := . | time.Format ":date_long" }}
-  <time class="post-time" datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
-  {{ end }}
-  
-
-  <article class="single-content">
-    {{ .Content }}
-  </article>
-</section>
-
-<section aria-labelledby="tag-list-title">
-  <h2 id="tag-list-title" class="visually-hidden">Tags</h2>
-  <hr>
-  <ul role="list" class="tag-list" id="tag-list">
-    {{ range .Params.tags -}}
-    <li>
-      <a class="tag-type-1" href="/tags/{{ . | urlize }}/">#{{ . }}</a>
-    </li>
-    {{- end }}
-  </ul>
-</section>
-  
-
-<nav class="pagination" aria-label="Pagination Navigation">
-  <ul>
-    <li>
-      {{ if .Prev -}}
-        <a class="prev-post" rel="prev" href="{{ .Prev.Permalink }}" aria-label="Previous post: {{ .Prev.Title }}">← Previous</a>
-      {{ else -}}
-        <span class="no-prev-post" aria-hidden="true" aria-disabled="true">← Previous</span>
-      {{ end }}
-    </li>
-    <li>
-      {{ if .Next -}}
-        <a class="next-post" rel="next" href="{{ .Next.Permalink }}" aria-label="Next post: {{ .Next.Title }}">Next →</a>
-      {{ else -}}
-        <span class="no-next-post" aria-hidden="true" aria-disabled="true">Next →</span>
-      {{ end }}
-    </li>
-  </ul>
-</nav>
+  <section aria-labelledby="tag-list-title">
+    <h2 id="tag-list-title" class="visually-hidden">Tags</h2>
+    <ul role="list" class="tag-list" id="tag-list">
+      {{ range .Params.tags -}}
+        <li><a class="tag-type-1" href="{{ "tags/" | relURL }}{{ . | urlize }}/">#{{ . }}</a></li>
+      {{- end }}
+    </ul>
+  </section>
 
 
 
+{{ partial "upvote.html" . }}
+
+  <nav class="pagination" aria-label="Pagination Navigation">
+    <ul>
+      <li>
+        {{ if .Prev -}}
+          <a class="prev-post" rel="prev" href="{{ .Prev.Permalink }}" aria-label="Previous post: {{ .Prev.Title }}">← Previous</a>
+        {{ else -}}
+          <span class="no-prev-post" aria-hidden="true" aria-disabled="true">← Previous</span>
+        {{ end }}
+      </li>
+      <li>
+        {{ if .Next -}}
+          <a class="next-post" rel="next" href="{{ .Next.Permalink }}" aria-label="Next post: {{ .Next.Title }}">Next →</a>
+        {{ else -}}
+          <span class="no-next-post" aria-hidden="true" aria-disabled="true">Next →</span>
+        {{ end }}
+      </li>
+    </ul>
+  </nav>
 {{ end }}
