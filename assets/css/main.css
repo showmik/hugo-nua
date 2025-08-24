@@ -593,15 +593,16 @@ thead th { border-bottom-width: 2px; }
 
 .vote-count{
   font-variant-numeric: tabular-nums;
-  line-height:0.5;
+  line-height:1;
   min-width:2ch;                  /* avoids jitter on 0→1 */
   text-align:center;
   font-weight:500;
   /* optional: match screenshot size precisely */
-  font-size:1rem;             /* adjust if needed */
+  font-size:0.8rem;             /* adjust if needed */
 }
 
 @media (prefers-reduced-motion: reduce){
   .vote-btn svg{ transition:none; }
 }
 
+.vote[data-locked="true"] .vote-btn { color: var(--vote-accent); cursor: default; }

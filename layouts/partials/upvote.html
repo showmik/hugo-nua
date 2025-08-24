@@ -1,11 +1,88 @@
-<div class="vote" data-slug="{{ .RelPermalink }}" role="group" aria-label="Upvote this article">
-  <button class="vote-btn" type="button" aria-pressed="false" aria-label="Upvote" title="Upvote">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-         width="24" height="24" stroke="currentColor" stroke-width="2"
-         fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <polyline points="17 11 12 6 7 11"></polyline>
-      <polyline points="17 18 12 13 7 18"></polyline>
-    </svg>
-  </button>
-  <span class="vote-count" data-count aria-live="polite" aria-atomic="true">–</span>
-</div>
+{{/* Usage: {{ partial "upvote.html" . }} */}}
+{{- $slug := .RelPermalink -}}
+<form class="vote"
+      action="https://{{ site.Params.supabase_ref }}.supabase.co/functions/v1/vote/upvote/x"
+      method="post" style="display:inline">
+  <small>
+    <input type="hidden" name="uid" value="{{ $slug }}">
+    <button class="vote-btn" type="button" title="Upvote this article" aria-pressed="false">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+           width="24" height="24" stroke="currentColor" stroke-width="2"
+           fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="17 11 12 6 7 11"></polyline>
+        <polyline points="17 18 12 13 7 18"></polyline>
+      </svg>
+      <small class="vote-count">–</small>
+    </button>
+  </small>
+</form>
+
+<script>
+(function () {
+  if (window.__voteBound3) return; window.__voteBound3 = true;
+
+  const ONE_HOUR = 3600000;
+  const key = (slug) => `vote.cooldown.${slug}`;
+
+  function lock(form, slug, untilMs) {
+    form.dataset.locked = 'true';
+    const btn = form.querySelector('.vote-btn');
+    btn.setAttribute('aria-pressed','true');
+    btn.style.color = "salmon";              // your accent color
+    localStorage.setItem(key(slug), String(untilMs));
+  }
+
+  function isLocked(slug) {
+    const t = Number(localStorage.getItem(key(slug)) || 0);
+    return t && t > Date.now();
+  }
+
+  // Initialize: apply cooldown + fetch current count
+  for (const form of document.querySelectorAll('form.vote')) {
+    const btn   = form.querySelector('.vote-btn');
+    const count = form.querySelector('.vote-count');
+    const slug  = form.querySelector('input[name="uid"]')?.value || '';
+    const [base] = form.getAttribute('action').split('/upvote/');
+
+    if (isLocked(slug)) lock(form, slug, Number(localStorage.getItem(key(slug))));
+
+    // Abortable GET to avoid stale overwrite after click
+    const ctrl = new AbortController(); form._voteCtrl = ctrl;
+    const token = Symbol(); form._token = token;
+
+    fetch(`${base}/count?slug=${encodeURIComponent(slug)}`, { signal: ctrl.signal })
+      .then(r => r.json())
+      .then(({ count: c }) => {
+        if (form._token !== token) return;   // ignore stale response
+        if (typeof c === 'number') count.textContent = String(c);
+      })
+      .catch(() => {});
+    
+    // Click handler (never submits the form)
+    btn.addEventListener('click', async () => {
+      if (form.dataset.locked === 'true') return;
+
+      try { form._voteCtrl?.abort(); } catch {}
+      form._token = Symbol();               // invalidate any pending responses
+
+      // Optimistic +1 (treat "–" as 0)
+      const n = parseInt(count.textContent || "0", 10) || 0;
+      count.textContent = String(n + 1);
+      btn.setAttribute('aria-pressed','true');
+      form.dataset.locked = 'true';
+
+      try {
+        const res  = await fetch(form.getAttribute('action'), { method:'POST', body:new FormData(form) });
+        const data = await res.json().catch(() => null);
+        if (data && typeof data.count === 'number') count.textContent = String(data.count);
+        const next = (data && typeof data.nextAllowedAt === 'number')
+          ? data.nextAllowedAt : (Date.now() + ONE_HOUR);
+        lock(form, slug, next);
+      } catch {
+        // If POST fails, keep a short cooldown to prevent hammering
+        lock(form, slug, Date.now() + ONE_HOUR);
+      }
+    });
+  }
+})();
+</script>

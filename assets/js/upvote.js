@@ -1,93 +1,32 @@
-/* assets/js/upvote.js — browser-only */
 (() => {
-  'use strict';
+  const forms = document.querySelectorAll('form.upvote-form');
+  if (!forms.length) return;
 
-  // Try /api/upvote first; if it fails (404/500/network), fall back to /.netlify/functions/upvote
-  const endpoints = ['/api/upvote', '/.netlify/functions/upvote'];
-  let resolved = null;
-
-  async function call(method, payload) {
-    const slug = payload?.slug;
-    let lastErr = null;
-
-    for (const base of resolved ? [resolved] : endpoints) {
-      try {
-        const url = method === 'GET'
-          ? `${base}?slug=${encodeURIComponent(slug)}`
-          : base;
-
-        const opt = method === 'GET'
-          ? { method: 'GET' }
-          : {
-              method: 'POST',
-              headers: { 'content-type': 'application/x-www-form-urlencoded' },
-              body: `slug=${encodeURIComponent(slug)}`
-            };
-
-        const r = await fetch(url, opt);
-        if (!r.ok) {
-          lastErr = new Error(`HTTP ${r.status}`);
-          continue;
-        }
-        const data = await r.json();
-        resolved = base; // remember the working endpoint
-        return data;
-      } catch (e) {
-        lastErr = e;
-        // try next candidate
-      }
-    }
-    // If both endpoints failed, surface a consistent “not available” result
-    console.warn('[upvote] API unreachable:', lastErr?.message || lastErr);
-    return { count: 0, voted: false };
+  // Reconcile live counts on load
+  for (const f of forms) {
+    const action = f.getAttribute('action');
+    const [base, rest] = action.split('/upvote/');
+    const slug = decodeURIComponent(rest || '').replace(/\/+$/,'');
+    fetch(`${base}/count?slug=${encodeURIComponent(slug)}`)
+      .then(r => r.json())
+      .then(({count}) => { const el = f.querySelector('.upvote-count'); if (el) el.textContent = count ?? 0; })
+      .catch(() => {});
   }
 
-  const widgets = document.querySelectorAll('.vote[data-slug]');
-  if (!widgets.length) return;
+  // Optimistic +1 on submit
+  document.addEventListener('submit', (e) => {
+    const form = e.target.closest('form.upvote-form'); if (!form) return;
+    e.preventDefault();
+    const btn = form.querySelector('button');
+    const el  = form.querySelector('.upvote-count');
+    const n   = parseInt((el?.textContent || "0"), 10) || 0;
 
-  const setUI = (root, data) => {
-    const btn = root.querySelector('.vote-btn');
-    const out = root.querySelector('[data-count]');
-    const count = Number.isFinite(data?.count) ? data.count : 0;
-    out.textContent = String(count);
-    const voted = !!data?.voted;
-    btn.disabled = voted;
-    btn.setAttribute('aria-pressed', voted ? 'true' : 'false');
-    if (data?.nextAllowedAt) {
-      try {
-        const t = new Date(data.nextAllowedAt).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-        btn.title = `Thanks! Next vote after ${t}`;
-      } catch {}
-    }
-  };
+    if (el) el.textContent = String(n + 1);
+    if (btn) { btn.disabled = true; btn.style.color = "salmon"; btn.setAttribute('aria-pressed','true'); }
 
-  for (const root of widgets) {
-    const slug = root.getAttribute('data-slug');
-    const btn  = root.querySelector('.vote-btn');
-    const out  = root.querySelector('[data-count]');
-    if (!slug || !btn || !out) continue;
-
-    // 1) fetch canonical state
-    call('GET', { slug }).then(data => setUI(root, data));
-
-    // 2) optimistic +1 then confirm with server
-    btn.addEventListener('click', async () => {
-      if (btn.disabled) return;
-
-      const n0 = parseInt(out.textContent || '0', 10) || 0;
-      out.textContent = String(n0 + 1);
-      btn.disabled = true;
-      btn.setAttribute('aria-pressed', 'true');
-
-      try {
-        const data = await call('POST', { slug });
-        setUI(root, data);
-      } catch {
-        // rollback on unexpected failure (rare with call())
-        out.textContent = String(n0);
-        btn.disabled = false;
-        btn.setAttribute('aria-pressed', 'false');
-      }
-    });
-  }
+    fetch(form.action, { method: 'POST', body: new FormData(form) })
+      .then(r => r.json())
+      .then(d => { if (typeof d.count === "number" && el) el.textContent = String(d.count); })
+      .catch(() => {}); // keep optimistic UI if offline
+  });
 })();

@@ -1,16 +1,4 @@
 {{ define "main" }}
-
-{{/* layouts/partials/scripts.html */}}
-{{- $opts := dict "target" "es2018" "format" "iife" -}}
-{{- $up := resources.Get "js/upvote.js" | js.Build $opts -}}
-{{- if hugo.IsProduction -}}
-  {{- $up = $up | minify | fingerprint "sha512" -}}
-{{- end -}}
-<script defer src="{{ $up.RelPermalink }}"
-  {{- if hugo.IsProduction -}} integrity="{{ $up.Data.Integrity }}" crossorigin="anonymous"{{- end -}}>
-</script>
-
-
   <section>
     <h1 class="post-title">{{ .Title }}</h1>
 
@@ -25,6 +13,8 @@
     </article>
   </section>
 
+    <hr>
+
   <section aria-labelledby="tag-list-title">
     <h2 id="tag-list-title" class="visually-hidden">Tags</h2>
     <ul role="list" class="tag-list" id="tag-list">
@@ -33,6 +23,8 @@
       {{- end }}
     </ul>
   </section>
+
+
 
 {{ partial "upvote.html" . }}
 

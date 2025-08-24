@@ -17,6 +17,38 @@
 {{ end -}}
 
 <!-- Posts Section -->
+{{/* ---------------- My Most Popular Posts ---------------- */}}
+{{ $votes := site.Data.votes | default (dict) }}
+
+{{/* Build [{ p: Page, count: int }] from all normal posts */}}
+{{ $rows := slice }}
+{{ range where site.RegularPages "Type" "ne" "now" }}
+  {{ $slug := .RelPermalink }}
+  {{ $count := index $votes $slug | default 0 }}
+  {{ $rows = $rows | append (dict "p" . "count" $count) }}
+{{ end }}
+
+{{/* Sort by votes desc; only show items with >0 votes; top N (default 6) */}}
+{{ $limit := or .Site.Params.popular.limit 6 }}
+{{ $popular := where (sort $rows "count" "desc") "count" ">" 0 | first $limit }}
+
+{{ if gt (len $popular) 0 }}
+<section class="post-list-wrapper">
+  <h2># My Most Popular Posts</h2>
+  <ul class="post-list">
+    {{ range $popular }}
+      <li class="post-list-item">
+        <div class="date-label">{{ .p.Date.Format "Jan·02" }}</div>
+        <a class="post-link" href="{{ .p.RelPermalink }}">{{ .p.Title }}</a>
+        <span class="meta">👍 {{ .count }}</span>
+      </li>
+    {{ end }}
+  </ul>
+</section>
+{{ end }}
+
+
+
 <section class="post-list-wrapper">
   <h2># My Recent Posts</h2>
   {{ .Content }}
