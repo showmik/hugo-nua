@@ -1,34 +1,32 @@
 <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "{{ if .IsHome }}WebSite{{ else }}Article{{ end }}",
-    
-      {{ if .IsHome }}
-      "name": "{{ .Site.Title }}",
-      "url": "{{ .Site.BaseURL }}",
-      "description": "{{ .Site.Params.description }}",
-      "inLanguage": "{{ .Site.LanguageCode }}"
-      {{ else }}
-      "mainEntityOfPage": {
-        "@type": "WebPage",
-        "@id": "{{ .Permalink }}"
-      },
-      "headline": "{{ .Title }}",
-      "description": "{{ if .Params.description }}{{ .Params.description }}{{ else }}{{ .Site.Params.description }}{{ end }}",
-      "image": {
-        "@type": "ImageObject",
-        "url": "{{ .Params.image | default .Site.Params.image }}",
-        "height": "800",
-        "width": "1200"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "{{ .Site.Params.author.name }}"
-      },
-      "datePublished": "{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}",
-      "dateModified": "{{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }}",
-      "inLanguage": "{{ .Site.LanguageCode }}"
-      {{ end }}
-    }
+{{- if .IsHome -}}
+  {{- $data := dict
+      "@context" "https://schema.org"
+      "@type" "WebSite"
+      "name"        .Site.Title
+      "url"         (absURL "")
+      "description" (or .Site.Params.description .Site.Params.tagline)
+      "inLanguage"  .Site.LanguageCode
+      "publisher"   (dict "@type" "Organization" "name" .Site.Title)
+  -}}
+  {{- $data | jsonify -}}
+{{- else -}}
+  {{- $img  := (or .Params.image .Site.Params.image) | absURL -}}
+  {{- $desc := or .Params.description (.Summary | plainify) -}}
+  {{- $authorName := or .Params.author.name .Site.Params.author.name -}}
+  {{- $data := dict
+      "@context" "https://schema.org"
+      "@type" "Article"
+      "mainEntityOfPage" (dict "@type" "WebPage" "@id" .Permalink)
+      "headline"     .Title
+      "description"  $desc
+      "image"        (dict "@type" "ImageObject" "url" $img "height" 800 "width" 1200)
+      "author"       (dict "@type" "Person" "name" $authorName)
+      "datePublished" (.Date.Format "2006-01-02T15:04:05Z07:00")
+      "dateModified"  (.Lastmod.Format "2006-01-02T15:04:05Z07:00")
+      "inLanguage"    .Site.LanguageCode
+      "publisher"     (dict "@type" "Organization" "name" .Site.Title)
+  -}}
+  {{- $data | jsonify -}}
+{{- end -}}
 </script>
-    

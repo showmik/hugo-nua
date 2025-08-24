@@ -11,6 +11,7 @@
 {{- $pageTitle := .Title | plainify -}}
 {{- $title := cond .IsHome $siteTitle (printf "%s | %s" $pageTitle $siteTitle) -}}
 {{- $ogtitle := cond .IsHome $siteTitle $pageTitle -}}
+<title>{{ $title }}</title>
 
 {{- $desc := "" -}}
 {{- if $isArticle -}}
@@ -24,8 +25,6 @@
 {{- end -}}
 {{- /* Normalize description to a single safe line for meta tags */ -}}
 {{- $desc = $desc | plainify | htmlUnescape | replaceRE "\\s+" " " | truncate 160 -}}
-
-<title>{{ $title }}</title>
 <meta name="description" content="{{ $desc }}">
 
 {{/* --- Open Graph / Twitter --- */}}
