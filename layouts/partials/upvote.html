@@ -19,70 +19,83 @@
 
 <script>
 (function () {
-  if (window.__voteBound3) return; window.__voteBound3 = true;
+  if (window.__voteBoundFinal) return; window.__voteBoundFinal = true;
 
   const ONE_HOUR = 3600000;
-  const key = (slug) => `vote.cooldown.${slug}`;
+  const lsKey = (slug) => `vote.cooldown.${slug}`;
 
   function lock(form, slug, untilMs) {
     form.dataset.locked = 'true';
     const btn = form.querySelector('.vote-btn');
     btn.setAttribute('aria-pressed','true');
-    btn.style.color = "salmon";              // your accent color
-    localStorage.setItem(key(slug), String(untilMs));
+    btn.style.color = "salmon";
+    try { localStorage.setItem(lsKey(slug), String(untilMs)); } catch {}
   }
-
   function isLocked(slug) {
-    const t = Number(localStorage.getItem(key(slug)) || 0);
-    return t && t > Date.now();
+    try { const t = Number(localStorage.getItem(lsKey(slug)) || 0); return t && t > Date.now(); }
+    catch { return false; }
   }
 
-  // Initialize: apply cooldown + fetch current count
   for (const form of document.querySelectorAll('form.vote')) {
-    const btn   = form.querySelector('.vote-btn');
-    const count = form.querySelector('.vote-count');
-    const slug  = form.querySelector('input[name="uid"]')?.value || '';
+    const btn  = form.querySelector('.vote-btn');
+    const cnt  = form.querySelector('.vote-count');
+    const slug = form.querySelector('input[name="uid"]')?.value || '';
     const [base] = form.getAttribute('action').split('/upvote/');
 
-    if (isLocked(slug)) lock(form, slug, Number(localStorage.getItem(key(slug))));
+    // persisted cooldown
+    if (isLocked(slug)) lock(form, slug, Number(localStorage.getItem(lsKey(slug))));
 
-    // Abortable GET to avoid stale overwrite after click
-    const ctrl = new AbortController(); form._voteCtrl = ctrl;
-    const token = Symbol(); form._token = token;
+    // initial count (abortable)
+    const ctrl = new AbortController(); form._voteCtrl = ctrl; const token = Symbol(); form._token = token;
+    fetch(`${base}/count?slug=${encodeURIComponent(slug)}`, { signal: ctrl.signal, cache: 'no-store' })
+      .then(r => r.json()).then(({count}) => {
+        if (form._token !== token) return;
+        if (typeof count === 'number') cnt.textContent = String(count);
+      }).catch(()=>{});
 
-    fetch(`${base}/count?slug=${encodeURIComponent(slug)}`, { signal: ctrl.signal })
-      .then(r => r.json())
-      .then(({ count: c }) => {
-        if (form._token !== token) return;   // ignore stale response
-        if (typeof c === 'number') count.textContent = String(c);
-      })
-      .catch(() => {});
-    
-    // Click handler (never submits the form)
+    // ---- REPLACE YOUR CLICK HANDLER WITH THIS ONE ----
     btn.addEventListener('click', async () => {
       if (form.dataset.locked === 'true') return;
 
+      // kill in-flight /count to avoid stale overwrite
       try { form._voteCtrl?.abort(); } catch {}
-      form._token = Symbol();               // invalidate any pending responses
+      form._token = Symbol();
 
-      // Optimistic +1 (treat "–" as 0)
-      const n = parseInt(count.textContent || "0", 10) || 0;
-      count.textContent = String(n + 1);
+      // show pressed state immediately (no optimistic number)
       btn.setAttribute('aria-pressed','true');
       form.dataset.locked = 'true';
 
+      // default 1h; will be replaced by API if provided
+      let nextAllowed = Date.now() + ONE_HOUR;
+
       try {
+        // POST the vote
         const res  = await fetch(form.getAttribute('action'), { method:'POST', body:new FormData(form) });
         const data = await res.json().catch(() => null);
-        if (data && typeof data.count === 'number') count.textContent = String(data.count);
-        const next = (data && typeof data.nextAllowedAt === 'number')
-          ? data.nextAllowedAt : (Date.now() + ONE_HOUR);
-        lock(form, slug, next);
+        if (data && typeof data.nextAllowedAt === 'number') nextAllowed = data.nextAllowedAt;
       } catch {
-        // If POST fails, keep a short cooldown to prevent hammering
-        lock(form, slug, Date.now() + ONE_HOUR);
+        // If POST fails, unlock and bail
+        form.dataset.locked = 'false';
+        btn.setAttribute('aria-pressed','false');
+        return;
       }
+
+      // Always refresh the count from the server (authoritative, no flicker)
+      const url = new URL(`${base}/count`);
+      url.searchParams.set('slug', slug);
+      url.searchParams.set('_', String(Date.now())); // cache-bust
+      try {
+        const r = await fetch(url, { cache: 'no-store' });
+        const j = await r.json();
+        if (typeof j.count === 'number') cnt.textContent = String(j.count);
+      } catch { /* keep existing text */ }
+
+      // persist cooldown
+      lock(form, slug, nextAllowed);
     });
+    // ---------------------------------------------------
   }
 })();
 </script>
+
+

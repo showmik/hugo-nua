@@ -1,5 +1,5 @@
 {{- /* Browser-only scripts. No server code under assets/js. */ -}}
-{{- $files := slice "js/theme-toggle.js" "js/themed-images.js" "js/search.js" "js/upvote.js" -}}
+{{- $files := slice "js/theme-toggle.js" "js/themed-images.js" "js/search.js" -}}
 {{- range $files -}}
   {{- with resources.Get . -}}
     {{- if eq hugo.Environment "development" -}}

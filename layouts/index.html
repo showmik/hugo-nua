@@ -17,7 +17,20 @@
 {{ end -}}
 
 <!-- Posts Section -->
-{{/* ---------------- My Most Popular Posts ---------------- */}}
+<section class="post-list-wrapper">
+  <h2># My Recent Posts</h2>
+  {{ .Content }}
+  <ul class="post-list">
+    {{ range where .Paginator.Pages "Type" "ne" "now" }}
+    <li class="post-list-item">
+      <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
+      <a class="post-link" href="{{ .RelPermalink }}">{{- .Title -}}</a>
+    </li>
+    {{- end }}
+  </ul>
+
+
+  {{/* ---------------- My Most Popular Posts ---------------- */}}
 {{ $votes := site.Data.votes | default (dict) }}
 
 {{/* Build [{ p: Page, count: int }] from all normal posts */}}
@@ -40,26 +53,11 @@
       <li class="post-list-item">
         <div class="date-label">{{ .p.Date.Format "Jan·02" }}</div>
         <a class="post-link" href="{{ .p.RelPermalink }}">{{ .p.Title }}</a>
-        <span class="meta">👍 {{ .count }}</span>
       </li>
     {{ end }}
   </ul>
 </section>
 {{ end }}
-
-
-
-<section class="post-list-wrapper">
-  <h2># My Recent Posts</h2>
-  {{ .Content }}
-  <ul class="post-list">
-    {{ range where .Paginator.Pages "Type" "ne" "now" }}
-    <li class="post-list-item">
-      <div class="date-label">{{- .Date.Format "Jan·02" -}}</div>
-      <a class="post-link" href="{{ .RelPermalink }}">{{- .Title -}}</a>
-    </li>
-    {{- end }}
-  </ul>
 
   <!-- Pagination Navigation -->
 <nav class="pagination" aria-label="Pagination">
