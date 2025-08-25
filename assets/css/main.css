@@ -469,7 +469,7 @@ thead th { border-bottom-width: 2px; }
 /* -------------------- Footer -------------------- */
 .footer {
   text-align: center;
-  margin-top: 5rem;
+  margin-top: 3rem;
   margin-right: 1rem;
   color: var(--primary-text-color);
 }

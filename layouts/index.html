@@ -1,19 +1,19 @@
 {{ define "main" }}
 
 <h1 class="page-title">Hi, I'm {{ .Site.Params.author.nickname }}.</h1>
-<h2 class="home-tagline">{{ .Site.Params.home.tagline }}</h2>
+<!-- <h2 class="home-tagline">{{ .Site.Params.home.tagline }}</h2> -->
 <p>{{- .Site.Params.home.paragraph -}}</p>
 
 {{- if .Site.Params.home.show_social }}
   <p>
-    Feel free to reach out through
-    <a href="mailto:{{ .Site.Params.author.email }}" aria-label="Send an email to {{ .Site.Params.author.nickname }}">Email</a>{{ if gt (len .Site.Params.social) 0 }},{{ end }}
+    <b>Say Hello: </b>
+    <a href="mailto:{{ .Site.Params.author.email }}" aria-label="Send an email to {{ .Site.Params.author.nickname }}">&nbspEmail</a>{{ if gt (len .Site.Params.social) 0 }} · {{ end }}
     {{- $length := len .Site.Params.social -}}
     {{- range $index, $social := .Site.Params.social -}}
-      {{ if and (gt $index 0) (eq (add $index 1) $length) }} or {{ else if gt $index 0 }}, {{ end }}
+      {{ if and (gt $index 0) (eq (add $index 1) $length) }} · {{ else if gt $index 0 }}, {{ end }}
       <a href="{{ $social.url }}" aria-label="Visit {{ $social.aria_label }}">{{- $social.name -}}</a>
     {{- end -}}
-  .</p>
+  </p>
 {{ end -}}
 
 <!-- Posts Section -->
