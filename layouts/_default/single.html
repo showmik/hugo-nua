@@ -34,16 +34,16 @@
   <ul>
     <li>
       {{ if .Prev -}}
-        <a class="prev-post" rel="prev" href="{{ .Prev.Permalink }}" aria-label="Previous post: {{ .Prev.Title }}">← Previous</a>
+        <a class="prev-post" rel="prev" href="{{ .Prev.Permalink }}" aria-label="Previous post: {{ .Prev.Title }}">🡨 Previous</a>
       {{ else -}}
-        <span class="no-prev-post" aria-hidden="true" aria-disabled="true">← Previous</span>
+        <span class="no-prev-post" aria-hidden="true" aria-disabled="true">🡨 Previous</span>
       {{ end }}
     </li>
     <li>
       {{ if .Next -}}
-        <a class="next-post" rel="next" href="{{ .Next.Permalink }}" aria-label="Next post: {{ .Next.Title }}">Next →</a>
+        <a class="next-post" rel="next" href="{{ .Next.Permalink }}" aria-label="Next post: {{ .Next.Title }}">Next 🡪</a>
       {{ else -}}
-        <span class="no-next-post" aria-hidden="true" aria-disabled="true">Next →</span>
+        <span class="no-next-post" aria-hidden="true" aria-disabled="true">Next 🡪</span>
       {{ end }}
     </li>
   </ul>
